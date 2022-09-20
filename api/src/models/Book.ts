@@ -1,11 +1,11 @@
 import mongoose, { Document } from 'mongoose'
 
 export type BookDocument = Document & {
-  ISBN: number
+  isbn: string
   title: string
   description: string
   publisher: string
-  authors: string
+  authorId: number
   status: string
   borrowerId: number
   publishedDate: Date
@@ -14,8 +14,8 @@ export type BookDocument = Document & {
 }
 
 const bookSchema = new mongoose.Schema({
-  ISBN: {
-    type: Number,
+  isbn: {
+    type: String,
     required: true,
   },
   title: {
@@ -28,8 +28,8 @@ const bookSchema = new mongoose.Schema({
     index: true,
     required: true,
   },
-  authors: {
-    type: String,
+  authorId: {
+    type: Number,
     required: true,
   },
   borrowerId: {
@@ -46,37 +46,5 @@ const bookSchema = new mongoose.Schema({
     type: Date,
   },
 })
-
-// export type MovieDocument = Document & {
-//   name: string
-//   publishedYear: number
-//   genres: string[]
-//   duration: number
-//   rating: number
-//   characters: string[]
-// }
-
-// const movieSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     index: true,
-//   },
-//   publishedYear: {
-//     type: Number,
-//     required: true,
-//     min: 1900,
-//   },
-//   genres: [String],
-//   duration: {
-//     type: Number,
-//     required: true,
-//     min: 1,
-//   },
-//   rating: {
-//     type: Number,
-//     min: 0,
-//   },
-//   characters: [String],
-// })
 
 export default mongoose.model<BookDocument>('Book', bookSchema)

@@ -6,15 +6,15 @@ import {
   deleteMovie,
   findAll,
   updateMovie,
-} from '../controllers/movie.controller'
+} from '../controllers/book.controller'
 
 const router = express.Router()
 
 // Every path we define here will get /api/v1/movies prefix
 router.get('/', findAll)
-router.get('/:movieId', findById)
-router.put('/:movieId', updateMovie)
-router.delete('/:movieId', deleteMovie)
+router.get('/:bookId', findById)
+router.put('/:bookId', updateMovie)
+router.delete('/:bookId', deleteMovie)
 router.post('/', createMovie)
 
 export default router

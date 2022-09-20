@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 import Book from '../models/Book'
-import movieService from '../services/movie.service'
+import bookService from '../services/book.service'
 import { BadRequestError } from '../helpers/apiError'
 
 // POST /movies
@@ -12,11 +12,11 @@ export const createMovie = async (
 ) => {
   try {
     const {
-      ISBN,
+      isbn,
       title,
       description,
       publisher,
-      authors,
+      authorId,
       status,
       borrowerId,
       publishedDate,
@@ -25,11 +25,11 @@ export const createMovie = async (
     } = req.body
 
     const book = new Book({
-      ISBN,
+      isbn,
       title,
       description,
       publisher,
-      authors,
+      authorId,
       status,
       borrowerId,
       publishedDate,
@@ -37,7 +37,7 @@ export const createMovie = async (
       returnDate,
     })
 
-    await movieService.create(book)
+    await bookService.create(book)
     res.json(book)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -56,8 +56,8 @@ export const updateMovie = async (
 ) => {
   try {
     const update = req.body
-    const movieId = req.params.movieId
-    const updatedMovie = await movieService.update(movieId, update)
+    const bookId = req.params.movieId
+    const updatedMovie = await bookService.update(bookId, update)
     res.json(updatedMovie)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -75,7 +75,7 @@ export const deleteMovie = async (
   next: NextFunction
 ) => {
   try {
-    await movieService.deleteBook(req.params.movieId)
+    await bookService.deleteBook(req.params.bookId)
     res.status(204).end()
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -93,7 +93,7 @@ export const findById = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await movieService.findById(req.params.movieId))
+    res.json(await bookService.findByIsbn(req.params.bookId))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -110,7 +110,7 @@ export const findAll = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await movieService.findAll())
+    res.json(await bookService.findAll())
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

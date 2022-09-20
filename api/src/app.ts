@@ -7,7 +7,7 @@ import cors from 'cors'
 
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
-import movieRouter from './routers/movie.router'
+import movieRouter from './routers/book.router'
 
 dotenv.config({ path: '.env' })
 const app = express()

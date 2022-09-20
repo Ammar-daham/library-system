@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-import Movie from '../models/Movie'
+import Book from '../models/Book'
 import movieService from '../services/movie.service'
 import { BadRequestError } from '../helpers/apiError'
 
@@ -11,18 +11,34 @@ export const createMovie = async (
   next: NextFunction
 ) => {
   try {
-    const { name, publishedYear, genres, duration, characters } = req.body
+    const {
+      ISBN,
+      title,
+      description,
+      publisher,
+      authors,
+      status,
+      borrowerId,
+      publishedDate,
+      borrowDate,
+      returnDate,
+    } = req.body
 
-    const movie = new Movie({
-      name,
-      publishedYear,
-      genres,
-      duration,
-      characters,
+    const book = new Book({
+      ISBN,
+      title,
+      description,
+      publisher,
+      authors,
+      status,
+      borrowerId,
+      publishedDate,
+      borrowDate,
+      returnDate,
     })
 
-    await movieService.create(movie)
-    res.json(movie)
+    await movieService.create(book)
+    res.json(book)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -59,7 +75,7 @@ export const deleteMovie = async (
   next: NextFunction
 ) => {
   try {
-    await movieService.deleteMovie(req.params.movieId)
+    await movieService.deleteBook(req.params.movieId)
     res.status(204).end()
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

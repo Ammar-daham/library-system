@@ -1,44 +1,26 @@
 import { Request, Response, NextFunction } from 'express'
 
-import Book from '../models/Book'
-import bookService from '../services/book.service'
+import Author from '../models/Author'
+import authorService from '../services/author.service'
 import { BadRequestError } from '../helpers/apiError'
 
 // POST /movies
-export const createBook = async (
+export const createAuthor = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const {
-      isbn,
-      title,
-      description,
-      publisher,
-      authorId,
-      status,
-      borrowerId,
-      publishedDate,
-      borrowDate,
-      returnDate,
-    } = req.body
+    const { name, email, books } = req.body
 
-    const book = new Book({
-      isbn,
-      title,
-      description,
-      publisher,
-      authorId,
-      status,
-      borrowerId,
-      publishedDate,
-      borrowDate,
-      returnDate,
+    const author = new Author({
+      name,
+      email,
+      books,
     })
 
-    await bookService.create(book)
-    res.json(book)
+    await authorService.create(author)
+    res.json(author)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -49,16 +31,16 @@ export const createBook = async (
 }
 
 // PUT /movies/:movieId
-export const updateBook = async (
+export const updateAuthor = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const update = req.body
-    const bookId = req.params.movieId
-    const updatedMovie = await bookService.update(bookId, update)
-    res.json(updatedMovie)
+    const authorId = req.params.authorId
+    const updatedAuthor = await authorService.update(authorId, update)
+    res.json(updatedAuthor)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -69,13 +51,13 @@ export const updateBook = async (
 }
 
 // DELETE /movies/:movieId
-export const deleteBook = async (
+export const deleteAuthor = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    await bookService.deleteBook(req.params.bookId)
+    await authorService.deleteAuthor(req.params.authorId)
     res.status(204).end()
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -87,13 +69,13 @@ export const deleteBook = async (
 }
 
 // GET /movies/:movieId
-export const findByIsbn = async (
+export const findById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await bookService.findByIsbn(req.params.bookId))
+    res.json(await authorService.findById(req.params.authorId))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -104,13 +86,13 @@ export const findByIsbn = async (
 }
 
 // GET /movies
-export const findAllBooks = async (
+export const findAllAuthors = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await bookService.findAll())
+    res.json(await authorService.findAll())
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

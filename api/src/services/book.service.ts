@@ -33,7 +33,7 @@ const update = async (
   })
 
   if (!foundBook) {
-    throw new NotFoundError(`Movie ${bookId} not found`)
+    throw new NotFoundError(`Author ${bookId} not found`)
   }
 
   return foundBook
@@ -43,7 +43,7 @@ const deleteBook = async (bookId: string): Promise<BookDocument | null> => {
   const foundBook = Book.findByIdAndDelete(bookId)
 
   if (!foundBook) {
-    throw new NotFoundError(`Movie ${bookId} not found`)
+    throw new NotFoundError(`Author ${bookId} not found`)
   }
 
   return foundBook

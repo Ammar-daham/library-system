@@ -50,7 +50,6 @@ export const updateAuthor = async (
   }
 }
 
-// DELETE /movies/:movieId
 export const deleteAuthor = async (
   req: Request,
   res: Response,
@@ -68,7 +67,6 @@ export const deleteAuthor = async (
   }
 }
 
-// GET /movies/:movieId
 export const findById = async (
   req: Request,
   res: Response,

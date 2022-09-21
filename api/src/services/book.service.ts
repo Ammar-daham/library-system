@@ -6,16 +6,6 @@ const create = async (book: BookDocument): Promise<BookDocument> => {
   return book.save()
 }
 
-// const findById = async (bookId: string): Promise<BookDocument> => {
-//   const foundBook = await Book.findById({_id: bookId})
-
-//   console.log(foundBook)
-//   if (!foundBook) {
-//     throw new NotFoundError(`Book ${bookId} not found`)
-//   }
-//   return foundBook
-// }
-
 const findByIsbn = async (bookId: string): Promise<BookDocument[]> => {
   return await Book.find({ isbn: bookId })
 }

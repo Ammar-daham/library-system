@@ -23,7 +23,7 @@ const update = async (
   })
 
   if (!foundBook) {
-    throw new NotFoundError(`Author ${bookId} not found`)
+    throw new NotFoundError(`Book ${bookId} not found`)
   }
 
   return foundBook

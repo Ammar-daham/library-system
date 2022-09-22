@@ -11,7 +11,7 @@ const findByIsbn = async (bookId: string): Promise<BookDocument[]> => {
 }
 
 const findAll = async (): Promise<BookDocument[]> => {
-  return await Book.find().sort({ title: 1 })
+  return await Book.find().populate('authors').sort({ title: 1 })
 }
 
 const update = async (

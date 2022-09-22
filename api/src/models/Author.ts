@@ -3,6 +3,7 @@ import mongoose, { Document } from 'mongoose'
 export type AuthorDocument = Document & {
   name: string
   email: string
+  books: {}
 }
 
 const authorSchema = new mongoose.Schema({

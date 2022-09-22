@@ -4,7 +4,7 @@ import Book from '../models/Book'
 import bookService from '../services/book.service'
 import { BadRequestError } from '../helpers/apiError'
 
-// POST /movies
+// POST /books
 export const createBook = async (
   req: Request,
   res: Response,
@@ -16,7 +16,7 @@ export const createBook = async (
       title,
       description,
       publisher,
-      authorId,
+      authors,
       status,
       borrowerId,
       publishedDate,
@@ -29,7 +29,7 @@ export const createBook = async (
       title,
       description,
       publisher,
-      authorId,
+      authors,
       status,
       borrowerId,
       publishedDate,
@@ -48,7 +48,7 @@ export const createBook = async (
   }
 }
 
-// PUT /movies/:movieId
+// PUT /books/:bookId
 export const updateBook = async (
   req: Request,
   res: Response,
@@ -56,9 +56,9 @@ export const updateBook = async (
 ) => {
   try {
     const update = req.body
-    const bookId = req.params.movieId
-    const updatedMovie = await bookService.update(bookId, update)
-    res.json(updatedMovie)
+    const bookId = req.params.bookId
+    const updatedBook = await bookService.update(bookId, update)
+    res.json(updatedBook)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -68,7 +68,7 @@ export const updateBook = async (
   }
 }
 
-// DELETE /movies/:movieId
+// DELETE /books/:bookId
 export const deleteBook = async (
   req: Request,
   res: Response,
@@ -86,14 +86,14 @@ export const deleteBook = async (
   }
 }
 
-// GET /movies/:movieId
+// GET /books/:isbn
 export const findByIsbn = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await bookService.findByIsbn(req.params.bookId))
+    res.json(await bookService.findByIsbn(req.params.isbn))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -103,7 +103,7 @@ export const findByIsbn = async (
   }
 }
 
-// GET /movies
+// GET /books
 export const findAllBooks = async (
   req: Request,
   res: Response,

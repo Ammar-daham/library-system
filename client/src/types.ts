@@ -4,6 +4,8 @@ export type Book = {
   isbn: string
   title: string  
   description: string
+  borrowerId: number
+  authors: []
   publishedDate: string
   borrowDate: string
   returnDate: string

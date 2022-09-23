@@ -9,9 +9,8 @@ import { Link } from 'react-router-dom'
 
 const Home = () => {
  
-
+  
   const dispatch = useDispatch<AppDispatch>()
-  const { books } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     dispatch(booksFetch())
@@ -37,7 +36,9 @@ const Home = () => {
         <Link to={`/books/`}>
           <ColorButton variant="contained">Books</ColorButton>
         </Link>
-        <ColorButton variant="contained"> Add A Book</ColorButton>
+        <Link to={`/book/addbook`}>
+          <ColorButton variant="contained"> Add A Book</ColorButton>
+        </Link>
         <ColorButton variant="contained"> Remove A Book</ColorButton>
         <ColorButton variant="contained"> Update A Book</ColorButton>
       </Paper>

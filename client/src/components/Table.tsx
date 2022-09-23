@@ -1,30 +1,16 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { booksFetch } from 'redux/slices/bookSlice'
-import { AppDispatch, RootState } from '../redux/store'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Button,
-  IconButton,
   Box,
 } from '@mui/material'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 export const BooksTable = () => {
-    const dispatch = useDispatch<AppDispatch>()
-    const { books } = useSelector((state: RootState) => state)
-
-    
-    
-    {/* <Link to={`/country/${country.name.common}`}> */}
-
-    useEffect(() => {
-        dispatch(booksFetch())
-      }, [dispatch])
+  const { books } = useSelector((state: RootState) => state)    
 
   return (
     <Box sx={{ padding: 15 }} >
@@ -50,7 +36,7 @@ export const BooksTable = () => {
         </TableHead>
 
         <TableBody>
-          {books.items.map((book) => (
+          {books.bookList.map((book: any) => (
             <TableRow key={book._id}>
               <TableCell sx={{ fontSize: 50 }}>
                   {book.isbn}

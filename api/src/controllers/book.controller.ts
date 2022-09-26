@@ -106,7 +106,7 @@ export const deleteBook = async (
   }
 }
 
-// GET /books/:isbn
+// GET /books/isbn/:isbn
 export const findByIsbn = async (
   req: Request,
   res: Response,
@@ -123,6 +123,7 @@ export const findByIsbn = async (
   }
 }
 
+// GET /books/title/:title
 export const findByTitle = async (
   req: Request,
   res: Response,
@@ -130,6 +131,23 @@ export const findByTitle = async (
 ) => {
   try {
     res.json(await bookService.findByTitle(req.params.title))
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
+
+// GET /books/status/:status
+export const findByStatus = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.json(await bookService.findByStatus(req.params.status))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

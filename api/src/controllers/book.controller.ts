@@ -68,16 +68,40 @@ export const updateBook = async (
   }
 }
 
-// PUT /books/:bookId
-export const updateBookStatus = async (
+// PUT /books/status/borrowed/:bookId
+export const bookBorrowed = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const update = req.body
     const bookId = req.params.bookId
-    const updatedBook = await bookService.update(bookId, update)
+    req.body.status = 'borrowed'
+    req.body.borrowDate = new Date().toJSON()
+    req.body.returnDate = ''
+    const updatedBook = await bookService.bookBorrowed(bookId, req.body)
+    res.json(updatedBook)
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
+
+// PUT /books/status/available/:bookId
+export const bookReturned = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const bookId = req.params.bookId
+    req.body.status = 'available'
+    req.body.borrowDate = ''
+    req.body.returnDate = new Date().toJSON()
+    const updatedBook = await bookService.bookReturned(bookId, req.body)
     res.json(updatedBook)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

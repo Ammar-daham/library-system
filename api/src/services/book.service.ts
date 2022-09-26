@@ -8,7 +8,7 @@ const create = async (book: BookDocument): Promise<BookDocument> => {
 
 const findByIsbn = async (isbn: string): Promise<BookDocument[]> => {
   const foundBook = await Book.find({ isbn })
-  if (!!foundBook) {
+  if (!foundBook) {
     throw new NotFoundError(`Book with isbn ${isbn} not found`)
   }
   return foundBook
@@ -24,7 +24,7 @@ const findByTitle = async (title: string): Promise<BookDocument[]> => {
 
 const findByStatus = async (status: string): Promise<BookDocument[]> => {
   const foundBook = await Book.find({ status })
-  if (!!foundBook) {
+  if (!foundBook) {
     throw new NotFoundError(`Book with status ${status} not found`)
   }
   return foundBook
@@ -49,6 +49,34 @@ const update = async (
   return foundBook
 }
 
+const bookBorrowed = async (
+  bookId: string,
+  update: Partial<BookDocument>
+): Promise<BookDocument | null> => {
+  const foundBook = await Book.findByIdAndUpdate(bookId, update, {
+    new: true,
+  })
+
+  if (!foundBook) {
+    throw new NotFoundError(`Book ${bookId} not found`)
+  }
+
+  return foundBook
+}
+
+const bookReturned = async (
+  bookId: string,
+  update: Partial<BookDocument>
+): Promise<BookDocument | null> => {
+  const foundBook = await Book.findByIdAndUpdate(bookId, update, {
+    new: true,
+  })
+  if (!foundBook) {
+    throw new NotFoundError(`Book ${bookId} not found`)
+  }
+  return foundBook
+}
+
 const deleteBook = async (bookId: string): Promise<BookDocument | null> => {
   const foundBook = Book.findByIdAndDelete(bookId)
 
@@ -67,4 +95,6 @@ export default {
   findAll,
   update,
   deleteBook,
+  bookBorrowed,
+  bookReturned,
 }

@@ -11,11 +11,11 @@ import {
   bookBorrowed,
   bookReturned,
 } from '../controllers/book.controller'
-
+import checkAuth from '../middlewares/checkAuth'
 const router = express.Router()
 
 // Every path we define here will get /api/v1/movies prefix
-router.get('/', findAllBooks)
+router.get('/', checkAuth, findAllBooks)
 router.get('/isbn/:isbn', findByIsbn)
 router.get('/title/:title', findByTitle)
 router.get('/status/:status', findByStatus)

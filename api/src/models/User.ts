@@ -2,13 +2,24 @@ import mongoose, { Document } from 'mongoose'
 
 export type UserDocument = Document & {
   _id?: mongoose.Schema.Types.ObjectId
-  name: string
+  username: string
+  firstname: string
+  lastname: string
   email: string
   isAdmin: boolean
+  password: string
 }
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  username: {
+    type: String,
+    required: true,
+  },
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
     type: String,
     required: true,
   },
@@ -19,6 +30,9 @@ const UserSchema = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
+  },
+  password: {
+    type: String,
   },
 })
 

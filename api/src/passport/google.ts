@@ -19,7 +19,9 @@ export default function () {
         let user: any = await User.findOne({ email: parsedToken.payload.email })
         if (!user) {
           user = new User({
-            name: parsedToken.payload.name,
+            username: parsedToken.payload.name,
+            firstname: parsedToken.payload.given_name,
+            lastname: parsedToken.payload.family_name,
             email: parsedToken.payload.email,
             isAdmin: false,
           })

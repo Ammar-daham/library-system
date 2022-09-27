@@ -1,4 +1,3 @@
-//import Movie, { MovieDocument } from '../models/Movie'
 import Book, { BookDocument } from '../models/Book'
 import { NotFoundError } from '../helpers/apiError'
 

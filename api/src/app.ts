@@ -9,7 +9,10 @@ import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 import bookRouter from './routers/book.router'
 import authorRouter from './routers/author.router'
+import userRouter from './routers/user.router'
 
+import passport from 'passport'
+import loginWithGoogle from './passport/google'
 dotenv.config({ path: '.env' })
 const app = express()
 
@@ -38,13 +41,15 @@ app.use(
     secret: 'secret',
   })
 )
-app.use(passport.initialize())
 app.use(passport.session())
 */
 
+app.use(passport.initialize())
+passport.use(loginWithGoogle())
 // Set up routers
 app.use('/api/v1/books', bookRouter)
 app.use('/api/v1/authors', authorRouter)
+app.use('/api/v1/users', userRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)

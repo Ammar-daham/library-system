@@ -8,9 +8,9 @@ export type BookDocument = Document & {
   authors: {}
   status: string
   borrowerId: number
-  publishedDate: string
-  borrowDate: string
-  returnDate: string
+  published_Date: Date
+  borrow_Date: Date
+  return_Date: Date
 }
 
 const bookSchema = new mongoose.Schema({
@@ -43,15 +43,15 @@ const bookSchema = new mongoose.Schema({
   borrowerId: {
     type: Number,
   },
-  publishedDate: {
-    type: String,
+  published_Date: {
+    type: Date,
     required: true,
   },
-  borrowDate: {
-    type: String,
+  borrow_Date: {
+    type: Date,
   },
-  returnDate: {
-    type: String,
+  return_Date: {
+    type: Date,
   },
 })
 

@@ -9,7 +9,7 @@ const Header = () => {
     <AppBar sx={{ padding: 1, backgroundColor: '#ff9800' }} position="sticky">
       <Toolbar>
         <Link to={`/`}>
-          <img src={Logo} width = '50' style={{padding: 10}}/>
+          <img src={Logo} width = '50' style={{padding: 10}} alt="logo"/>
         </Link>
 
         <Typography

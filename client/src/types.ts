@@ -6,8 +6,8 @@ export type Book = {
   description: string
   borrowerId: number
   authors: []
-  publishedDate: string
-  borrowDate: string
-  returnDate: string
+  published_Date: Date
+  borrow_Date: Date
+  return_Date: Date
   status: string
 }

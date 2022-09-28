@@ -23,9 +23,9 @@ const BookForm = () => {
     authors: [],
     status: '',
     borrowerId: Number,
-    publishedDate: '',
-    borrowDate: '',
-    returnDate: '',
+    published_Date: '',
+    borrow_Date: '',
+    return_Date: '',
   })
 
   const handleAddBook = (e: React.FormEvent<EventTarget>) => {
@@ -39,9 +39,9 @@ const BookForm = () => {
       authors: [],
       status: '',
       borrowerId: Number,
-      publishedDate: '',
-      borrowDate: '',
-      returnDate: '',
+      published_Date: '',
+      borrow_Date: '',
+      return_Date: '',
     })
   }
 
@@ -120,9 +120,9 @@ const BookForm = () => {
               name="publishedDate"
               label="Published-Date"
               type="date"
-              value={book.publishedDate}
+              value={book.published_Date}
               onChange={(e) =>
-                setBook({ ...book, publishedDate: e.target.value })
+                setBook({ ...book, published_Date: e.target.value })
               }
             />
           </Grid>
@@ -132,18 +132,18 @@ const BookForm = () => {
               name="borrowDate"
               label="Borrow-Date"
               type="date"
-              value={book.borrowDate}
-              onChange={(e) => setBook({ ...book, borrowDate: e.target.value })}
+              value={book.borrow_Date}
+              onChange={(e) => setBook({ ...book, borrow_Date: e.target.value })}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               id="returnDate-input"
-              name="returnDate"
+              name="return_Date"
               label="return-Date"
               type="date"
-              value={book.returnDate}
-              onChange={(e) => setBook({ ...book, returnDate: e.target.value })}
+              value={book.return_Date}
+              onChange={(e) => setBook({ ...book, return_Date: e.target.value })}
             />
           </Grid>
         </Grid>

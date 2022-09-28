@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from '../redux/store'
 import { Container, Paper } from '@mui/material'
 import ColorButton from 'components/Button'
 import { Link } from 'react-router-dom'
+import { GoogleLogin } from '@react-oauth/google'
 
 const Home = () => {
  
@@ -17,22 +18,15 @@ const Home = () => {
   }, [dispatch])
 
   
+
   return (
+    <>
     <Container
       sx={{
         paddingTop: 30,
         textAlign: 'center',
       }}
     >
-      <Paper
-        sx={{
-          width: 500,
-          height: 100,
-          backgroundColor: '#ffe0b2',
-          display: 'flex',
-          margin: 'auto',
-        }}
-      >
         <Link to={`/books/`}>
           <ColorButton variant="contained">Books</ColorButton>
         </Link>
@@ -41,8 +35,8 @@ const Home = () => {
         </Link>
         <ColorButton variant="contained"> Remove A Book</ColorButton>
         <ColorButton variant="contained"> Update A Book</ColorButton>
-      </Paper>
     </Container>
+    </>
   )
 }
 

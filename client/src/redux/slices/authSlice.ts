@@ -34,6 +34,7 @@ export const auth = createAsyncThunk(
           },
         )
         console.log(res.data.token)
+        localStorage.setItem('userToken', res.data.token)
         return res.data.token
       }
     } catch (error: any) {

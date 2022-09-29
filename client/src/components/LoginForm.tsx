@@ -4,6 +4,8 @@ import ColorButton from './Button'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'redux/store'
 import { auth } from '../redux/slices/authSlice'
+import  { Link }  from 'react-router-dom';
+
 
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -22,7 +24,7 @@ const LoginForm = () => {
   //   }
 
   const handleGoogleOnSuccess = (data: CredentialResponse) => {
-    dispatch(auth(data))
+       dispatch(auth(data));
   }
 
   return (
@@ -85,12 +87,15 @@ const LoginForm = () => {
 
         <Divider />
         <Grid item xs={12}>
-          <GoogleLogin
-            onSuccess={handleGoogleOnSuccess}
-            onError={() => {
-              console.log('Login Failed')
-            }}
-          />
+                <Link to={`/home`}>
+
+                <GoogleLogin
+                    onSuccess={handleGoogleOnSuccess}
+                    onError={() => {
+                        console.log('Login Failed')
+                    }}
+                    />
+        </Link>
         </Grid>
       </Grid>
     </Container>

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { booksFetch } from 'redux/slices/bookSlice'
-import { AppDispatch, RootState } from '../redux/store'
+import { AppDispatch } from '../redux/store'
 
-import { Container, Paper } from '@mui/material'
+import { Container } from '@mui/material'
 import ColorButton from 'components/Button'
 import { Link } from 'react-router-dom'
-import { GoogleLogin } from '@react-oauth/google'
 
 const Home = () => {
  

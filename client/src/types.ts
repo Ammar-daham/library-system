@@ -11,3 +11,11 @@ export type Book = {
   return_Date: Date
   status: string
 }
+
+export type User = {
+  name: string
+  firstname: string
+  lastname: string
+  email: string
+  password: string
+}

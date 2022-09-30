@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { CredentialResponse } from '@react-oauth/google'
 import axios from 'axios'
+import { User } from 'types'
 
 const url = `http://localhost:4000/api/v1/users/login`
 
 export interface authState {
+  users: User[]   
   token: string
   isLoading: boolean
   error: any
@@ -12,11 +14,13 @@ export interface authState {
 }
 
 const initialState: authState = {
+  users: [],  
   token: '',
   isLoading: false,
   error: null,
   success: false
 }
+
 
 export const auth = createAsyncThunk(
   'user/register',
@@ -24,6 +28,8 @@ export const auth = createAsyncThunk(
     console.log('response: ', response)
     try {
       if (response.credential) {
+        console.log('credential: ', response.credential)
+
         const res = await axios.post(
           url,
           {},
@@ -48,7 +54,7 @@ export const auth = createAsyncThunk(
 )
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

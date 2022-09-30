@@ -15,7 +15,11 @@ import checkAuth from '../middlewares/checkAuth'
 const router = express.Router()
 
 // Every path we define here will get /api/v1/movies prefix
-router.get('/', checkAuth, findAllBooks)
+router.get(
+  '/',
+  (...args) => checkAuth(...args, { isAdmin: true }),
+  findAllBooks
+)
 router.get('/isbn/:isbn', findByIsbn)
 router.get('/title/:title', findByTitle)
 router.get('/status/:status', findByStatus)

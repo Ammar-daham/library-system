@@ -1,21 +1,31 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { Action } from '@remix-run/router'
 import axios from 'axios'
 import { Book } from '../../types'
 
+
 const url = `http://localhost:4000/api/v1/books`
+
+const userToken = localStorage.getItem('userToken')
+  ? localStorage.getItem('userToken')
+  : null
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  }
 
 export interface booksState {
   bookList: Book[]
   addBook: string
-  addError: string
+  addError: any
   getBooks: string
-  getError: string
+  getError: any
   updateBook: string
-  updateError: string
+  updateError: any
   deleteBook: string
-  deleteError: string
-
-  isLoading: boolean
+  deleteError: any
 }
 
 const initialState: booksState = {
@@ -28,18 +38,26 @@ const initialState: booksState = {
   updateError: '',
   deleteBook: '',
   deleteError: '',
-
-  isLoading: false,
 }
 
-export const booksFetch = createAsyncThunk('books/fetchBooks', async () => {
-  const response = await axios.get(url)
-  console.log(response.data)
-  return {
-    data: response.data,
-    status: response.status,
+export const booksFetch = createAsyncThunk(
+  'books/fetchBooks', async (arg, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(url, config)
+      console.log(response.data)
+      return {
+        data: response.data,
+        status: response.status,
+      }
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message)
+      } else {
+        return rejectWithValue(error.message)
+      }
+    }
   }
-})
+)
 
 export const addBook = createAsyncThunk(
   'books/bookAdd',
@@ -63,15 +81,44 @@ export const bookSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(booksFetch.pending, (state) => {
-      state.isLoading = true
+      return {
+        ...state,
+        addBook: '',
+        addError: '',
+        getBooks: 'pending',
+        getError: '',
+        updateBook: '',
+        updateError: '',
+        deleteBook: '',
+        deleteError: '',
+      }
     })
     builder.addCase(booksFetch.fulfilled, (state, action) => {
-      state.bookList = action.payload.data
-      state.isLoading = false
+      return {
+        ...state,
+        bookList: action.payload.data,
+        addBook: '',
+        addError: '',
+        getBooks: 'success',
+        getError: '',
+        updateBook: '',
+        updateError: '',
+        deleteBook: '',
+        deleteError: '',
+      }
     })
-    builder.addCase(booksFetch.rejected, (state) => {
-      console.log('Something went wrong')
-      state.isLoading = false
+    builder.addCase(booksFetch.rejected, (state, action) => {
+      return {
+        ...state,
+        addBook: '',
+        addError: '',
+        getBooks: 'rejected',
+        getError: action.payload,
+        updateBook: '',
+        updateError: '',
+        deleteBook: '',
+        deleteError: '',
+      }
     })
 
     builder.addCase(addBook.pending, (state) => {
@@ -90,7 +137,7 @@ export const bookSlice = createSlice({
     builder.addCase(addBook.fulfilled, (state, action) => {
       return {
         ...state,
-        books: [...state.bookList, action.payload.data],
+        bookList: [...state.bookList, action.payload.data],
         addBook: 'success',
         addError: '',
         getBooks: '',

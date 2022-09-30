@@ -1,3 +1,5 @@
+import { type } from 'os'
+
 export interface ParsedToken {
   payload: {
     email: string
@@ -12,4 +14,8 @@ export interface ParsedToken {
 
 export interface VerifiedCallback {
   (error: any, user?: any, info?: any): void
+}
+
+export type Role = {
+  isAdmin: boolean
 }

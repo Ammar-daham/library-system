@@ -19,3 +19,10 @@ export type User = {
   email: string
   password: string
 }
+
+export type DecodedUser = {
+    userId: string,
+    isAdmin: boolean,
+    iat: number,
+    exp: number
+}

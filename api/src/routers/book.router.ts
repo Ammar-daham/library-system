@@ -4,6 +4,7 @@ import {
   createBook,
   findByIsbn,
   findByTitle,
+  findByCategory,
   deleteBook,
   findAllBooks,
   updateBook,
@@ -23,6 +24,7 @@ router.get(
 router.get('/isbn/:isbn', findByIsbn)
 router.get('/title/:title', findByTitle)
 router.get('/status/:status', findByStatus)
+router.get('/category/:category', findByCategory)
 router.put('/:bookId', updateBook)
 router.put('/status/borrowed/:bookId', bookBorrowed)
 router.put('/status/available/:bookId', bookReturned)

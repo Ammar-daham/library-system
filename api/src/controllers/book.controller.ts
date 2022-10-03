@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-
 import Book from '../models/Book'
 import bookService from '../services/book.service'
 import { BadRequestError } from '../helpers/apiError'
@@ -157,6 +156,23 @@ export const findByTitle = async (
 ) => {
   try {
     res.json(await bookService.findByTitle(req.params.title))
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
+
+// GET /books/category/:category
+export const findByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.json(await bookService.findByCategory(req.params.category))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

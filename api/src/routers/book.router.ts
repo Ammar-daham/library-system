@@ -12,23 +12,33 @@ import {
   bookBorrowed,
   bookReturned,
 } from '../controllers/book.controller'
-import checkAuth from '../middlewares/checkAuth'
+import { checkAuthAdmin, checkAuthAdminUser } from '../middlewares/checkAuth'
 const router = express.Router()
 
 // Every path we define here will get /api/v1/movies prefix
-router.get(
-  '/',
-  (...args) => checkAuth(...args, { isAdmin: true }),
-  findAllBooks
+router.get('/', checkAuthAdminUser, findAllBooks)
+router.get('/isbn/:isbn', checkAuthAdminUser, findByIsbn)
+router.get('/title/:title', checkAuthAdminUser, findByTitle)
+router.get('/status/:status', checkAuthAdminUser, findByStatus)
+router.get('/category/:category', checkAuthAdminUser, findByCategory)
+router.put('/status/borrowed/:bookId', checkAuthAdminUser, bookBorrowed)
+router.put('/status/available/:bookId', checkAuthAdminUser, bookReturned)
+router.put(
+  '/:bookId',
+  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
+  updateBook
 )
-router.get('/isbn/:isbn', findByIsbn)
-router.get('/title/:title', findByTitle)
-router.get('/status/:status', findByStatus)
-router.get('/category/:category', findByCategory)
-router.put('/:bookId', updateBook)
-router.put('/status/borrowed/:bookId', bookBorrowed)
-router.put('/status/available/:bookId', bookReturned)
-router.delete('/:bookId', deleteBook)
-router.post('/', createBook)
+
+router.delete(
+  '/:bookId',
+  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
+  deleteBook
+)
+
+router.post(
+  '/',
+  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
+  createBook
+)
 
 export default router

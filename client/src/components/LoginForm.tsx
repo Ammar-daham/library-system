@@ -22,10 +22,7 @@ const LoginForm = () => {
       const userToken = localStorage.getItem('userToken') || ''
       const decode = jwt_decode(userToken) as DecodedUser
       setUser(decode)
-      if(user?.isAdmin) {
-        <Link to={`/home`} />
-    }
-    }, [user?.isAdmin])
+    }, [])
     
     console.log(user)
   //   const handleGetBooks = async () => {

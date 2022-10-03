@@ -3,8 +3,8 @@ import mongoose, { Document } from 'mongoose'
 export type UserDocument = Document & {
   _id?: mongoose.Schema.Types.ObjectId
   username: string
-  firstname: string
-  lastname: string
+  first_name: string
+  last_name: string
   email: string
   isAdmin: boolean
   password: string
@@ -15,11 +15,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  firstname: {
+  first_name: {
     type: String,
     required: true,
   },
-  lastname: {
+  last_name: {
     type: String,
     required: true,
   },

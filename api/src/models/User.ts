@@ -1,7 +1,6 @@
 import mongoose, { Document } from 'mongoose'
 
 export type UserDocument = Document & {
-  _id?: mongoose.Schema.Types.ObjectId
   username: string
   first_name: string
   last_name: string

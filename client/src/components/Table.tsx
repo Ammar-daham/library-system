@@ -16,6 +16,7 @@ import {
 
 import '../App.css'
 import { orange } from '@mui/material/colors'
+import ColorButton from './Button'
 
  const BookTable = () => {
   const { books } = useSelector((state: RootState) => state)
@@ -50,10 +51,14 @@ import { orange } from '@mui/material/colors'
                   <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>ISBN</TableCell>
                   <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Title</TableCell>
                   <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Description</TableCell>
+                  <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Publisher</TableCell>
                   <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Published Date</TableCell>
                   <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Borrow Date</TableCell>
                   <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Return Date</TableCell>
                   <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Status</TableCell>
+                  <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Category</TableCell>
+                  <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Borrow</TableCell>
+                  <TableCell sx={{backgroundColor: orange[500], color: 'white'}}>Return</TableCell>
                 </TableRow>
               </TableHead>
 
@@ -63,10 +68,18 @@ import { orange } from '@mui/material/colors'
                     <TableCell >{book.isbn}</TableCell>
                     <TableCell>{book.title}</TableCell>
                     <TableCell>{book.description}</TableCell>
+                    <TableCell>{book.Publisher}</TableCell>
                     <TableCell>{book.publishedDate}</TableCell>
                     <TableCell>{book.borrowDate}</TableCell>
                     <TableCell>{book.returnDate}</TableCell>
                     <TableCell>{book.status}</TableCell>
+                    <TableCell>{book.category}</TableCell>
+                    <TableCell>
+                      <ColorButton>Borrow</ColorButton>
+                    </TableCell>
+                    <TableCell>
+                      <ColorButton>Return</ColorButton>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -35,7 +35,7 @@ const Dashboard = () => {
   return (
     <Box className='mainBox'>
       <Grid container className='mainGrid'>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{maxHeight:'100px'}}>
           <Header />
         </Grid>
         <Grid item xs={2}>

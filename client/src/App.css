@@ -7,19 +7,13 @@
     background-color: wheat;
 }
 
-.header {
-    box-shadow: 0 0 6px hsl(210 14% 90%);
-    background-color: wheat;
-    border: 2px solid rgba(255,255,255,0.2);
-    position: absolute;
-    border-radius: 0px,
-}
+
 
 .sideBarDashboard {
     box-shadow: 0 0 6px rgb(56, 57, 57);
     border: 2px solid rgba(255,255,255,0.2);
-    height: 100%;
     position: absolute;
+    height: -webkit-fill-available;
     width: 200px;
     display: flex;
     flex-direction: column;

@@ -29,7 +29,7 @@ const Home = () => {
         <Link to={`/books/`}>
           <ColorButton variant="contained">Books</ColorButton>
         </Link>
-        <Link to={`/book/addbook`}>
+        <Link to={`/books/add-book`}>
           <ColorButton variant="contained"> Add A Book</ColorButton>
         </Link>
         <ColorButton variant="contained"> Remove A Book</ColorButton>

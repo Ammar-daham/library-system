@@ -2,7 +2,7 @@ import express from 'express'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../util/secrets'
-import { findUserById } from '../controllers/user.controller'
+import { findAllUsers } from '../controllers/user.controller'
 const router = express.Router()
 
 router.post(
@@ -18,6 +18,6 @@ router.post(
     res.json({ token })
   }
 )
-router.get('/:userId', findUserById)
+router.get('/', findAllUsers)
 
 export default router

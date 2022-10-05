@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-
 import axios from 'axios'
 import { Book } from '../../types'
 
@@ -10,11 +9,11 @@ const userToken = localStorage.getItem('userToken')
   ? localStorage.getItem('userToken')
   : null
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  }
+const config = {
+  headers: {
+    Authorization: `Bearer ${userToken}`,
+  },
+}
 
 export interface booksState {
   bookList: Book[]
@@ -58,6 +57,8 @@ export const booksFetch = createAsyncThunk(
     }
   }
 )
+
+
 
 export const addBook = createAsyncThunk(
   'books/bookAdd',

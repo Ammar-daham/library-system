@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <AppBar sx={{ padding: 1, backgroundColor: '#ff9800' }} position="sticky">
       <Toolbar>
-        <Link to={`/`}>
+        <Link to={`/login`}>
           <img src={Logo} width = '50' style={{padding: 10}} alt="logo"/>
         </Link>
 

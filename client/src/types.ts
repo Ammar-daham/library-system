@@ -13,11 +13,12 @@ export type Book = {
 }
 
 export type User = {
-  name: string
-  firstname: string
-  lastname: string
+  _id: string
+  username: string
+  first_name: string
+  last_name: string
   email: string
-  password: string
+  isAdmin: boolean,
 }
 
 export type DecodedUser = {

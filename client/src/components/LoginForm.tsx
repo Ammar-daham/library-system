@@ -14,6 +14,8 @@ import { DecodedUser } from 'types'
 import { useNavigate } from 'react-router-dom'
 import background from "../books.jpg";
 
+import '../App.css'
+
 
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -49,22 +51,21 @@ const LoginForm = () => {
 
   return (
     <Container
-      disableGutters
+      className='loginFormContainer'
       maxWidth={false}
-      sx={{
+      style={{ 
         padding: '200px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        rowGap: '100px'
-      }}
-      style={{ 
+        rowGap: '100px',
+        height: '100%',
+        position: 'absolute',
         backgroundImage: `url(${background})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        position: 'relative'
      }}
     >
      
@@ -128,7 +129,7 @@ const LoginForm = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <ColorButton sx={{ height: 40, width: 290 }} >Sign In</ColorButton>
+            <ColorButton sx={{ height: 40, width: 290 }} >Login</ColorButton>
           </Grid>
           <br />
           <br />

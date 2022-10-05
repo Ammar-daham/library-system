@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux'
 import { booksFetch } from 'redux/slices/bookSlice'
 import { AppDispatch } from '../redux/store'
 
-import { Box, Container, Grid, Paper, styled } from '@mui/material'
-import ColorButton from 'components/Button'
+import { Box, Grid, Paper, styled } from '@mui/material'
 import { Link } from 'react-router-dom'
 import Header from 'components/Header'
 import { orange } from '@mui/material/colors'
@@ -34,12 +33,27 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={2}>
           <div className='sideBarDashboard' style={{backgroundColor: orange[800]}}>
-            <Link to={`/books/`} className='link'>
+            <a href='' className='link' onClick={() => console.log('clicked')}>
               Books
-            </Link>
-            <Link to={`/books/add-book`} className='link'>
+            </a>
+            <a href='' className='link'>
               Add Book
-            </Link>
+            </a>
+            <a href='' className='link'>
+              Update Book
+            </a>
+            <a href='' className='link'>
+              Remove Book
+            </a>
+            <a href='' className='link'>
+              Remove Author
+            </a>
+            <a href='' className='link'>
+              Update Author
+            </a>
+            <a href='' className='link'>
+              Remove Author
+            </a>
           </div>
         </Grid>
         
@@ -51,25 +65,6 @@ const Dashboard = () => {
         </Grid> */}
       </Grid>
     </Box>
-    // <Box sx={{ flexGrow: 1 }}>
-    //     <Grid container spacing={2} className='mainGrid'>
-    //       <Grid item xs={2} className='sideBarDashboard'>
-    //         <Item>xs=2</Item>
-
-    //       </Grid>
-    //       <Grid item xs={10} className='header' sx={{backgroundColor: 'black'}}>
-    //        <Item>xs=10</Item>
-    //       </Grid>
-    //     {/* <Link to={`/books/`}>
-    //       <ColorButton variant="contained">Books</ColorButton>
-    //       </Link>
-    //       <Link to={`/books/add-book`}>
-    //       <ColorButton variant="contained"> Add A Book</ColorButton>
-    //       </Link>
-    //       <ColorButton variant="contained"> Remove A Book</ColorButton>
-    //     <ColorButton variant="contained"> Update A Book</ColorButton> */}
-    //     </Grid>
-    //   </Box>
   )
 }
 

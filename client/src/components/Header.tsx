@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom'
 import {  Typography, AppBar, Toolbar } from '@mui/material'
 import Logo  from './book-borrow-icon.png'
+import { useNavigate } from 'react-router-dom'
 
+import '../App.css'
 
 const Header = () => {
+
+  const navigate = useNavigate()
+
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAdmin')
+    localStorage.removeItem('userToken')
+    navigate('/')
+  }
   
   return (
     <AppBar sx={{ padding: 1, backgroundColor: '#ff9800' }} position="sticky">
@@ -20,6 +31,10 @@ const Header = () => {
         >
           Library Management System
         </Typography>
+
+        <a  href='' className='logout' onClick={handleLogout}>
+          Logout
+        </a>
 
       </Toolbar>
     </AppBar>

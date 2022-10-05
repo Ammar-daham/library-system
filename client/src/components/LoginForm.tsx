@@ -24,13 +24,13 @@ const LoginForm = () => {
 
   //const users = useSelector((state: RootState) => state.user.users)
   
-  useEffect(() => {
-    const userToken = localStorage.getItem('userToken') || ''
-    const decoded = jwt_decode(userToken) as DecodedUser
-    if(decoded) {
-      setAuthenticated(true)
-    }
-  }, [authenticated])
+  // useEffect(() => {
+  //   const userToken = localStorage.getItem('userToken') || ''
+  //   const decoded = jwt_decode(userToken) as DecodedUser
+  //   if(decoded) {
+  //     setAuthenticated(true)
+  //   }
+  // }, [authenticated])
   
   const handleGoogleOnSuccess = async (data: CredentialResponse) => {
     await dispatch(auth(data))
@@ -39,7 +39,7 @@ const LoginForm = () => {
     const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || '')
     console.log('IsAdmin: ', isAdmin)
 
-        if (authenticated && isAdmin) {
+        if (isAdmin) {
           console.log('home page')
           navigate('/dashboard')
         } else {
@@ -77,13 +77,10 @@ const LoginForm = () => {
         opacity: 0.9,
         boxShadow: '0 0 40px rgba(8,7,16,0.9)',
         border: '1px solid rgba(255,255,255,0.9)',
-
-
         }}>Library System</Typography>
      
 
-      <form >
-    
+      <form>
         <Grid
           className='grid-container'
           container
@@ -136,9 +133,7 @@ const LoginForm = () => {
 
           <Divider />
           <Grid item xs={12}>
-          
                <GoogleLogin
-              
                onSuccess={handleGoogleOnSuccess}
                onError={() => {
                  console.log('Login Failed')
@@ -146,8 +141,6 @@ const LoginForm = () => {
                shape="rectangular"
                width="290px"
              />
-            
-           
           </Grid>
         </Grid>
       </form>

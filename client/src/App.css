@@ -7,18 +7,6 @@
     background-color: wheat;
 }
 
-.sideBarDashboard {
-    box-shadow: 0 0 6px rgb(56, 57, 57);
-    border: 2px solid rgba(255,255,255,0.2);
-    height: 100%;
-    position: absolute;
-    width: 150px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    padding: 50px;
-}
-
 .header {
     box-shadow: 0 0 6px hsl(210 14% 90%);
     background-color: wheat;
@@ -27,16 +15,37 @@
     border-radius: 0px,
 }
 
+.sideBarDashboard {
+    box-shadow: 0 0 6px rgb(56, 57, 57);
+    border: 2px solid rgba(255,255,255,0.2);
+    height: 100%;
+    position: absolute;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
 .link {
     text-decoration: none;
-    width: 100%;
-    margin: 10px;
+    padding: 15px 0 15px 40px;
     color: white;
     font-weight: bold;
 }
 
-.Link:hover {
+.link:hover {
     background-color: black;
+    color: rgb(228, 126, 3);
+}
+
+.logout {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;  
+}
+
+.logout:hover {
+    color: black;
 }
 
 

@@ -26,6 +26,13 @@
     padding-top: 50px;
 }
 
+.main {
+    height: 100%;
+    width: inherit; 
+    position: absolute;
+    padding-right: 100px;
+}
+
 .link {
     text-decoration: none;
     padding: 15px 0 15px 40px;
@@ -36,6 +43,7 @@
 .link:hover {
     background-color: black;
     color: rgb(228, 126, 3);
+    cursor: pointer;
 }
 
 .logout {
@@ -48,4 +56,15 @@
     color: black;
 }
 
+.search {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.table {
+    background-color: wheat;
+    border: 2px solid rgba(130, 122, 115, 0.2);
+    box-shadow: 0 2px 6px rgb(34, 35, 35);
+}
 

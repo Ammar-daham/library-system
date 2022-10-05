@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { booksFetch } from 'redux/slices/bookSlice'
 import { AppDispatch } from '../redux/store'
-
-import { Box, Grid, Paper, styled } from '@mui/material'
+import  Table from '../components/Table' 
+import { Box, Grid, Paper, styled, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import Header from 'components/Header'
 import { orange } from '@mui/material/colors'
+
 
 import '../App.css'
 
@@ -20,10 +21,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
-
+  const [ book, setBook ] = useState(false)
+  console.log(book)
   useEffect(() => {
     dispatch(booksFetch())
+    
   }, [dispatch])
+
+  const handleBookTable = () => {
+    setBook(true)
+  }
 
   return (
     <Box className='mainBox'>
@@ -33,33 +40,38 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={2}>
           <div className='sideBarDashboard' style={{backgroundColor: orange[800]}}>
-            <a href='' className='link' onClick={() => console.log('clicked')}>
+            <Typography className='link' onClick={handleBookTable}>
               Books
-            </a>
-            <a href='' className='link'>
+            </Typography>
+            <Typography className='link'>
               Add Book
-            </a>
-            <a href='' className='link'>
+            </Typography>
+            <Typography className='link'>
               Update Book
-            </a>
-            <a href='' className='link'>
+            </Typography >
+            <Typography  className='link'>
               Remove Book
-            </a>
-            <a href='' className='link'>
+            </Typography >
+            <Typography  className='link'>
               Remove Author
-            </a>
-            <a href='' className='link'>
+            </Typography >
+            <Typography  className='link'>
               Update Author
-            </a>
-            <a href='' className='link'>
+            </Typography >
+            <Typography  className='link'>
               Remove Author
-            </a>
+            </Typography >
+          </div>
+        </Grid>
+        <Grid item xs={10}>
+          <div className='main'>
+            { book && 
+              <Table />
+            }
           </div>
         </Grid>
         
-        {/* <Grid item xs={4}>
-          <Item>xs=4</Item>
-        </Grid>
+        {/*
         <Grid item xs={8}>
           <Item>xs=8</Item>
         </Grid> */}

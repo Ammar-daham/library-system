@@ -1,8 +1,8 @@
-import { BooksTable } from '../components/Table'
+import  BookTable  from '../components/Table'
 
 
 export const Books = () => {
     return (
-        <BooksTable /> 
+        <BookTable /> 
     )
 }

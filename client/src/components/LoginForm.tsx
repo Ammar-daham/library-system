@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
-import { Container, Divider, Grid, TextField } from '@mui/material'
+import { Container, Divider, Grid, TextField, Typography } from '@mui/material'
+import { orange } from '@mui/material/colors'
 import {
   CredentialResponse,
   GoogleLogin,
-  googleLogout,
 } from '@react-oauth/google'
 import ColorButton from './Button'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'redux/store'
-import { auth, userFetch } from '../redux/slices/authSlice'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'redux/store'
+import { auth } from '../redux/slices/authSlice'
 import jwt_decode from 'jwt-decode'
-import { DecodedUser, User } from 'types'
+import { DecodedUser } from 'types'
 import { useNavigate } from 'react-router-dom'
+import background from "../books.jpg";
+
 
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -37,36 +39,52 @@ const LoginForm = () => {
 
         if (authenticated && isAdmin) {
           console.log('home page')
-          navigate('/home')
+          navigate('/dashboard')
         } else {
           console.log('Login')
           navigate('/books')
         } 
     
       }
-    // const handleLogout = (data: CredentialResponse) => {
-    //   //localStorage.setItem('isAdmin', JSON.stringify(decoded.isAdmin))
-    //   dispatch(auth(data))
-    //   //const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || '');
-    //   if (authenticated && user) {
-    //     console.log('home page')
-    //     navigate('/home')
-    //   } else {
-    //     console.log('Login')
-    //     navigate('/books')
-    //   }
 
   return (
     <Container
+      disableGutters
+      maxWidth={false}
       sx={{
-        padding: '100px',
+        padding: '200px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
+        rowGap: '100px'
       }}
+      style={{ 
+        backgroundImage: `url(${background})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        position: 'relative'
+     }}
     >
+     
+      <Typography variant='h2' sx={{
+        backgroundColor: orange[500],
+        color: 'white', 
+        padding: '10px',
+        borderRadius: '10px',
+        opacity: 0.9,
+        boxShadow: '0 0 40px rgba(8,7,16,0.9)',
+        border: '1px solid rgba(255,255,255,0.9)',
+
+
+        }}>Library System</Typography>
+     
+
       <form >
+    
         <Grid
+          className='grid-container'
           container
           spacing={2}
           sx={{
@@ -130,15 +148,6 @@ const LoginForm = () => {
             
            
           </Grid>
-          {/* <Grid item xs={12}></Grid>
-            <GoogleLogout
-            onSuccess={handleGoogleOnSuccess}
-            onError={() => {
-              console.log('Login Failed')
-            }}
-            shape="rectangular"
-            width="290px" />  
-          </Grid> */}
         </Grid>
       </form>
     </Container>

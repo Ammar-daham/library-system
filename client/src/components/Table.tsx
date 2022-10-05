@@ -19,9 +19,20 @@ export const BooksTable = () => {
   return (
     <>
       
-      <Box sx={{ padding: 15 }}>
+      <Box sx={{ padding: 10 }}>
       <Container
-        sx={{ backgroundColor: '#ff9800', opacity: '0.8', color:'white', textAlign: 'center', padding: '50px'}}
+        sx={{
+            textAlign: 'center',
+            padding: '50px',
+            backgroundColor: 'rgba(255,255,255,0.13)',
+            width: '100%',
+            borderRadius: '10px',
+            backdropFilter: 'blur(100px)',
+            border: '2px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 0 40px rgba(8,7,16,0.6)',
+            opacity: '0.8',
+            color:'white',
+          }}
       >
         <Typography variant="h6">Search By</Typography>
         <Grid container>
@@ -43,7 +54,7 @@ export const BooksTable = () => {
           </Grid>
         </Grid>
       </Container>
-        <Table stickyHeader aria-label="books">
+        <Table stickyHeader aria-label="books" sx={{backgroundColor: 'rgba(255,255,255,0.13)'}}>
           <TableHead>
             <TableRow>
               <TableCell>ISBN</TableCell>

@@ -48,6 +48,7 @@
 
 .logout:hover {
     color: black;
+    cursor: pointer;
 }
 
 .search {

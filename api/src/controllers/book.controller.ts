@@ -80,6 +80,7 @@ export const bookBorrowed = async (
     req.body.status = 'borrowed'
     req.body.borrowDate = new Date().toJSON()
     req.body.returnDate = ''
+
     const updatedBook = await bookService.bookBorrowed(bookId, req.body)
     res.json(updatedBook)
   } catch (error) {

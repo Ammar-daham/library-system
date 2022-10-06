@@ -47,7 +47,8 @@ const bookSchema = new mongoose.Schema({
     ref: 'Author',
   },
   borrowerId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   },
   published_Date: {
     type: Date,

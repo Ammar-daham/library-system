@@ -1,9 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { act } from 'react-dom/test-utils'
 import { Book } from '../../types'
 
 
 const url = `http://localhost:4000/api/v1/books`
+const borrowUrl = `http://localhost:4000/api/v1/books/status/borrowed/`
+const returnUrl = `http://localhost:4000/api/v1/books/status/available/`
+
 
 const userToken = localStorage.getItem('userToken')
   ? localStorage.getItem('userToken')
@@ -74,6 +78,36 @@ export const addBook = createAsyncThunk(
   },
 );
 
+export const borrowBook = createAsyncThunk(
+  'book/borrowBook',
+  async ({id, borrowerId}: any , { rejectWithValue }) => {
+    console.log('updated book: ', borrowerId)
+    try {
+      const response = await axios.put(borrowUrl + id , { borrowerId }, config)
+      console.log(response.data)
+      return response.data
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response.data)
+    }
+  },
+);
+
+export const returnBook = createAsyncThunk(
+  'book/returnBook',
+  async ({id, borrowerId}: any , { rejectWithValue }) => {
+    console.log('updated book: ', borrowerId)
+    try {
+      const response = await axios.put(returnUrl + id , {borrowerId}, config)
+      console.log(response.data)
+      return response.data
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response.data)
+    }
+  },
+);
+
 
 export const bookSlice = createSlice({
   name: 'books',
@@ -81,44 +115,70 @@ export const bookSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) => {
+    builder.addCase(borrowBook.pending, (state) => {
+      return {
+        ...state,
+        updateBook: 'pending',
+      }
+    })
+    builder.addCase(borrowBook.fulfilled, (state, action) => {
+      console.log('action: ', action)
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.updateBook = 'success'
+      }
+    })
+    builder.addCase(borrowBook.rejected, (state, action) => {
+      return {
+        ...state,
+        updateBook: 'rejected',
+        updateError: action.payload,
+      }
+    })
+    builder.addCase(returnBook.pending, (state) => {
+      return {
+        ...state,
+        updateBook: 'pending',
+      }
+    })
+    builder.addCase(returnBook.fulfilled, (state, action) => {
+      console.log('action: ', action)
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.updateBook = 'success'
+      }
+    })
+    builder.addCase(returnBook.rejected, (state, action) => {
+      return {
+        ...state,
+        updateBook: 'rejected',
+        updateError: action.payload,
+      }
+    })
     builder.addCase(booksFetch.pending, (state) => {
       return {
         ...state,
-        addBook: '',
-        addError: '',
         getBooks: 'pending',
-        getError: '',
-        updateBook: '',
-        updateError: '',
-        deleteBook: '',
-        deleteError: '',
       }
     })
     builder.addCase(booksFetch.fulfilled, (state, action) => {
       return {
         ...state,
         bookList: action.payload.data,
-        addBook: '',
-        addError: '',
         getBooks: 'success',
-        getError: '',
-        updateBook: '',
-        updateError: '',
-        deleteBook: '',
-        deleteError: '',
       }
     })
     builder.addCase(booksFetch.rejected, (state, action) => {
       return {
         ...state,
-        addBook: '',
-        addError: '',
         getBooks: 'rejected',
         getError: action.payload,
-        updateBook: '',
-        updateError: '',
-        deleteBook: '',
-        deleteError: '',
       }
     })
 
@@ -126,13 +186,6 @@ export const bookSlice = createSlice({
       return {
         ...state,
         addBook: 'pending',
-        addError: '',
-        getBooks: '',
-        getError: '',
-        updateBook: '',
-        updateError: '',
-        deleteBook: '',
-        deleteError: '',
       }
     })
     builder.addCase(addBook.fulfilled, (state, action) => {
@@ -140,29 +193,17 @@ export const bookSlice = createSlice({
         ...state,
         bookList: [...state.bookList, action.payload.data],
         addBook: 'success',
-        addError: '',
-        getBooks: '',
-        getError: '',
-        updateBook: '',
-        updateError: '',
-        deleteBook: '',
-        deleteError: '',
       }
     })
     builder.addCase(addBook.rejected, (state, action) => {
       return {
         ...state,
         addBook: 'rejected',
-        addError: 'action.payload',
-        getBooks: '',
-        getError: '',
-        updateBook: '',
-        updateError: '',
-        deleteBook: '',
-        deleteError: '',
+        addError: action.payload,
       }
     })
-  },
+  
+},
 })
 
 export default bookSlice.reducer

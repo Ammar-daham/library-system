@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addBook } from '../redux/slices/bookSlice'
 import { AppDispatch, RootState } from 'redux/store'
+import { Book } from 'types'
 
 const BookForm = () => {
   const dispatch = useDispatch<AppDispatch>()

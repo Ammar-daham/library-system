@@ -32,9 +32,9 @@ const Header = () => {
           Library Management System
         </Typography>
 
-        <a  href='' className='logout' onClick={handleLogout}>
+        <Typography className='logout' onClick={handleLogout}>
           Logout
-        </a>
+        </Typography>
 
       </Toolbar>
     </AppBar>

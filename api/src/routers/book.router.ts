@@ -21,8 +21,16 @@ router.get('/isbn/:isbn', checkAuthAdminUser, findByIsbn)
 router.get('/title/:title', checkAuthAdminUser, findByTitle)
 router.get('/status/:status', checkAuthAdminUser, findByStatus)
 router.get('/category/:category', checkAuthAdminUser, findByCategory)
-router.put('/status/borrowed/:bookId', checkAuthAdminUser, bookBorrowed)
-router.put('/status/available/:bookId', checkAuthAdminUser, bookReturned)
+router.put(
+  '/status/borrowed/:bookId',
+  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
+  bookBorrowed
+)
+router.put(
+  '/status/available/:bookId',
+  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
+  bookReturned
+)
 router.put(
   '/:bookId',
   (...args) => checkAuthAdmin(...args, { isAdmin: true }),

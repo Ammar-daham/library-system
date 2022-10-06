@@ -69,7 +69,7 @@ import { DecodedUser } from 'types'
           </Grid>
 
           <Grid item xs={12}>
-          <TableContainer style={{ maxHeight: '750px' }}>
+          <TableContainer style={{ maxHeight: '750px', paddingLeft: '30px'}}>
             <Table
               className='table'
               stickyHeader
@@ -94,14 +94,13 @@ import { DecodedUser } from 'types'
               <TableBody>
                 {books.bookList.map((book: any) =>  (
                   <TableRow key={book._id}>
-                    <TableCell >{book._id}</TableCell>
                     <TableCell >{book.isbn}</TableCell>
                     <TableCell>{book.title}</TableCell>
                     <TableCell>{book.description}</TableCell>
                     <TableCell>{book.Publisher}</TableCell>
-                    <TableCell>{book.publishedDate}</TableCell>
-                    <TableCell>{book.borrowDate}</TableCell>
-                    <TableCell>{book.returnDate}</TableCell>
+                    <TableCell>{book.published_Date}</TableCell>
+                    <TableCell>{book.borrow_Date}</TableCell>
+                    <TableCell>{book.return_Date}</TableCell>
                     <TableCell>{book.status}</TableCell>
                     <TableCell>{book.category}</TableCell>
                     <TableCell>

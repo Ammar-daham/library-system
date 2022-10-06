@@ -78,8 +78,8 @@ export const bookBorrowed = async (
   try {
     const bookId = req.params.bookId
     req.body.status = 'borrowed'
-    req.body.borrowDate = new Date().toJSON()
-    req.body.returnDate = ''
+    req.body.borrow_Date = new Date().toJSON()
+    req.body.return_Date = ''
 
     const updatedBook = await bookService.bookBorrowed(bookId, req.body)
     res.json(updatedBook)
@@ -101,8 +101,9 @@ export const bookReturned = async (
   try {
     const bookId = req.params.bookId
     req.body.status = 'available'
-    req.body.borrowDate = ''
-    req.body.returnDate = new Date().toJSON()
+    req.body.borrow_Date = ''
+    req.body.return_Date = new Date().toJSON()
+
     const updatedBook = await bookService.bookReturned(bookId, req.body)
     res.json(updatedBook)
   } catch (error) {

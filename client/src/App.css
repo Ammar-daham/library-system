@@ -20,8 +20,7 @@
     padding-top: 50px;
 }
 
-.main {
-    height: 100%;
+.mainBooksTable {
     width: inherit; 
     position: absolute;
     padding-right: 100px;
@@ -61,5 +60,30 @@
     background-color: wheat;
     border: 2px solid rgba(130, 122, 115, 0.2);
     box-shadow: 0 2px 6px rgb(34, 35, 35);
+}
+
+
+.mainNewBook {
+    padding: 100px;
+}
+
+.addBookContainer {
+    padding: initial;
+    background-color: wheat;
+    text-align: center;
+    border: 2px solid rgba(130, 122, 115, 0.2);
+    box-shadow: 0 0 6px rgb(26, 50, 50);
+    backdrop-filter: blur(100px),
+}       
+
+
+.addBookHeader {
+    background-color: orange;
+    color: white;
+    padding: 10px;
+}
+
+.addBookInput {
+    padding: 10px;
 }
 

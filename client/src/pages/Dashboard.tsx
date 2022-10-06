@@ -10,24 +10,31 @@ import { orange } from '@mui/material/colors'
 
 
 import '../App.css'
+import BookForm from 'components/BookForm'
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [ book, setBook ] = useState(false)
-  console.log(book)
+  const [ newBook, setNewBook ] = useState(false)
+
   useEffect(() => {
     dispatch(booksFetch())
-    
   }, [dispatch])
 
   const handleBookTable = () => {
     setBook(true)
+    setNewBook(false)
+  }
+
+  const handleAddBook = () => {
+    setNewBook(true)
+    setBook(false)
   }
 
   return (
     <Box className='mainBox'>
       <Grid container className='mainGrid'>
-        <Grid item xs={12} sx={{maxHeight:'100px'}}>
+        <Grid item xs={12} sx={{maxHeight:100}}>
           <Header />
         </Grid>
         <Grid item xs={2}>
@@ -35,7 +42,7 @@ const Dashboard = () => {
             <Typography className='link' onClick={handleBookTable}>
               Books
             </Typography>
-            <Typography className='link'>
+            <Typography className='link' onClick={handleAddBook}>
               Add Book
             </Typography>
             <Typography className='link'>
@@ -56,9 +63,15 @@ const Dashboard = () => {
           </div>
         </Grid>
         <Grid item xs={10}>
-          <div className='main'>
+          <div className='mainBooksTable'>
             { book && 
               <Table />
+            }
+          </div>
+          <div className='mainNewBook'>
+            { 
+              newBook && 
+              <BookForm />
             }
           </div>
         </Grid>

@@ -38,7 +38,7 @@ const findByStatus = async (status: string): Promise<BookDocument[]> => {
 }
 
 const findAll = async (): Promise<BookDocument[]> => {
-  return await Book.find().populate('authors').sort({ title: 1 })
+  return await Book.find().populate('authors', 'user').sort({ title: 1 })
 }
 
 const update = async (

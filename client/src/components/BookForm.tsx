@@ -12,6 +12,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addBook } from '../redux/slices/bookSlice'
 import { AppDispatch, RootState } from 'redux/store'
 import { Book } from 'types'
+import { orange } from '@mui/material/colors'
+
+import '../App.css'
+import { positions } from '@mui/system'
 
 const BookForm = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -21,12 +25,11 @@ const BookForm = () => {
     isbn: '',
     title: '',
     description: '',
+    publisher: '',
+    category: '',
     authors: [],
     status: '',
-    borrowerId: Number,
     published_Date: '',
-    borrow_Date: '',
-    return_Date: '',
   })
 
   const handleAddBook = (e: React.FormEvent<EventTarget>) => {
@@ -37,23 +40,24 @@ const BookForm = () => {
       isbn: '',
       title: '',
       description: '',
+      publisher: '',
+      category: '',
       authors: [],
       status: '',
-      borrowerId: Number,
       published_Date: '',
-      borrow_Date: '',
-      return_Date: '',
     })
   }
 
   return (
-    <form style={{ padding: '50px' }} onSubmit={handleAddBook} id="form1">
-      <Container
-        sx={{ backgroundColor: 'white', textAlign: 'center', padding: '50px' }}
-      >
-        <Typography variant="h6">Add A Book</Typography>
+    <Container disableGutters maxWidth={false}  className="addBookContainer">
+      <form onSubmit={handleAddBook} id="form1">
         <Grid container>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
+            <Typography className='addBookHeader' variant="h6" sx={{marginBottom: '40px'}}>
+              Add A Book
+            </Typography>
+          </Grid>
+          <Grid item xs={6} className='addBookInput'>
             <TextField
               id="isbn-input"
               name="isbn"
@@ -63,7 +67,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, isbn: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className='addBookInput'>
             <TextField
               id="title-input"
               name="title"
@@ -73,10 +77,10 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, title: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className='addBookInput'>
             <TextField
               id="description-input"
-              name="descriptipn"
+              name="description"
               label="Description"
               type="text"
               value={book.description}
@@ -85,7 +89,27 @@ const BookForm = () => {
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className='addBookInput'>
+            <TextField
+              id="publisher-input"
+              name="publisher"
+              label="Publisher"
+              type="text"
+              value={book.publisher}
+              onChange={(e) => setBook({ ...book, publisher: e.target.value })}
+            />
+          </Grid>
+          <Grid item xs={6} className='addBookInput'>
+            <TextField
+              id="category-input"
+              name="category"
+              label="Category"
+              type="text"
+              value={book.category}
+              onChange={(e) => setBook({ ...book, category: e.target.value })}
+            />
+          </Grid>
+          <Grid item xs={6} className='addBookInput'>
             <TextField
               id="authors-input"
               name="authors"
@@ -95,7 +119,7 @@ const BookForm = () => {
               //onChange={(e) => setBook({...book, authors: e.target.value})}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className='addBookInput'>
             <TextField
               id="status-input"
               name="status"
@@ -105,46 +129,16 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, status: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              id="borrowerId-input"
-              name="borrowerId"
-              label="Borrower-Id"
-              type="number"
-              value={book.borrowerId}
-              //onChange={(Events) => setBook({...book, borrowerId: Events.target.value})}
-            />
-          </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className='addBookInput'>
             <TextField
               id="publishedDate-input"
               name="publishedDate"
-              label="Published-Date"
+
               type="date"
               value={book.published_Date}
               onChange={(e) =>
                 setBook({ ...book, published_Date: e.target.value })
               }
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              id="borrowDate-input"
-              name="borrowDate"
-              label="Borrow-Date"
-              type="date"
-              value={book.borrow_Date}
-              onChange={(e) => setBook({ ...book, borrow_Date: e.target.value })}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              id="returnDate-input"
-              name="return_Date"
-              label="return-Date"
-              type="date"
-              value={book.return_Date}
-              onChange={(e) => setBook({ ...book, return_Date: e.target.value })}
             />
           </Grid>
         </Grid>
@@ -155,15 +149,16 @@ const BookForm = () => {
             'Add A Book'
           )}
         </ColorButton>
-        <br/><br/>
+        <br />
+        <br />
         {booksState.addBook === 'rejected' ? (
-          <Alert severity="error">Error</Alert>
+          <Alert severity="error" style={{backgroundColor: '#F8D6CE'}}>Error</Alert>
         ) : null}
         {booksState.addBook === 'success' ? (
           <Alert severity="success">Book Added...</Alert>
         ) : null}
-      </Container>
-    </form>
+      </form>
+    </Container>
   )
 }
 

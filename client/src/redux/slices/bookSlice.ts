@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { act } from 'react-dom/test-utils'
 import { Book } from '../../types'
 
 
@@ -96,7 +95,6 @@ export const borrowBook = createAsyncThunk(
 export const returnBook = createAsyncThunk(
   'book/returnBook',
   async ({id, borrowerId}: any , { rejectWithValue }) => {
-    console.log('updated book: ', borrowerId)
     try {
       const response = await axios.put(returnUrl + id , {borrowerId}, config)
       console.log(response.data)

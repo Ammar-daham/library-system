@@ -66,7 +66,7 @@ const BookTable = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <TableContainer style={{ maxHeight: '700px'}}>
+          <TableContainer className='tableContainer'>
             <Table className="table" stickyHeader aria-label="books">
               <TableHead>
                 <TableRow>
@@ -169,7 +169,7 @@ const BookTable = () => {
                         >Remove</ColorButton>
                       </TableCell>
                     }
-                     {isAdmin && book.status === 'borrowed' &&
+                    {isAdmin && book.status === 'borrowed' &&
                       <TableCell>
                         <ColorButton disabled>Remove</ColorButton>
                       </TableCell>

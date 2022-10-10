@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { booksFetch } from 'redux/slices/bookSlice'
 import { AppDispatch } from '../redux/store'
-import  Table from '../components/Table' 
-import { Box, Grid, Paper, styled, Typography } from '@mui/material'
+import  BookTable from '../components/BooksTable' 
+import AuthorTable from '../components/AuthorsTable'
+import { Box, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import Header from 'components/Header'
 import { orange } from '@mui/material/colors'
@@ -11,11 +12,13 @@ import { orange } from '@mui/material/colors'
 
 import '../App.css'
 import BookForm from 'components/BookForm'
+import { fetchAuthors } from 'redux/slices/authorSlice'
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [ book, setBook ] = useState(false)
   const [ newBook, setNewBook ] = useState(false)
+  const [ author, setAuthor ] = useState(false)
 
   useEffect(() => {
     dispatch(booksFetch())
@@ -24,11 +27,20 @@ const Dashboard = () => {
   const handleBookTable = () => {
     setBook(true)
     setNewBook(false)
+    setAuthor(false)
   }
 
   const handleAddBook = () => {
     setNewBook(true)
     setBook(false)
+    setAuthor(false)
+  }
+
+  const handleAuthorTable = () => {
+    setBook(false)
+    setNewBook(false)
+    setAuthor(true)
+    dispatch(fetchAuthors())
   }
 
   return (
@@ -48,11 +60,8 @@ const Dashboard = () => {
             <Typography className='link'>
               Update Book
             </Typography >
-            <Typography  className='link'>
-              Remove Book
-            </Typography >
-            <Typography  className='link'>
-              Remove Author
+            <Typography  className='link' onClick={handleAuthorTable}>
+              Authors
             </Typography >
             <Typography  className='link'>
               Update Author
@@ -62,24 +71,26 @@ const Dashboard = () => {
             </Typography >
           </div>
         </Grid>
-        <Grid item xs={10}>
-          <div className='mainBooksTable'>
+        <Grid item xs={10} sx={{padding: '50px 150px 0 30px'}}>
+          <div>
             { book && 
-              <Table />
+              <BookTable />
             }
           </div>
-          <div className='mainNewBook'>
+          <div>
             { 
               newBook && 
               <BookForm />
             }
           </div>
+          <div>
+            { 
+              author && 
+              <AuthorTable />
+            }
+          </div>
         </Grid>
         
-        {/*
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid> */}
       </Grid>
     </Box>
   )

@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import Header from 'components/Header'
-import BookTable from 'components/Table'
+import BookTable from 'components/BooksTable'
 
 const ClientPage = () => {
     return (

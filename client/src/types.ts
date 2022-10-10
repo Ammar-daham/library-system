@@ -14,6 +14,13 @@ export type Book = {
   category: string
 }
 
+export type Author = {
+  _id: string
+  name: string
+  email: string
+  books: []
+}
+
 export type User = {
   _id: string
   username: string

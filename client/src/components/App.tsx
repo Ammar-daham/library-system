@@ -1,8 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from 'pages/Home'
-import { Books } from 'pages/Books'
-import { Book } from '../pages/Book'
-import Header from './Header'
+import  ClientPage from '../pages/ClientPage'
 import  Dashboard  from '../pages/Dashboard'
 
 
@@ -15,8 +13,7 @@ const App = () => {
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<Home />} />
-        <Route path="/books" element={<Books />} />
-        <Route path="/books/add-book" element={<Book />} />
+        <Route path="/user" element={<ClientPage />} />
       </Routes>
     </BrowserRouter>
   )

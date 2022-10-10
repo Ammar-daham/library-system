@@ -66,7 +66,7 @@ const BookTable = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <TableContainer style={{ maxHeight: '750px', paddingLeft: '30px' }}>
+          <TableContainer style={{ maxHeight: '700px'}}>
             <Table className="table" stickyHeader aria-label="books">
               <TableHead>
                 <TableRow>
@@ -160,13 +160,18 @@ const BookTable = () => {
                     <TableCell>{book.return_Date}</TableCell>
                     <TableCell>{book.status}</TableCell>
                     <TableCell>{book.category}</TableCell>
-                    {isAdmin && 
+                    {isAdmin && book.status !== 'borrowed' &&
                       <TableCell>
                         <ColorButton
                         onClick={() => {
                           dispatch(removeBook({id: book._id}))
                         }}
                         >Remove</ColorButton>
+                      </TableCell>
+                    }
+                     {isAdmin && book.status === 'borrowed' &&
+                      <TableCell>
+                        <ColorButton disabled>Remove</ColorButton>
                       </TableCell>
                     }
                     {isAdmin && (

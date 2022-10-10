@@ -57,9 +57,8 @@
 }
 
 .table {
-    background-color: wheat;
+    background-color: rgb(240, 211, 157);
     border: 2px solid rgba(130, 122, 115, 0.2);
-    box-shadow: 0 2px 6px rgb(34, 35, 35);
 }
 
 

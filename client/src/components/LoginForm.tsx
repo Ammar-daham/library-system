@@ -44,7 +44,7 @@ const LoginForm = () => {
           navigate('/dashboard')
         } else {
           console.log('Login')
-          navigate('/books')
+          navigate('/user')
         } 
     
       }

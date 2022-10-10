@@ -29,20 +29,20 @@ const BookTable = () => {
   const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || '')
   console.log('IsAdmin: ', isAdmin)
 
-  const [book, setBook] = useState({
-    id: '',
-    isbn: '',
-    title: '',
-    description: '',
-    authors: [],
-    status: '',
-    borrowerId: '',
-    published_Date: '',
-    borrow_Date: '',
-    return_Date: '',
-  })
+  // const [book, setBook] = useState({
+  //   id: '',
+  //   isbn: '',
+  //   title: '',
+  //   description: '',
+  //   authors: [],
+  //   status: '',
+  //   borrowerId: '',
+  //   published_Date: '',
+  //   borrow_Date: '',
+  //   return_Date: '',
+  // })
 
-  console.log('book: ', book)
+  // console.log('book: ', book)
   const userToken = localStorage.getItem('userToken') || ''
   const decoded = jwt_decode(userToken) as DecodedUser
 
@@ -90,7 +90,7 @@ const BookTable = () => {
                     <TableRow key={author._id}>
                       <TableCell>{author.name}</TableCell>
                       <TableCell>{author.email}</TableCell>
-                      <TableCell>{author.books}</TableCell>
+                      {/* <TableCell>{author.books}</TableCell> */}
                       <TableCell>
                         <ColorButton
                         >Remove</ColorButton>

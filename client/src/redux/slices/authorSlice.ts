@@ -60,6 +60,20 @@ export const fetchAuthors = createAsyncThunk(
     }
   )
 
+  export const addAuthor = createAsyncThunk(
+    'authors/addAuthor',
+    async (author: unknown, { rejectWithValue }) => {
+      try {
+        const response = await axios.post(url, author, config)
+        console.log(response.data)
+        return response.data
+      } catch (error: any) {
+        console.log(error)
+        return rejectWithValue(error.response.data)
+      }
+    },
+  );
+
 
 export const authorSlice = createSlice({
 name: 'authors',
@@ -87,6 +101,26 @@ extraReducers: (builder) => {
         getError: action.payload,
         }
     })
+    builder.addCase(addAuthor.pending, (state) => {
+        return {
+          ...state,
+          addAuthor: 'pending',
+        }
+      })
+      builder.addCase(addAuthor.fulfilled, (state, action) => {
+        return {
+          ...state,
+          authorList: [...state.authorList, action.payload.data],
+          addAuthor: 'success',
+        }
+      })
+      builder.addCase(addAuthor.rejected, (state, action) => {
+        return {
+          ...state,
+          addAuthor: 'rejected',
+          addError: action.payload,
+        }
+      })
 
 }
 })

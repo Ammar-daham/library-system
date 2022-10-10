@@ -62,7 +62,7 @@
     box-shadow: 0 0 6px rgb(26, 50, 50);
 }
 
-.addBookContainer {
+.addContainer {
     padding: initial;
     background-color: wheat;
     text-align: center;
@@ -78,7 +78,7 @@
     padding: 10px;
 }
 
-.addBookInput {
+.addInput {
     padding: 10px;
 }
 

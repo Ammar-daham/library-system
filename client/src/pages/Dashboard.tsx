@@ -13,34 +13,47 @@ import { orange } from '@mui/material/colors'
 import '../App.css'
 import BookForm from 'components/BookForm'
 import { fetchAuthors } from 'redux/slices/authorSlice'
+import AuthorForm from 'components/AuthorForm'
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [ book, setBook ] = useState(false)
   const [ newBook, setNewBook ] = useState(false)
   const [ author, setAuthor ] = useState(false)
+  const [ newAuthor, setNewAuthor ] = useState(false)
+
 
   useEffect(() => {
     dispatch(booksFetch())
+    dispatch(fetchAuthors())
   }, [dispatch])
 
   const handleBookTable = () => {
     setBook(true)
     setNewBook(false)
     setAuthor(false)
+    setNewAuthor(false)
   }
 
   const handleAddBook = () => {
     setNewBook(true)
     setBook(false)
     setAuthor(false)
+    setNewAuthor(false)
   }
 
   const handleAuthorTable = () => {
     setBook(false)
     setNewBook(false)
     setAuthor(true)
-    dispatch(fetchAuthors())
+    setNewAuthor(false)
+  }
+
+  const handleAddAuthor = () => {
+    setBook(false)
+    setNewBook(false)
+    setAuthor(false)
+    setNewAuthor(true)
   }
 
   return (
@@ -66,8 +79,8 @@ const Dashboard = () => {
             <Typography  className='link'>
               Update Author
             </Typography >
-            <Typography  className='link'>
-              Remove Author
+            <Typography  className='link' onClick={handleAddAuthor}>
+              Add Author
             </Typography >
           </div>
         </Grid>
@@ -87,6 +100,12 @@ const Dashboard = () => {
             { 
               author && 
               <AuthorTable />
+            }
+          </div>
+          <div>
+            { 
+              newAuthor && 
+              <AuthorForm />
             }
           </div>
         </Grid>

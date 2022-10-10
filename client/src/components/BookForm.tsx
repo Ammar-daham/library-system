@@ -46,7 +46,7 @@ const BookForm = () => {
   }
 
   return (
-    <Container disableGutters maxWidth={false}  className="addBookContainer">
+    <Container disableGutters maxWidth={false}  className="addContainer">
       <form onSubmit={handleAddBook} id="form1">
         <Grid container>
           <Grid item xs={12}>
@@ -64,7 +64,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, isbn: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className='addInput'>
             <TextField
               id="title-input"
               name="title"
@@ -74,7 +74,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, title: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className='addInput'>
             <TextField
               id="description-input"
               name="description"
@@ -86,7 +86,7 @@ const BookForm = () => {
               }
             />
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className='addInput'>
             <TextField
               id="publisher-input"
               name="publisher"
@@ -96,7 +96,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, publisher: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className='addInput'>
             <TextField
               id="category-input"
               name="category"
@@ -106,7 +106,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, category: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className='addInput'>
             <TextField
               id="authors-input"
               name="authors"
@@ -116,7 +116,7 @@ const BookForm = () => {
               //onChange={(e) => setBook({...book, authors: e.target.value})}
             />
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className='addInput'>
             <TextField
               id="status-input"
               name="status"
@@ -126,7 +126,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, status: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className='addInput'>
             <TextField
               id="publishedDate-input"
               name="publishedDate"

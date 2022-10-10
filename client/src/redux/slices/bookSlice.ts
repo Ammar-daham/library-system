@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Book } from '../../types'
 
 
-const url = `http://localhost:4000/api/v1/books`
+const url = `http://localhost:4000/api/v1/books/`
 const borrowUrl = `http://localhost:4000/api/v1/books/status/borrowed/`
 const returnUrl = `http://localhost:4000/api/v1/books/status/available/`
 
@@ -107,6 +107,21 @@ export const returnBook = createAsyncThunk(
 );
 
 
+export const removeBook = createAsyncThunk(
+  'book/removeBook',
+  async ({id}: any , { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(url + id , config)
+      console.log(response.data)
+      return response.data
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response.data)
+    }
+  },
+);
+
+
 export const bookSlice = createSlice({
   name: 'books',
   initialState,
@@ -198,6 +213,30 @@ export const bookSlice = createSlice({
         ...state,
         addBook: 'rejected',
         addError: action.payload,
+      }
+    })
+
+    builder.addCase(removeBook.pending, (state) => {
+      return {
+        ...state,
+        deleteBook: 'pending'
+      }
+    })
+    builder.addCase(removeBook.fulfilled, (state, action) => {
+      console.log('action: ', action)
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.deleteBook = 'success'
+      }
+    })
+    builder.addCase(removeBook.rejected, (state, action) => {
+      return {
+        ...state,
+        deleteBook: 'rejected',
+        deleteError: action.payload,
       }
     })
   

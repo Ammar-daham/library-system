@@ -19,7 +19,7 @@ import '../App.css'
 import { orange } from '@mui/material/colors'
 import ColorButton from './Button'
 import { useState } from 'react'
-import { borrowBook, returnBook } from 'redux/slices/bookSlice'
+import { borrowBook, returnBook, removeBook } from 'redux/slices/bookSlice'
 import { DecodedUser } from 'types'
 
 const BookTable = () => {
@@ -115,45 +115,42 @@ const BookTable = () => {
                   >
                     Category
                   </TableCell>
-                  {
-                    isAdmin &&
+                  {isAdmin && (
                     <TableCell
-                    sx={{ backgroundColor: orange[500], color: 'white' }}
-                  >
-                    Remove
-                  </TableCell>
-                  }
-                   {
-                    isAdmin &&
+                      sx={{ backgroundColor: orange[500], color: 'white' }}
+                    >
+                      Remove
+                    </TableCell>
+                  )}
+                  {isAdmin && (
                     <TableCell
-                    sx={{ backgroundColor: orange[500], color: 'white' }}
-                  >
-                    Update
-                  </TableCell>
-                  }
-                  { 
-                  !isAdmin &&
+                      sx={{ backgroundColor: orange[500], color: 'white' }}
+                    >
+                      Update
+                    </TableCell>
+                  )}
+                  {!isAdmin && (
                     <TableCell
-                    sx={{ backgroundColor: orange[500], color: 'white' }}
-                  >
-                    Borrow
-                  </TableCell>
-                  }
-                  { 
-                  !isAdmin &&
+                      sx={{ backgroundColor: orange[500], color: 'white' }}
+                    >
+                      Borrow
+                    </TableCell>
+                  )}
+                  {!isAdmin && (
                     <TableCell
-                    sx={{ backgroundColor: orange[500], color: 'white' }}
-                  >
-                    Return
-                  </TableCell>
-                  }
-                 
+                      sx={{ backgroundColor: orange[500], color: 'white' }}
+                    >
+                      Return
+                    </TableCell>
+                  )}
                 </TableRow>
               </TableHead>
-
+              
               <TableBody>
                 {books.bookList.map((book: any) => (
-                  <TableRow key={book._id}>
+                  
+                    book._id &&
+                    <TableRow key={book._id}>
                     <TableCell>{book.isbn}</TableCell>
                     <TableCell>{book.title}</TableCell>
                     <TableCell>{book.description}</TableCell>
@@ -163,11 +160,15 @@ const BookTable = () => {
                     <TableCell>{book.return_Date}</TableCell>
                     <TableCell>{book.status}</TableCell>
                     <TableCell>{book.category}</TableCell>
-                    {isAdmin && (
+                    {isAdmin && 
                       <TableCell>
-                        <ColorButton>Remove</ColorButton>
+                        <ColorButton
+                        onClick={() => {
+                          dispatch(removeBook({id: book._id}))
+                        }}
+                        >Remove</ColorButton>
                       </TableCell>
-                    )}
+                    }
                     {isAdmin && (
                       <TableCell>
                         <ColorButton>Update</ColorButton>
@@ -225,6 +226,8 @@ const BookTable = () => {
                     )}
                   </TableRow>
                 ))}
+                  
+               
               </TableBody>
             </Table>
           </TableContainer>

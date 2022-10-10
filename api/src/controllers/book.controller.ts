@@ -18,10 +18,7 @@ export const createBook = async (
       authors,
       status,
       category,
-      borrowerId,
       published_Date,
-      borrow_Date,
-      return_Date,
     } = req.body
 
     const book = new Book({
@@ -32,10 +29,7 @@ export const createBook = async (
       authors,
       status,
       category,
-      borrowerId,
       published_Date,
-      borrow_Date,
-      return_Date,
     })
 
     await bookService.create(book)

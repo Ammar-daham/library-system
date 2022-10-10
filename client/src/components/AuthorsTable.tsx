@@ -46,12 +46,11 @@ const BookTable = () => {
   const userToken = localStorage.getItem('userToken') || ''
   const decoded = jwt_decode(userToken) as DecodedUser
 
-
   return (
     <Box>
       <Grid container>
         <Grid item xs={12}>
-          <TableContainer className='tableContainer'>
+          <TableContainer className="tableContainer">
             <Table className="table" stickyHeader aria-label="books">
               <TableHead>
                 <TableRow>
@@ -80,26 +79,36 @@ const BookTable = () => {
                   >
                     Update
                   </TableCell>
-                </TableRow>     
+                </TableRow>
               </TableHead>
-              
+
               <TableBody>
-                {
-                  authors.authorList.map((author) => (                  
-                    author._id &&
-                    <TableRow key={author._id}>
-                      <TableCell>{author.name}</TableCell>
-                      <TableCell>{author.email}</TableCell>
-                      {/* <TableCell>{author.books}</TableCell> */}
-                      <TableCell>
-                        <ColorButton
-                        >Remove</ColorButton>
-                      </TableCell>
-                      <TableCell>
-                        <ColorButton>Update</ColorButton>
-                      </TableCell>
-                  </TableRow>
-              ))}
+                {authors.authorList.map(
+                  (author) =>
+                    author._id && (
+                      <TableRow key={author._id}>
+                        <TableCell>{author.name}</TableCell>
+                        <TableCell>{author.email}</TableCell>
+                        <TableCell>
+                          <ul style={{ paddingLeft: 15 }}>
+                           
+                            {author.books.map(
+                              (book: any) => (
+                                <li key={book}>{book.title}</li>
+                              ),
+                            )}
+                          </ul>
+                        </TableCell>
+                        {/* <TableCell>{author.books}</TableCell> */}
+                        <TableCell>
+                          <ColorButton>Remove</ColorButton>
+                        </TableCell>
+                        <TableCell>
+                          <ColorButton>Update</ColorButton>
+                        </TableCell>
+                      </TableRow>
+                    ),
+                )}
               </TableBody>
             </Table>
           </TableContainer>

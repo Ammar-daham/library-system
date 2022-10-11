@@ -79,9 +79,9 @@ const BookTable = () => {
                   (author: any) => (
                     author._id &&
                       <TableRow key={author._id}>
-                        <TableCell>{author.name}</TableCell>
-                        <TableCell>{author.email}</TableCell>
-                        <TableCell>
+                        <TableCell className='tableData'>{author.name}</TableCell>
+                        <TableCell className='tableData'>{author.email}</TableCell>
+                        <TableCell className='tableData'>
                           <ul style={{ paddingLeft: 15 }}>
                             {author.books.map(
                               (book: any) => (

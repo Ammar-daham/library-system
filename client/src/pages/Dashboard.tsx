@@ -22,30 +22,32 @@ const Dashboard = () => {
   const [ newAuthor, setNewAuthor ] = useState(false)
 
 
-  const handleBookTable = () => {
+  const handleBookTable = async () => {
+    await dispatch(booksFetch())
     setBook(true)
     setNewBook(false)
     setAuthor(false)
     setNewAuthor(false)
-    dispatch(booksFetch())
   }
 
-  const handleAddBook = () => {
+  const handleAddBook = async () => {
+    await dispatch(fetchAuthors())
     setNewBook(true)
     setBook(false)
     setAuthor(false)
     setNewAuthor(false)
   }
 
-  const handleAuthorTable = () => {
+  const handleAuthorTable = async () => {
+    await dispatch(fetchAuthors())
     setBook(false)
     setNewBook(false)
     setAuthor(true)
     setNewAuthor(false)
-    dispatch(fetchAuthors())
   }
 
-  const handleAddAuthor = () => {
+  const handleAddAuthor = async () => {
+    await dispatch(booksFetch())
     setBook(false)
     setNewBook(false)
     setAuthor(false)

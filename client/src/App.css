@@ -57,6 +57,10 @@
     border: 2px solid rgba(130, 122, 115, 0.2);
 }
 
+.tabledata {
+    font-size: 12px;
+}
+
 .tableContainer {
     max-height: 600px;
     box-shadow: 0 0 6px rgb(26, 50, 50);

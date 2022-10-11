@@ -8,7 +8,7 @@ import { orange } from '@mui/material/colors'
     backgroundColor: orange[500],
     '&:hover': {
       backgroundColor: orange[700],
-      color: 'white'
+      color: 'white',
     },
   }))
 

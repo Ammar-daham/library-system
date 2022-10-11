@@ -5,6 +5,9 @@ import {
   Typography,
   Alert,
   CircularProgress,
+  Select,
+  SelectChangeEvent,
+  MenuItem,
 } from '@mui/material'
 import ColorButton from 'components/Button'
 import { useState } from 'react'
@@ -13,10 +16,12 @@ import { addBook } from '../redux/slices/bookSlice'
 import { AppDispatch, RootState } from 'redux/store'
 
 import '../App.css'
+import { current } from '@reduxjs/toolkit'
 
 const BookForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const booksState = useSelector((state: RootState) => state.books)
+  const authors = useSelector((state: RootState) => state.authors.authorList)
 
   const [book, setBook] = useState({
     isbn: '',
@@ -24,10 +29,21 @@ const BookForm = () => {
     description: '',
     publisher: '',
     category: '',
-    authors: [],
+    authors: {},
     status: '',
     published_Date: '',
   })
+
+  const [author, setAuthor] = useState({
+    _id: '',
+  })
+  
+  console.log('book: ', book)
+  const handleChange = (event: SelectChangeEvent) => {
+    setAuthor({ ...author, _id: event.target.value as string })
+    setBook({...book, authors: event.target.value as string})
+  }
+  
 
   const handleAddBook = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault()
@@ -39,22 +55,26 @@ const BookForm = () => {
       description: '',
       publisher: '',
       category: '',
-      authors: [],
+      authors: {},
       status: '',
       published_Date: '',
     })
   }
 
   return (
-    <Container disableGutters maxWidth={false}  className="addContainer">
+    <Container disableGutters maxWidth={false} className="addContainer">
       <form onSubmit={handleAddBook} id="form1">
         <Grid container>
           <Grid item xs={12}>
-            <Typography className='addBookHeader' variant="h6" sx={{marginBottom: '40px'}}>
+            <Typography
+              className="addBookHeader"
+              variant="h6"
+              sx={{ marginBottom: '40px' }}
+            >
               Add A Book
             </Typography>
           </Grid>
-          <Grid item xs={6} className='addBookInput'>
+          <Grid item xs={6} className="addBookInput">
             <TextField
               id="isbn-input"
               name="isbn"
@@ -64,7 +84,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, isbn: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addInput'>
+          <Grid item xs={6} className="addInput">
             <TextField
               id="title-input"
               name="title"
@@ -74,7 +94,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, title: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addInput'>
+          <Grid item xs={6} className="addInput">
             <TextField
               id="description-input"
               name="description"
@@ -86,7 +106,7 @@ const BookForm = () => {
               }
             />
           </Grid>
-          <Grid item xs={6} className='addInput'>
+          <Grid item xs={6} className="addInput">
             <TextField
               id="publisher-input"
               name="publisher"
@@ -96,7 +116,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, publisher: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addInput'>
+          <Grid item xs={6} className="addInput">
             <TextField
               id="category-input"
               name="category"
@@ -106,17 +126,7 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, category: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addInput'>
-            <TextField
-              id="authors-input"
-              name="authors"
-              label="Authors"
-              type="text"
-              value={book.authors}
-              //onChange={(e) => setBook({...book, authors: e.target.value})}
-            />
-          </Grid>
-          <Grid item xs={6} className='addInput'>
+          <Grid item xs={6} className="addInput">
             <TextField
               id="status-input"
               name="status"
@@ -126,17 +136,29 @@ const BookForm = () => {
               onChange={(e) => setBook({ ...book, status: e.target.value })}
             />
           </Grid>
-          <Grid item xs={6} className='addInput'>
+          <Grid item xs={6} className="addInput">
             <TextField
+              sx={{width: '200px'}}
               id="publishedDate-input"
               name="publishedDate"
-
               type="date"
               value={book.published_Date}
               onChange={(e) =>
                 setBook({ ...book, published_Date: e.target.value })
               }
             />
+          </Grid>
+          <Grid item xs={6} className="addInput">
+            <Select
+              value={author._id}
+              label="Author-Name"
+              onChange={handleChange}
+              sx={{width: '200px', background:'wheat'}}
+            >
+              {authors.map((author) => (
+                <MenuItem  value={author._id} sx={{background:'wheat'}}>{author.name}</MenuItem>
+              ))}
+            </Select>
           </Grid>
         </Grid>
         <ColorButton type="submit" form="form1" variant="contained">
@@ -149,7 +171,9 @@ const BookForm = () => {
         <br />
         <br />
         {booksState.addBook === 'rejected' ? (
-          <Alert severity="error" style={{backgroundColor: '#F8D6CE'}}>Error</Alert>
+          <Alert severity="error" style={{ backgroundColor: '#F8D6CE' }}>
+            Error
+          </Alert>
         ) : null}
         {booksState.addBook === 'success' ? (
           <Alert severity="success">Book Added...</Alert>
@@ -158,5 +182,6 @@ const BookForm = () => {
     </Container>
   )
 }
+
 
 export default BookForm

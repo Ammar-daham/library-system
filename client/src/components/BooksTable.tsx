@@ -19,7 +19,12 @@ import '../App.css'
 import { orange } from '@mui/material/colors'
 import ColorButton from './Button'
 import { useEffect, useState } from 'react'
-import { borrowBook, returnBook, removeBook, booksFetch } from 'redux/slices/bookSlice'
+import {
+  borrowBook,
+  returnBook,
+  removeBook,
+  booksFetch,
+} from 'redux/slices/bookSlice'
 import { DecodedUser } from 'types'
 
 const BookTable = () => {
@@ -50,7 +55,6 @@ const BookTable = () => {
     dispatch(booksFetch)
   }, [dispatch])
 
-
   return (
     <Box>
       <Grid container>
@@ -65,7 +69,7 @@ const BookTable = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <TableContainer className='tableContainer'>
+          <TableContainer className="tableContainer">
             <Table className="table" stickyHeader aria-label="books">
               <TableHead>
                 <TableRow>
@@ -114,6 +118,11 @@ const BookTable = () => {
                   >
                     Category
                   </TableCell>
+                  <TableCell
+                    sx={{ backgroundColor: orange[500], color: 'white' }}
+                  >
+                    Authors
+                  </TableCell>
                   {isAdmin && (
                     <TableCell
                       sx={{ backgroundColor: orange[500], color: 'white' }}
@@ -144,94 +153,102 @@ const BookTable = () => {
                   )}
                 </TableRow>
               </TableHead>
-              
+
               <TableBody>
-                {books.bookList.map((book: any) => (
-                  
-                    book._id &&
-                    <TableRow key={book._id}>
-                    <TableCell>{book.isbn}</TableCell>
-                    <TableCell>{book.title}</TableCell>
-                    <TableCell>{book.description}</TableCell>
-                    <TableCell>{book.Publisher}</TableCell>
-                    <TableCell>{book.published_Date}</TableCell>
-                    <TableCell>{book.borrow_Date}</TableCell>
-                    <TableCell>{book.return_Date}</TableCell>
-                    <TableCell>{book.status}</TableCell>
-                    <TableCell>{book.category}</TableCell>
-                    {isAdmin && book.status !== 'borrowed' &&
-                      <TableCell>
-                        <ColorButton
-                        onClick={() => {
-                          dispatch(removeBook({id: book._id}))
-                        }}
-                        >Remove</ColorButton>
-                      </TableCell>
-                    }
-                    {isAdmin && book.status === 'borrowed' &&
-                      <TableCell>
-                        <ColorButton disabled>Remove</ColorButton>
-                      </TableCell>
-                    }
-                    {isAdmin && (
-                      <TableCell>
-                        <ColorButton>Update</ColorButton>
-                      </TableCell>
-                    )}
-                    {!isAdmin && (
-                      <TableCell>
-                        {book.status === 'borrowed' && (
-                          <ColorButton disabled>Borrow</ColorButton>
+                {books.bookList.map(
+                  (book: any) =>
+                    book._id && (
+                      <TableRow key={book._id}>
+                        <TableCell className='tableData'>{book.isbn}</TableCell>
+                        <TableCell className='tableData'>{book.title}</TableCell>
+                        <TableCell className='tableData'>{book.description}</TableCell>
+                        <TableCell className='tableData'>{book.publisher}</TableCell>
+                        <TableCell className='tableData'>{book.published_Date}</TableCell>
+                        <TableCell className='tableData'>{book.borrow_Date}</TableCell>
+                        <TableCell className='tableData'>{book.return_Date}</TableCell>
+                        <TableCell className='tableData'>{book.status}</TableCell>
+                        <TableCell className='tableData'>{book.category}</TableCell>
+                        <TableCell className='tableData'>
+                          <ul style={{ paddingLeft: 15 }}>
+                            {book.authors.map((author: any) => (
+                              <li key={author._id}>{author.name}</li>
+                            ))}
+                          </ul>
+                        </TableCell>
+                        {isAdmin && book.status !== 'borrowed' && (
+                          <TableCell>
+                            <ColorButton
+                              onClick={() => {
+                                dispatch(removeBook({ id: book._id }))
+                              }}
+                            >
+                              Remove
+                            </ColorButton>
+                          </TableCell>
                         )}
-                        {book.status === 'available' && (
-                          <ColorButton
-                            onClick={async () => {
-                              setBook({
-                                ...book,
-                                borrowerId: decoded.userId,
-                              })
-                              await dispatch(
-                                borrowBook({
-                                  id: book._id,
-                                  borrowerId: decoded.userId,
-                                }),
-                              )
-                            }}
-                          >
-                            Borrow
-                          </ColorButton>
+                        {isAdmin && book.status === 'borrowed' && (
+                          <TableCell>
+                            <ColorButton disabled>Remove</ColorButton>
+                          </TableCell>
                         )}
-                      </TableCell>
-                    )}
-                    {!isAdmin && (
-                      <TableCell>
-                        {book.status === 'borrowed' && (
-                          <ColorButton
-                            onClick={async () => {
-                              setBook({
-                                ...book,
-                                borrowerId: decoded.userId,
-                              })
-                              await dispatch(
-                                returnBook({
-                                  id: book._id,
-                                  borrowerId: book.borrowerId,
-                                }),
-                              )
-                            }}
-                          >
-                            Return
-                          </ColorButton>
+                        {isAdmin && (
+                          <TableCell>
+                            <ColorButton>Update</ColorButton>
+                          </TableCell>
                         )}
-                        {book.status === 'available' && (
-                          <ColorButton disabled>Return</ColorButton>
+                        {!isAdmin && (
+                          <TableCell>
+                            {book.status === 'borrowed' && (
+                              <ColorButton disabled>Borrow</ColorButton>
+                            )}
+                            {book.status === 'available' && (
+                              <ColorButton
+                                onClick={async () => {
+                                  setBook({
+                                    ...book,
+                                    borrowerId: decoded.userId,
+                                  })
+                                  await dispatch(
+                                    borrowBook({
+                                      id: book._id,
+                                      borrowerId: decoded.userId,
+                                    }),
+                                  )
+                                }}
+                              >
+                                Borrow
+                              </ColorButton>
+                            )}
+                          </TableCell>
                         )}
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))}
-                  
-               
+                        {!isAdmin && (
+                          <TableCell>
+                            {book.status === 'borrowed' && (
+                              <ColorButton
+                                onClick={async () => {
+                                  setBook({
+                                    ...book,
+                                    borrowerId: decoded.userId,
+                                  })
+                                  await dispatch(
+                                    returnBook({
+                                      id: book._id,
+                                      borrowerId: book.borrowerId,
+                                    }),
+                                  )
+                                }}
+                              >
+                                Return
+                              </ColorButton>
+                            )}
+                            {book.status === 'available' && (
+                              <ColorButton disabled>Return</ColorButton>
+                            )}
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ),
+                )}
               </TableBody>
             </Table>
           </TableContainer>

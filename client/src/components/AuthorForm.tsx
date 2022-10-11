@@ -10,10 +10,10 @@ import {
   Select,
 } from '@mui/material'
 import ColorButton from 'components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'redux/store'
-import { addAuthor } from 'redux/slices/authorSlice'
+import { addAuthor, fetchAuthors } from 'redux/slices/authorSlice'
 
 import '../App.css'
 
@@ -37,12 +37,12 @@ const AuthorForm = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setBook({...book, _id: event.target.value as string })
-    setAuthor({...author, books: book._id})
+    setAuthor({...author, books: event.target.value as string})
   }
 
-  const handleAddBook = async (e: React.FormEvent<EventTarget>) => {
+  const handleAddBook = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault()
-    await dispatch(addAuthor(author))
+    dispatch(addAuthor(author))
     setAuthor({
       name: '',
       email: '',
@@ -85,13 +85,15 @@ const AuthorForm = () => {
           </Grid>
           <Grid item xs={12} className="addInput">
             <Select
+                sx={{width: '200px'}}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={book._id}
               label="Title"
               onChange={handleChange}
             >
-              {books.bookList.map((book) => (
+              { 
+              books.bookList.map((book) => (
                 <MenuItem 
                     value={book._id}
                 >

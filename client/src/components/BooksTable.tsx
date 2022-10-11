@@ -18,8 +18,8 @@ import {
 import '../App.css'
 import { orange } from '@mui/material/colors'
 import ColorButton from './Button'
-import { useState } from 'react'
-import { borrowBook, returnBook, removeBook } from 'redux/slices/bookSlice'
+import { useEffect, useState } from 'react'
+import { borrowBook, returnBook, removeBook, booksFetch } from 'redux/slices/bookSlice'
 import { DecodedUser } from 'types'
 
 const BookTable = () => {
@@ -46,11 +46,10 @@ const BookTable = () => {
   const userToken = localStorage.getItem('userToken') || ''
   const decoded = jwt_decode(userToken) as DecodedUser
 
-  // const handleBorrow = async () => {
-  //   setBook({ ...book, borrowerId: decoded.userId })
-  //   console.log('decodedUser: ', decoded)
-  //   await dispatch(borrowBook(book))
-  // }
+  useEffect(() => {
+    dispatch(booksFetch)
+  }, [dispatch])
+
 
   return (
     <Box>

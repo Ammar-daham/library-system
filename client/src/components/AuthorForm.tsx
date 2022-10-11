@@ -25,28 +25,28 @@ const AuthorForm = () => {
   const [author, setAuthor] = useState({
     name: '',
     email: '',
-    books: '',
+    books: {},
   })
 
   const [book, setBook] = useState({
     _id: '',
-    title: ''
   })
 
   console.log('book: ', book)
+  console.log('author: ', author)
 
   const handleChange = (event: SelectChangeEvent) => {
     setBook({...book, _id: event.target.value as string })
     setAuthor({...author, books: book._id})
   }
 
-  const handleAddBook = (e: React.FormEvent<EventTarget>) => {
+  const handleAddBook = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault()
-    dispatch(addAuthor(author))
+    await dispatch(addAuthor(author))
     setAuthor({
       name: '',
       email: '',
-      books: '',
+      books: {},
     })
   }
 

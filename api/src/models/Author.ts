@@ -3,13 +3,12 @@ import mongoose, { Document } from 'mongoose'
 export type AuthorDocument = Document & {
   name: string
   email: string
-  books: {}
+  books: string
 }
 
 const authorSchema = new mongoose.Schema({
   name: {
     type: String,
-    index: true,
     required: true,
   },
   email: {
@@ -18,8 +17,8 @@ const authorSchema = new mongoose.Schema({
   },
   books: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Book',
     required: true,
+    ref: 'Book',
   },
 })
 

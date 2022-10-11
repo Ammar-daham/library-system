@@ -13,7 +13,7 @@ const router = express.Router()
 
 router.get(
   '/',
-
+  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
   findAllAuthors
 )
 router.get(

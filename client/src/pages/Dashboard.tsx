@@ -4,8 +4,7 @@ import { booksFetch } from 'redux/slices/bookSlice'
 import { AppDispatch } from '../redux/store'
 import  BookTable from '../components/BooksTable' 
 import AuthorTable from '../components/AuthorsTable'
-import { Box, Grid, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Box, CircularProgress, Grid, Typography } from '@mui/material'
 import Header from 'components/Header'
 import { orange } from '@mui/material/colors'
 
@@ -23,16 +22,12 @@ const Dashboard = () => {
   const [ newAuthor, setNewAuthor ] = useState(false)
 
 
-  useEffect(() => {
-    dispatch(booksFetch())
-    dispatch(fetchAuthors())
-  }, [dispatch])
-
   const handleBookTable = () => {
     setBook(true)
     setNewBook(false)
     setAuthor(false)
     setNewAuthor(false)
+    dispatch(booksFetch())
   }
 
   const handleAddBook = () => {
@@ -47,6 +42,7 @@ const Dashboard = () => {
     setNewBook(false)
     setAuthor(true)
     setNewAuthor(false)
+    dispatch(fetchAuthors())
   }
 
   const handleAddAuthor = () => {
@@ -89,25 +85,20 @@ const Dashboard = () => {
             { book && 
               <BookTable />
             }
-          </div>
-          <div>
-            { 
+             { 
               newBook && 
               <BookForm />
             }
-          </div>
-          <div>
             { 
               author && 
               <AuthorTable />
             }
-          </div>
-          <div>
             { 
               newAuthor && 
               <AuthorForm />
             }
           </div>
+         
         </Grid>
         
       </Grid>

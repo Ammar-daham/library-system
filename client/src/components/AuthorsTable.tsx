@@ -11,38 +11,30 @@ import {
   TableRow,
   Box,
   Grid,
-  TextField,
   TableContainer,
+  CircularProgress,
 } from '@mui/material'
 
 import '../App.css'
 import { orange } from '@mui/material/colors'
 import ColorButton from './Button'
-import { useState } from 'react'
-import { fetchAuthors } from 'redux/slices/authorSlice'
+import { useEffect, useState } from 'react'
+import { fetchAuthors, removeAuthor } from 'redux/slices/authorSlice'
 import { DecodedUser } from 'types'
 
 const BookTable = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { authors } = useSelector((state: RootState) => state)
+  const  authors  = useSelector((state: RootState) => state.authors.authorList)
 
   const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || '')
   console.log('IsAdmin: ', isAdmin)
 
-  // const [book, setBook] = useState({
-  //   id: '',
-  //   isbn: '',
-  //   title: '',
-  //   description: '',
-  //   authors: [],
-  //   status: '',
-  //   borrowerId: '',
-  //   published_Date: '',
-  //   borrow_Date: '',
-  //   return_Date: '',
-  // })
 
-  // console.log('book: ', book)
+  useEffect(() => {
+    dispatch(fetchAuthors)
+  }, [dispatch])
+
+  
   const userToken = localStorage.getItem('userToken') || ''
   const decoded = jwt_decode(userToken) as DecodedUser
 
@@ -83,26 +75,40 @@ const BookTable = () => {
               </TableHead>
 
               <TableBody>
-                {authors.authorList.map(
-                  (author) =>
-                    author._id && (
+                {authors.map(
+                  (author: any) => (
+                    author._id &&
                       <TableRow key={author._id}>
                         <TableCell>{author.name}</TableCell>
                         <TableCell>{author.email}</TableCell>
                         <TableCell>
                           <ul style={{ paddingLeft: 15 }}>
-                           
                             {author.books.map(
                               (book: any) => (
-                                <li key={book}>{book.title}</li>
+                                <li key={book._id}>{book.title}</li>
                               ),
                             )}
                           </ul>
                         </TableCell>
-                        {/* <TableCell>{author.books}</TableCell> */}
+                          {
+                            isAdmin && author.books.length === 0 &&
                         <TableCell>
-                          <ColorButton>Remove</ColorButton>
-                        </TableCell>
+                          <ColorButton
+                            onClick={() => {
+                              dispatch(removeAuthor({id: author._id}))
+                            }}
+                            >
+                            Remove
+                          </ColorButton>   
+                            </TableCell>
+                          } 
+                          {
+                            author.books.length > 0 && 
+                            <TableCell>
+                              <ColorButton disabled>Remove</ColorButton>
+
+                            </TableCell>
+                          }
                         <TableCell>
                           <ColorButton>Update</ColorButton>
                         </TableCell>

@@ -74,6 +74,20 @@ export const fetchAuthors = createAsyncThunk(
     },
   );
 
+  export const removeAuthor = createAsyncThunk(
+    'author/removeAuthor',
+    async ({id}: any , { rejectWithValue }) => {
+      try {
+        const response = await axios.delete(url + id , config)
+        console.log(response.data)
+        return response.data
+      } catch (error: any) {
+        console.log(error)
+        return rejectWithValue(error.response.data)
+      }
+    },
+  );
+
 
 export const authorSlice = createSlice({
 name: 'authors',
@@ -121,7 +135,29 @@ extraReducers: (builder) => {
           addError: action.payload,
         }
       })
-
+      builder.addCase(removeAuthor.pending, (state) => {
+        return {
+          ...state,
+          deleteAuthor: 'pending'
+        }
+      })
+      builder.addCase(removeAuthor.fulfilled, (state, action) => {
+        console.log('action: ', action)
+        const {
+          arg: { id }
+        } = action.meta;
+        if(id) {
+          state.authorList = state.authorList.map((author) => author._id === id ? action.payload : author);
+          state.deleteAuthor = 'success'
+        }
+      })
+      builder.addCase(removeAuthor.rejected, (state, action) => {
+        return {
+          ...state,
+          deleteAuthor: 'rejected',
+          deleteError: action.payload,
+        }
+      })
 }
 })
 

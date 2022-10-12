@@ -3,6 +3,7 @@ import Book from '../models/Book'
 import bookService from '../services/book.service'
 import { BadRequestError } from '../helpers/apiError'
 
+const date = new Date()
 // POST /books
 export const createBook = async (
   req: Request,
@@ -72,7 +73,8 @@ export const bookBorrowed = async (
   try {
     const bookId = req.params.bookId
     req.body.status = 'borrowed'
-    req.body.borrow_Date = new Date().toJSON()
+    req.body.borrow_Date =
+      date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
     req.body.return_Date = ''
 
     const updatedBook = await bookService.bookBorrowed(bookId, req.body)
@@ -96,7 +98,8 @@ export const bookReturned = async (
     const bookId = req.params.bookId
     req.body.status = 'available'
     req.body.borrow_Date = ''
-    req.body.return_Date = new Date().toJSON()
+    req.body.return_Date =
+      date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
 
     const updatedBook = await bookService.bookReturned(bookId, req.body)
     res.json(updatedBook)

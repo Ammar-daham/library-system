@@ -27,6 +27,8 @@ import {
 } from 'redux/slices/bookSlice'
 import { DecodedUser } from 'types'
 
+import '../App.css'
+
 const BookTable = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { books } = useSelector((state: RootState) => state)

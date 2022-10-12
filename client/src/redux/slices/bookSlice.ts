@@ -79,7 +79,7 @@ export const addBook = createAsyncThunk(
 
 export const borrowBook = createAsyncThunk(
   'book/borrowBook',
-  async ({id, borrowerId}: any , { rejectWithValue }) => {
+  async ({id, borrowerId }: any , { rejectWithValue }) => {
     console.log('updated book: ', borrowerId)
     try {
       const response = await axios.put(borrowUrl + id , { borrowerId }, config)

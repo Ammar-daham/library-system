@@ -17,13 +17,15 @@ import { AppDispatch, RootState } from 'redux/store'
 
 import '../App.css'
 import { current } from '@reduxjs/toolkit'
+import { Book } from 'types'
 
 const BookForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const booksState = useSelector((state: RootState) => state.books)
   const authors = useSelector((state: RootState) => state.authors.authorList)
 
-  const [book, setBook] = useState({
+  const [book, setBook] = useState<Book>({
+    _id: '',
     isbn: '',
     title: '',
     description: '',
@@ -31,7 +33,10 @@ const BookForm = () => {
     category: '',
     authors: {},
     status: '',
+    borrowerId: '',
     published_Date: '',
+    borrow_Date: '',
+    return_Date: '',
   })
 
   const [author, setAuthor] = useState({
@@ -48,17 +53,6 @@ const BookForm = () => {
   const handleAddBook = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault()
     dispatch(addBook(book))
-
-    setBook({
-      isbn: '',
-      title: '',
-      description: '',
-      publisher: '',
-      category: '',
-      authors: {},
-      status: '',
-      published_Date: '',
-    })
   }
 
   return (

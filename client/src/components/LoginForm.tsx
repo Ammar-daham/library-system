@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Container, Divider, Grid, TextField, Typography } from '@mui/material'
 import { orange } from '@mui/material/colors'
 import {
@@ -9,8 +8,6 @@ import ColorButton from './Button'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'redux/store'
 import { auth } from '../redux/slices/authSlice'
-import jwt_decode from 'jwt-decode'
-import { DecodedUser } from 'types'
 import { useNavigate } from 'react-router-dom'
 import background from "../books.jpg";
 
@@ -20,22 +17,9 @@ import '../App.css'
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
-  const [authenticated, setAuthenticated] = useState(false)
-
-  //const users = useSelector((state: RootState) => state.user.users)
-  
-  // useEffect(() => {
-  //   const userToken = localStorage.getItem('userToken') || ''
-  //   const decoded = jwt_decode(userToken) as DecodedUser
-  //   if(decoded) {
-  //     setAuthenticated(true)
-  //   }
-  // }, [authenticated])
   
   const handleGoogleOnSuccess = async (data: CredentialResponse) => {
     await dispatch(auth(data))
-    //const userToken = localStorage.getItem('userToken') || ''
-    //decoded = await jwt_decode(userToken) as DecodedUser
     const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || '')
     console.log('IsAdmin: ', isAdmin)
 

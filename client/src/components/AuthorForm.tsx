@@ -10,10 +10,10 @@ import {
   Select,
 } from '@mui/material'
 import ColorButton from 'components/Button'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'redux/store'
-import { addAuthor, fetchAuthors } from 'redux/slices/authorSlice'
+import { addAuthor } from 'redux/slices/authorSlice'
 
 import '../App.css'
 
@@ -43,11 +43,6 @@ const AuthorForm = () => {
   const handleAddBook = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault()
     dispatch(addAuthor(author))
-    setAuthor({
-      name: '',
-      email: '',
-      books: {},
-    })
   }
 
   return (

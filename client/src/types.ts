@@ -5,14 +5,15 @@ export type Book = {
   title: string  
   description: string
   publisher: string
-  borrowerId: number
-  authors: []
-  published_Date: Date
-  borrow_Date: Date
-  return_Date: Date
+  borrowerId: string
+  authors: {}
+  published_Date: string
+  borrow_Date: string
+  return_Date: string
   status: string
   category: string
 }
+
 
 export type Author = {
   _id: string

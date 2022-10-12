@@ -8,9 +8,8 @@ const borrowUrl = `http://localhost:4000/api/v1/books/status/borrowed/`
 const returnUrl = `http://localhost:4000/api/v1/books/status/available/`
 
 
-const userToken = localStorage.getItem('userToken')
-  ? localStorage.getItem('userToken')
-  : null
+let userToken = localStorage.getItem('userToken')
+  
 
 const config = {
   headers: {
@@ -45,6 +44,8 @@ const initialState: booksState = {
 export const booksFetch = createAsyncThunk(
   'books/fetchBooks', async (arg, { rejectWithValue }) => {
     try {
+      console.log('userToken+++ ', userToken)
+
       const response = await axios.get(url, config)
       console.log(response.data)
       return {
@@ -77,6 +78,20 @@ export const addBook = createAsyncThunk(
   },
 );
 
+export const updateBook = createAsyncThunk(
+  'book/updateBook',
+  async ({id, ...book}:any , { rejectWithValue }) => {
+    try {
+      const response = await axios.put(url + id , {...book}, config)
+      console.log(response.data)
+      return response.data
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response.data)
+    }
+  },
+);
+
 export const borrowBook = createAsyncThunk(
   'book/borrowBook',
   async ({id, borrowerId }: any , { rejectWithValue }) => {
@@ -96,6 +111,7 @@ export const returnBook = createAsyncThunk(
   'book/returnBook',
   async ({id, borrowerId}: any , { rejectWithValue }) => {
     try {
+      console.log('pending')
       const response = await axios.put(returnUrl + id , {borrowerId}, config)
       console.log(response.data)
       return response.data
@@ -109,7 +125,7 @@ export const returnBook = createAsyncThunk(
 
 export const removeBook = createAsyncThunk(
   'book/removeBook',
-  async ({id}: any , { rejectWithValue }) => {
+  async ({book:any,id}: any , { rejectWithValue }) => {
     try {
       const response = await axios.delete(url + id , config)
       console.log(response.data)
@@ -174,6 +190,33 @@ export const bookSlice = createSlice({
         updateError: action.payload,
       }
     })
+
+    builder.addCase(updateBook.pending, (state) => {
+      return {
+        ...state,
+        updateBook: 'pending',
+      }
+    })
+    builder.addCase(updateBook.fulfilled, (state, action) => {
+      console.log('action: ', action)
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.updateBook = 'success'
+        state.updateBook = ''
+      }
+    })
+    builder.addCase(updateBook.rejected, (state, action) => {
+      return {
+        ...state,
+        updateBook: 'rejected',
+        updateError: action.payload,
+      }
+    })
+    
+
     builder.addCase(booksFetch.pending, (state) => {
       return {
         ...state,

@@ -7,13 +7,13 @@ const url = `http://localhost:4000/api/v1/authors/`
 
 
 
-const userToken = localStorage.getItem('userToken')
-  ? localStorage.getItem('userToken')
-  : null
+// const userToken = localStorage.getItem('userToken')
+//   ? localStorage.getItem('userToken')
+//   : null
 
 const config = {
   headers: {
-    Authorization: `Bearer ${userToken}`,
+    Authorization: `Bearer ${localStorage.getItem('userToken')}`,
   },
 }
 

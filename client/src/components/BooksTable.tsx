@@ -24,6 +24,8 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  Alert,
+  CircularProgress,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
@@ -36,12 +38,13 @@ import {
   returnBook,
   removeBook,
   booksFetch,
+  updateBook,
 } from 'redux/slices/bookSlice'
 import { DecodedUser } from 'types'
 
 import '../App.css'
-
-
+import { WrapText } from '@mui/icons-material'
+import { fetchAuthors } from 'redux/slices/authorSlice'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -89,7 +92,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 
 const BookTable = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { books } = useSelector((state: RootState) => state)
+  const booksState = useSelector((state: RootState) => state.books)
   const authors = useSelector((state: RootState) => state.authors.authorList)
 
   const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || '')
@@ -120,9 +123,6 @@ const BookTable = () => {
 
   const [open, setOpen] = useState(false)
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
   const handleClose = () => {
     setOpen(false)
   }
@@ -245,12 +245,18 @@ const BookTable = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <ColorButton autoFocus onClick={handleClose}>
+          <ColorButton
+            autoFocus
+            onClick={async () => {
+              await dispatch(fetchAuthors())
+              await dispatch(updateBook({ id: book._id, ...book }))
+              await dispatch(booksFetch())
+            }}
+          >
             Save changes
           </ColorButton>
         </DialogActions>
       </BootstrapDialog>
-
 
       <Grid container>
         <Grid item xs={12} className="search">
@@ -350,7 +356,7 @@ const BookTable = () => {
               </TableHead>
 
               <TableBody>
-                {books.bookList.map(
+                {booksState.bookList.map(
                   (book: any) =>
                     book._id && (
                       <TableRow key={book._id}>
@@ -404,10 +410,12 @@ const BookTable = () => {
                         )}
                         {isAdmin && (
                           <TableCell>
-                            <ColorButton onClick={() => {
-                              setOpen(true)
-                              setBook({...book})
-                            }}>
+                            <ColorButton
+                              onClick={() => {
+                                setOpen(true)
+                                setBook({ ...book })
+                              }}
+                            >
                               Update
                             </ColorButton>
                           </TableCell>

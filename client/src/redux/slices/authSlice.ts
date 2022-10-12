@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode'
 
 
 const url = `http://localhost:4000/api/v1/users/login`
-const userUrl = `http://localhost:4000/api/v1/users`
+//const userUrl = `http://localhost:4000/api/v1/users`
 
 export interface authState {
   users: User[]   
@@ -27,24 +27,24 @@ const initialState: authState = {
 }
 
 
-export const userFetch = createAsyncThunk(
-  'user/fetchUser', async (arg, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(userUrl)
-      console.log(response.data)
-      return {
-        data: response.data,
-        status: response.status,
-      }
-    } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
-      } else {
-        return rejectWithValue(error.message)
-      }
-    }
-  }
-)
+// export const userFetch = createAsyncThunk(
+//   'user/fetchUser', async (arg, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get(userUrl)
+//       console.log(response.data)
+//       return {
+//         data: response.data,
+//         status: response.status,
+//       }
+//     } catch (error: any) {
+//       if (error.response && error.response.data.message) {
+//         return rejectWithValue(error.response.data.message)
+//       } else {
+//         return rejectWithValue(error.message)
+//       }
+//     }
+//   }
+// )
 
 export const auth = createAsyncThunk(
   'user/register',
@@ -63,7 +63,7 @@ export const auth = createAsyncThunk(
             },
           },
         )
-        console.log(res.data.token)
+        console.log('userToken: ', res.data.token)
         localStorage.setItem('userToken', res.data.token)
         const decoded = jwt_decode(res.data.token) as DecodedUser
         console.log('decoded: ',decoded)
@@ -86,7 +86,7 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(auth.pending, (state) => {
-      //state.isLoading = true
+      state.isLoading = true
     })
     builder.addCase(auth.fulfilled, (state, action) => {
       state.token = action.payload
@@ -96,28 +96,28 @@ const authSlice = createSlice({
     })
     builder.addCase(auth.rejected, (state, action) => {
       state.error = action.payload
-      //state.isLoading = false
+      state.isLoading = false
     })
-    builder.addCase(userFetch.pending, (state) => {
-      return {
-        ...state,
-        isLoading: true
-      }
-    })
-    builder.addCase(userFetch.fulfilled, (state, action) => {
-      return {
-        ...state,
-        users: [action.payload.data],
-        isLoading: false
-      }
-    })
-    builder.addCase(userFetch.rejected, (state, action) => {
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload
-      }
-    })
+    // builder.addCase(userFetch.pending, (state) => {
+    //   return {
+    //     ...state,
+    //     isLoading: true
+    //   }
+    // })
+    // builder.addCase(userFetch.fulfilled, (state, action) => {
+    //   return {
+    //     ...state,
+    //     users: [action.payload.data],
+    //     isLoading: false
+    //   }
+    // })
+    // builder.addCase(userFetch.rejected, (state, action) => {
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     error: action.payload
+    //   }
+    // })
   },
 })
 

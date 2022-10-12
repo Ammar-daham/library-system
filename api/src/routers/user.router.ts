@@ -8,9 +8,9 @@ const router = express.Router()
 router.post(
   '/login',
   passport.authenticate('google-id-token', { session: false }),
-  (req, res) => {
-    const user: any = req.user
-    const token = jwt.sign(
+  async (req, res) => {
+    const user: any = await req.user
+    const token = await jwt.sign(
       { userId: user._id, isAdmin: user.isAdmin },
       JWT_SECRET,
       { expiresIn: '1h' }

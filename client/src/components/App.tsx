@@ -8,9 +8,12 @@ import  Dashboard  from '../pages/Dashboard'
 
 const App = () => {
 
+  // window.onbeforeunload = function() {
+  //   localStorage.clear();
+  // }
+
   return (
     <BrowserRouter>
-     
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<Home />} />

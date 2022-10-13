@@ -2,7 +2,7 @@
 
 .mainBox{
     height: 100%;
-    width: 100%;
+    width: inherit;
     position: absolute;
     background-color: wheat;
 }

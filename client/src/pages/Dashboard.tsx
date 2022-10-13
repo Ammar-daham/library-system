@@ -16,7 +16,7 @@ import AuthorForm from 'components/AuthorForm'
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const [ book, setBook ] = useState(false)
+  const [ book, setBook ] = useState(true)
   const [ newBook, setNewBook ] = useState(false)
   const [ author, setAuthor ] = useState(false)
   const [ newAuthor, setNewAuthor ] = useState(false)

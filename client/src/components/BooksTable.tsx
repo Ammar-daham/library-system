@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
 import { useDispatch } from 'react-redux'
@@ -24,15 +25,11 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
-  Alert,
-  CircularProgress,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
-import '../App.css'
 import { orange } from '@mui/material/colors'
 import ColorButton from './Button'
-import { useEffect, useState } from 'react'
 import {
   borrowBook,
   returnBook,
@@ -40,11 +37,10 @@ import {
   booksFetch,
   updateBook,
 } from 'redux/slices/bookSlice'
+import { fetchAuthors } from 'redux/slices/authorSlice'
 import { DecodedUser } from 'types'
 
 import '../App.css'
-import { WrapText } from '@mui/icons-material'
-import { fetchAuthors } from 'redux/slices/authorSlice'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -116,10 +112,6 @@ const BookTable = () => {
   console.log('book: ', book)
   const userToken = localStorage.getItem('userToken') || ''
   const decoded = jwt_decode(userToken) as DecodedUser
-
-  // useEffect(() => {
-  //   dispatch(booksFetch)
-  // }, [dispatch])
 
   const [open, setOpen] = useState(false)
 
@@ -236,7 +228,7 @@ const BookTable = () => {
                 sx={{ width: '200px', background: 'wheat' }}
               >
                 {authors.map((author) => (
-                  <MenuItem value={author._id} sx={{ background: 'wheat' }}>
+                  <MenuItem key={author._id} value={author._id} sx={{ background: 'wheat' }}>
                     {author.name}
                   </MenuItem>
                 ))}

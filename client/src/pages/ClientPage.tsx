@@ -5,7 +5,7 @@ import BookTable from 'components/BooksTable'
 const ClientPage = () => {
     return (
         <Box className='mainBox'>
-            <Grid container className='mainGrid'>
+            <Grid container >
                 <Grid xs={12}>
                     <Header />
                 </Grid>

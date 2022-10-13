@@ -1,25 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { Book } from '../../types'
+import { UserToken } from './token'
 
 
 const url = `http://localhost:4000/api/v1/books/`
-const borrowUrl = `http://localhost:4000/api/v1/books/status/borrowed/`
-const returnUrl = `http://localhost:4000/api/v1/books/status/available/`
+const borrowUrl = url + `status/borrowed/`
+const returnUrl = url + `status/available/`
 
-
-let userToken = localStorage.getItem("userToken")
-  // ? localStorage.getItem("userToken")
-  // : null
-console.log('userrrr', localStorage.getItem("userToken"))
-
-
+console.log(UserToken())
 
 const config = {
   headers: {
-    Authorization: `Bearer ${userToken}`,
+    Authorization: `Bearer ${UserToken()}`,
   },
 }
+
+console.log(config)
+
 
 export interface booksState {
   bookList: Book[]
@@ -48,14 +46,6 @@ const initialState: booksState = {
 export const booksFetch = createAsyncThunk(
   'books/fetchBooks', async (arg, { rejectWithValue }) => {
     try {
-      let userToken = localStorage.getItem("userToken")
-     
-      console.log('userToken+++ ', userToken)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
       const response = await axios.get(url, config)
       console.log(response.data)
       return {

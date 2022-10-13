@@ -115,7 +115,6 @@ const LoginForm = () => {
           <br />
           <br />
 
-          <Divider />
           <Grid item xs={12}>
                <GoogleLogin
                onSuccess={handleGoogleOnSuccess}

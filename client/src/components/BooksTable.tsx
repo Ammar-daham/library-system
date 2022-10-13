@@ -117,9 +117,9 @@ const BookTable = () => {
   const userToken = localStorage.getItem('userToken') || ''
   const decoded = jwt_decode(userToken) as DecodedUser
 
-  useEffect(() => {
-    dispatch(booksFetch)
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(booksFetch)
+  // }, [dispatch])
 
   const [open, setOpen] = useState(false)
 
@@ -251,6 +251,7 @@ const BookTable = () => {
               await dispatch(fetchAuthors())
               await dispatch(updateBook({ id: book._id, ...book }))
               await dispatch(booksFetch())
+              setOpen(false)
             }}
           >
             Save changes
@@ -428,14 +429,15 @@ const BookTable = () => {
                             {book.status === 'available' && (
                               <ColorButton
                                 onClick={async () => {
-                                  setBook({
-                                    ...book,
-                                    borrowerId: decoded.userId,
-                                  })
+                                  // setBook({
+                                  //   ...book,
+                                  //   borrowerId: decoded.userId,
+                                  // })
                                   await dispatch(
-                                    borrowBook({
+                                    borrowBook({                  
                                       id: book._id,
                                       borrowerId: decoded.userId,
+                                      ...book
                                     }),
                                   )
                                 }}
@@ -450,14 +452,15 @@ const BookTable = () => {
                             {book.status === 'borrowed' && (
                               <ColorButton
                                 onClick={async () => {
-                                  setBook({
-                                    ...book,
-                                    borrowerId: decoded.userId,
-                                  })
+                                  // setBook({
+                                  //   ...book,
+                                  //   borrowerId: decoded.userId,
+                                  // })
                                   await dispatch(
                                     returnBook({
                                       id: book._id,
                                       borrowerId: book.borrowerId,
+                                      ...book
                                     }),
                                   )
                                 }}

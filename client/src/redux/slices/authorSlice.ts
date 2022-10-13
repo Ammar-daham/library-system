@@ -7,13 +7,13 @@ const url = `http://localhost:4000/api/v1/authors/`
 
 
 
-// const userToken = localStorage.getItem('userToken')
+ const userToken = localStorage.getItem('userToken')
 //   ? localStorage.getItem('userToken')
 //   : null
 
 const config = {
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+    Authorization: `Bearer ${userToken}`,
   },
 }
 
@@ -79,6 +79,20 @@ export const fetchAuthors = createAsyncThunk(
     async ({id}: any , { rejectWithValue }) => {
       try {
         const response = await axios.delete(url + id , config)
+        console.log(response.data)
+        return response.data
+      } catch (error: any) {
+        console.log(error)
+        return rejectWithValue(error.response.data)
+      }
+    },
+  );
+
+  export const updateAuthor = createAsyncThunk(
+    'author/updateAuthor',
+    async ({id, ...author}:any , { rejectWithValue }) => {
+      try {
+        const response = await axios.put(url + id , {...author}, config)
         console.log(response.data)
         return response.data
       } catch (error: any) {
@@ -156,6 +170,29 @@ extraReducers: (builder) => {
           ...state,
           deleteAuthor: 'rejected',
           deleteError: action.payload,
+        }
+      })
+      builder.addCase(updateAuthor.pending, (state) => {
+        return {
+          ...state,
+          updateAuthor: 'pending',
+        }
+      })
+      builder.addCase(updateAuthor.fulfilled, (state, action) => {
+        console.log('action: ', action)
+        const {
+          arg: { id }
+        } = action.meta;
+        if(id) {
+          state.authorList = state.authorList.map((author) => author._id === id ? action.payload : author);
+          state.updateAuthor = 'success'
+        }
+      })
+      builder.addCase(updateAuthor.rejected, (state, action) => {
+        return {
+          ...state,
+          updateAuthor: 'rejected',
+          updateError: action.payload,
         }
       })
 }

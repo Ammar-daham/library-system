@@ -23,6 +23,7 @@ const AuthorForm = () => {
   const { books } = useSelector((state: RootState) => state)
 
   const [author, setAuthor] = useState({
+    _id: '',
     name: '',
     email: '',
     books: {},
@@ -80,7 +81,7 @@ const AuthorForm = () => {
           </Grid>
           <Grid item xs={12} className="addInput">
             <Select
-                sx={{width: '200px'}}
+              sx={{width: '200px'}}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={book._id}
@@ -90,6 +91,7 @@ const AuthorForm = () => {
               { 
               books.bookList.map((book) => (
                 <MenuItem 
+                    key={book._id}
                     value={book._id}
                 >
                     {book.title}

@@ -16,7 +16,6 @@ export function checkAuthAdmin(
     if (authorizationHeader) {
       console.log('authorizationHeader: ', authorizationHeader)
       const token = authorizationHeader.split(' ')[1]
-      //const token = localStorage.getItem('userToken')
       const decodedUser = jwt.verify(token, JWT_SECRET) as any
       console.log('decodedUser: ', decodedUser)
 

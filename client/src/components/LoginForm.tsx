@@ -22,14 +22,14 @@ const LoginForm = () => {
     await dispatch(auth(data))
     const isAdmin = JSON.parse(localStorage.getItem('isAdmin') || '')
     console.log('IsAdmin: ', isAdmin)
-
-        if (isAdmin) {
-          console.log('home page')
-          navigate('/dashboard')
-        } else {
-          console.log('Login')
-          navigate('/user')
-        } 
+    
+    if (isAdmin) {
+      console.log('home page')
+      navigate('/dashboard')
+    } else {
+      console.log('Login')
+      navigate('/user')
+    } 
     
       }
 

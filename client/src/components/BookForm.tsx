@@ -150,7 +150,7 @@ const BookForm = () => {
               sx={{width: '200px', background:'wheat'}}
             >
               {authors.map((author) => (
-                <MenuItem  value={author._id} sx={{background:'wheat'}}>{author.name}</MenuItem>
+                <MenuItem key={author._id}  value={author._id} sx={{background:'wheat'}}>{author.name}</MenuItem>
               ))}
             </Select>
           </Grid>

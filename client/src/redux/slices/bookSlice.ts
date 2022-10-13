@@ -8,8 +8,12 @@ const borrowUrl = `http://localhost:4000/api/v1/books/status/borrowed/`
 const returnUrl = `http://localhost:4000/api/v1/books/status/available/`
 
 
-let userToken = localStorage.getItem('userToken')
-  
+let userToken = localStorage.getItem("userToken")
+  // ? localStorage.getItem("userToken")
+  // : null
+console.log('userrrr', localStorage.getItem("userToken"))
+
+
 
 const config = {
   headers: {
@@ -44,8 +48,14 @@ const initialState: booksState = {
 export const booksFetch = createAsyncThunk(
   'books/fetchBooks', async (arg, { rejectWithValue }) => {
     try {
+      let userToken = localStorage.getItem("userToken")
+     
       console.log('userToken+++ ', userToken)
-
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
       const response = await axios.get(url, config)
       console.log(response.data)
       return {
@@ -94,10 +104,10 @@ export const updateBook = createAsyncThunk(
 
 export const borrowBook = createAsyncThunk(
   'book/borrowBook',
-  async ({id, borrowerId }: any , { rejectWithValue }) => {
+  async ({id, borrowerId, ...book }: any , { rejectWithValue }) => {
     console.log('updated book: ', borrowerId)
     try {
-      const response = await axios.put(borrowUrl + id , { borrowerId }, config)
+      const response = await axios.put(borrowUrl + id , { borrowerId, ...book }, config)
       console.log(response.data)
       return response.data
     } catch (error: any) {
@@ -109,10 +119,10 @@ export const borrowBook = createAsyncThunk(
 
 export const returnBook = createAsyncThunk(
   'book/returnBook',
-  async ({id, borrowerId}: any , { rejectWithValue }) => {
+  async ({id, borrowerId, ...book}: any , { rejectWithValue }) => {
     try {
       console.log('pending')
-      const response = await axios.put(returnUrl + id , {borrowerId}, config)
+      const response = await axios.put(returnUrl + id , {borrowerId, ...book}, config)
       console.log(response.data)
       return response.data
     } catch (error: any) {
@@ -205,7 +215,6 @@ export const bookSlice = createSlice({
       if(id) {
         state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
         state.updateBook = 'success'
-        state.updateBook = ''
       }
     })
     builder.addCase(updateBook.rejected, (state, action) => {

@@ -21,6 +21,10 @@ const Dashboard = () => {
   const [ author, setAuthor ] = useState(false)
   const [ newAuthor, setNewAuthor ] = useState(false)
 
+  useEffect(() => {
+    dispatch(booksFetch())
+  }, [dispatch])
+
 
   const handleBookTable = async () => {
     await dispatch(booksFetch())
@@ -69,14 +73,8 @@ const Dashboard = () => {
             <Typography className='link' onClick={handleAddBook}>
               Add Book
             </Typography>
-            <Typography className='link'>
-              Update Book
-            </Typography >
             <Typography  className='link' onClick={handleAuthorTable}>
               Authors
-            </Typography >
-            <Typography  className='link'>
-              Update Author
             </Typography >
             <Typography  className='link' onClick={handleAddAuthor}>
               Add Author

@@ -36,6 +36,10 @@ import {
   removeBook,
   booksFetch,
   updateBook,
+  fetchBookByStatus,
+  fetchBookByTitle,
+  fetchBookByCategory,
+  fetchBookByIsbn,
 } from 'redux/slices/bookSlice'
 import { fetchAuthors } from 'redux/slices/authorSlice'
 import { DecodedUser } from 'types'
@@ -122,6 +126,8 @@ const BookTable = () => {
   const [author, setAuthor] = useState({
     _id: '',
   })
+
+ 
 
   console.log('book: ', book)
   const handleChange = (event: SelectChangeEvent) => {
@@ -253,12 +259,57 @@ const BookTable = () => {
 
       <Grid container>
         <Grid item xs={12} className="search">
-          <TextField id="title-input" name="title" label="TITLE" type="text" />
+        <TextField
+           id="isbn-input" 
+           name="isbn" 
+           label="ISBN" 
+           type="text"
+           onChange={(e) => {
+            if(e.target.value === ''){
+              dispatch(booksFetch())
+            } else {
+              dispatch(fetchBookByIsbn(e.target.value))
+            }
+          }}
+           />
+          <TextField
+           id="title-input" 
+           name="title" 
+           label="TITLE" 
+           type="text"
+           onChange={(e) => {
+            if(e.target.value === ''){
+              dispatch(booksFetch())
+            } else {
+              dispatch(fetchBookByTitle(e.target.value))
+            }
+          }}
+           />
+          <TextField
+           id="category-input" 
+           name="category" 
+           label="CATEGORY" 
+           type="text"
+           onChange={(e) => {
+            if(e.target.value === ''){
+              dispatch(booksFetch())
+            } else {
+              dispatch(fetchBookByCategory(e.target.value))
+            }
+          }}
+           />
           <TextField
             id="status-input"
             name="status"
             label="STATUS"
             type="text"
+            onChange={(e) => {
+              if(e.target.value === ''){
+                dispatch(booksFetch())
+              } else {
+                dispatch(fetchBookByStatus(e.target.value))
+              }
+            }}
           />
         </Grid>
 

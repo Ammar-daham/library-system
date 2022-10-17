@@ -1,17 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { Author } from '../../types'
-import { UserToken } from './token'
+import { config } from './token'
 
 
 const url = `http://localhost:4000/api/v1/authors/`
 
-
-const config = {
-  headers: {
-    Authorization: `Bearer ${UserToken()}`,
-  },
-}
 
 export interface authorsState {
     authorList: Author[]

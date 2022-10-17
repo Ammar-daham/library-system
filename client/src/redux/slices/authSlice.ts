@@ -3,7 +3,6 @@ import { CredentialResponse } from '@react-oauth/google'
 import axios from 'axios'
 import { DecodedUser, User } from '../../types'
 import jwt_decode from 'jwt-decode'
-import { json } from 'stream/consumers'
 
 
 const url = `http://localhost:4000/api/v1/users/login`

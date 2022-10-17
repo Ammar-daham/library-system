@@ -107,13 +107,13 @@ const BookTable = () => {
     category: '',
     authors: {},
     status: '',
-    borrowerId: '',
+    borrowerId: {},
     published_Date: '',
     borrow_Date: '',
     return_Date: '',
   })
 
-  console.log('book: ', book)
+  //console.log('book: ', book)
   const userToken = localStorage.getItem('userToken') || ''
   const decoded = jwt_decode(userToken) as DecodedUser
 
@@ -129,7 +129,6 @@ const BookTable = () => {
 
  
 
-  console.log('book: ', book)
   const handleChange = (event: SelectChangeEvent) => {
     setAuthor({ ...author, _id: event.target.value as string })
     setBook({ ...book, authors: event.target.value as string })
@@ -331,18 +330,8 @@ const BookTable = () => {
                   <TableCell
                     sx={{ backgroundColor: orange[500], color: 'white' }}
                   >
-                    Description
-                  </TableCell>
-                  <TableCell
-                    sx={{ backgroundColor: orange[500], color: 'white' }}
-                  >
                     Publisher
-                  </TableCell>
-                  <TableCell
-                    sx={{ backgroundColor: orange[500], color: 'white' }}
-                  >
-                    Published Date
-                  </TableCell>
+                  </TableCell>                
                   <TableCell
                     sx={{ backgroundColor: orange[500], color: 'white' }}
                   >
@@ -372,9 +361,16 @@ const BookTable = () => {
                     <TableCell
                       sx={{ backgroundColor: orange[500], color: 'white' }}
                     >
-                      Remove
+                      Borrower Name
                     </TableCell>
                   )}
+                  {isAdmin && (
+                    <TableCell
+                      sx={{ backgroundColor: orange[500], color: 'white' }}
+                    >
+                      Remove
+                    </TableCell>
+                  )}                 
                   {isAdmin && (
                     <TableCell
                       sx={{ backgroundColor: orange[500], color: 'white' }}
@@ -407,16 +403,10 @@ const BookTable = () => {
                         <TableCell className="tableData">{book.isbn}</TableCell>
                         <TableCell className="tableData">
                           {book.title}
-                        </TableCell>
-                        <TableCell className="tableData">
-                          {book.description}
-                        </TableCell>
+                        </TableCell>               
                         <TableCell className="tableData">
                           {book.publisher}
-                        </TableCell>
-                        <TableCell className="tableData">
-                          {book.published_Date}
-                        </TableCell>
+                        </TableCell>                     
                         <TableCell className="tableData">
                           {book.borrow_Date}
                         </TableCell>
@@ -436,6 +426,19 @@ const BookTable = () => {
                             ))}
                           </ul>
                         </TableCell>
+                        {isAdmin && book.borrowerId &&
+                        <TableCell className="tableData">
+                            {book.borrowerId.map((user: any) => (
+                                <p>{user.firstname}</p>                           
+                            ))} 
+                        </TableCell>
+                        }
+                        {
+                          isAdmin && !book.borrowerId &&
+                          <TableCell className="tableData">                   
+                          </TableCell>
+
+                        }
                         {isAdmin && book.status !== 'borrowed' && (
                           <TableCell>
                             <ColorButton
@@ -472,15 +475,15 @@ const BookTable = () => {
                             {book.status === 'available' && (
                               <ColorButton
                                 onClick={async () => {
-                                  // setBook({
-                                  //   ...book,
-                                  //   borrowerId: decoded.userId,
-                                  // })
+                                  setBook({
+                                    ...book,
+                                    borrowerId: decoded.userId,
+                                  })
+                                  console.log(decoded.userId)
                                   await dispatch(
                                     borrowBook({                  
                                       id: book._id,
-                                      borrowerId: decoded.userId,
-                                      ...book
+                                      borrowerId: decoded.userId,                      
                                     }),
                                   )
                                 }}
@@ -502,8 +505,7 @@ const BookTable = () => {
                                   await dispatch(
                                     returnBook({
                                       id: book._id,
-                                      borrowerId: book.borrowerId,
-                                      ...book
+                                      borrowerId: null,                              
                                     }),
                                   )
                                 }}

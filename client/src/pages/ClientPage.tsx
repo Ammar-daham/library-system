@@ -9,7 +9,7 @@ const ClientPage = () => {
                 <Grid xs={12}>
                     <Header />
                 </Grid>
-                <Grid  sx={{padding: '50px'}}>
+                <Grid  sx={{padding: '50px 150px'}}>
                     <BookTable /> 
                 </Grid>
 

@@ -1,4 +1,4 @@
-import mongoose, { Document, STATES } from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 
 export type BookDocument = Document & {
   isbn: string
@@ -8,7 +8,7 @@ export type BookDocument = Document & {
   status: string
   category: string
   authors: {}
-  borrowerId: string
+  borrowerId: {}
   published_Date: Date
   borrow_Date: string
   return_Date: string
@@ -47,7 +47,7 @@ const bookSchema = new mongoose.Schema({
     ref: 'Author',
   },
   borrowerId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'User',
   },
   published_Date: {

@@ -33,11 +33,11 @@ const initialState: booksState = {
   deleteError: '',
 }
 
+console.log('config: ', config)
 export const booksFetch = createAsyncThunk(
   'books/fetchBooks', async (arg, { rejectWithValue }) => {
     try {
       const response = await axios.get(url, config)
-      console.log('config: ', config)
       console.log(response.data)
       return {
         data: response.data,
@@ -134,6 +134,7 @@ export const fetchBookByIsbn = createAsyncThunk(
 export const addBook = createAsyncThunk(
   'books/bookAdd',
   async (book: unknown, { rejectWithValue }) => {
+    console.log('config: ', config)
     try {
       const response = await axios.post(url, book, config)
       console.log(response.data)
@@ -161,10 +162,10 @@ export const updateBook = createAsyncThunk(
 
 export const borrowBook = createAsyncThunk(
   'book/borrowBook',
-  async ({id, borrowerId, ...book }: any , { rejectWithValue }) => {
-    console.log('updated book: ', borrowerId)
+  async ({id, borrowerId }: any , { rejectWithValue }) => {
+    //console.log('updated book: ', borrowerId)
     try {
-      const response = await axios.put(borrowUrl + id , { borrowerId, ...book }, config)
+      const response = await axios.put(borrowUrl + id , {borrowerId}, config)
       console.log(response.data)
       return response.data
     } catch (error: any) {
@@ -176,10 +177,10 @@ export const borrowBook = createAsyncThunk(
 
 export const returnBook = createAsyncThunk(
   'book/returnBook',
-  async ({id, borrowerId, ...book}: any , { rejectWithValue }) => {
+  async ({id, borrowerId }: any , { rejectWithValue }) => {
     try {
       console.log('pending')
-      const response = await axios.put(returnUrl + id , {borrowerId, ...book}, config)
+      const response = await axios.put(returnUrl + id , {borrowerId}, config)
       console.log(response.data)
       return response.data
     } catch (error: any) {

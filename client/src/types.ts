@@ -5,7 +5,7 @@ export type Book = {
   title: string  
   description: string
   publisher: string
-  borrowerId: string
+  borrowerId: {}
   authors: {}
   published_Date: string
   borrow_Date: string

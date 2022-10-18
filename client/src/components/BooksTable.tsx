@@ -352,11 +352,13 @@ const BookTable = () => {
                   >
                     Category
                   </TableCell>
+                  { isAdmin && 
                   <TableCell
                     sx={{ backgroundColor: orange[500], color: 'white' }}
                   >
                     Authors
                   </TableCell>
+                  }
                   {isAdmin && (
                     <TableCell
                       sx={{ backgroundColor: orange[500], color: 'white' }}
@@ -419,6 +421,8 @@ const BookTable = () => {
                         <TableCell className="tableData">
                           {book.category}
                         </TableCell>
+                        {
+                          isAdmin && 
                         <TableCell className="tableData">
                           <ul style={{ paddingLeft: 15 }}>
                             {book.authors.map((author: any) => (
@@ -426,6 +430,7 @@ const BookTable = () => {
                             ))}
                           </ul>
                         </TableCell>
+                        }
                         {isAdmin && book.borrowerId &&
                         <TableCell className="tableData">
                             {book.borrowerId.map((user: any) => (

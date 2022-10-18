@@ -19,7 +19,7 @@ export type Author = {
   _id: string
   name: string
   email: string
-  books: []
+  books: {}
 }
 
 export type User = {

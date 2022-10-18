@@ -37,7 +37,7 @@ const AuthorForm = () => {
   console.log('author: ', author)
 
   const handleChange = (event: SelectChangeEvent) => {
-    setBook({...book, _id: event.target.value as string })
+    setBook({_id: event.target.value as string })
     setAuthor({...author, books: event.target.value as string})
   }
 
@@ -47,7 +47,7 @@ const AuthorForm = () => {
   }
 
   return (
-    <Container disableGutters maxWidth={false} className="addContainer">
+    <Container disableGutters maxWidth={false} className="addContainer" >
       <form onSubmit={handleAddBook} id="form1">
         <Grid container>
           <Grid item xs={12}>
@@ -59,6 +59,8 @@ const AuthorForm = () => {
               Add An Author
             </Typography>
           </Grid>
+        </Grid>
+        <Grid container sx={{padding: '0px 150px'}}>
           <Grid item xs={12} className="addInput">
             <TextField
               id="name-input"
@@ -88,12 +90,15 @@ const AuthorForm = () => {
               label="Title"
               onChange={handleChange}
             >
+              {/* <MenuItem value="none">
+                      None
+              </MenuItem> */}
               { 
               books.bookList.map((book) => (
                 <MenuItem 
                     key={book._id}
                     value={book._id}
-                >
+                >                  
                     {book.title}
                 </MenuItem>
               ))}

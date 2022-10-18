@@ -194,7 +194,7 @@ const AuthorTable = () => {
           </ColorButton>
         </DialogActions>
       </BootstrapDialog>
-      <Grid container>
+      <Grid container sx={{padding: '20px 100px'}}>
         <Grid item xs={12}>
           <TableContainer className="tableContainer">
             <Table className="table" stickyHeader aria-label="books">

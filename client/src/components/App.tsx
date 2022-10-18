@@ -8,9 +8,9 @@ import  Dashboard  from '../pages/Dashboard'
 
 const App = () => {
 
-  // window.onbeforeunload = function() {
-  //   localStorage.clear();
-  // }
+  window.onbeforeunload = function() {
+    localStorage.clear();
+  }
 
   return (
     <BrowserRouter>

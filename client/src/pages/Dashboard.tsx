@@ -81,7 +81,7 @@ const Dashboard = () => {
             </Typography >
           </div>
         </Grid>
-        <Grid item xs={10} sx={{padding: '50px 150px 0 30px'}}>
+        <Grid item xs={10} sx={{padding: '50px 50px 0 30px'}}>
           <div>
             { book && 
               <BookTable />

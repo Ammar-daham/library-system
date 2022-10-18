@@ -1,12 +1,13 @@
 
 
-export const UserToken = () => {
-    const token = localStorage.getItem("userToken");
-    return token
-}
 
-export const config = {
+
+export const config = () => {
+  const token = localStorage.getItem("userToken");
+  const config: object = {
     headers: {
-      Authorization: `Bearer ${UserToken()}`,
+      Authorization: `Bearer ${token}`,
     },
   }
+  return config
+}

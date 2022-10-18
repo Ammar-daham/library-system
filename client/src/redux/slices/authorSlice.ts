@@ -34,7 +34,7 @@ const initialState: authorsState = {
 export const fetchAuthors = createAsyncThunk(
     'authors/fetchAuthors', async (arg, { rejectWithValue }) => {
       try {
-        const response = await axios.get(url, config)
+        const response = await axios.get(url, config())
         console.log(response.data)
         return {
           data: response.data,
@@ -52,9 +52,9 @@ export const fetchAuthors = createAsyncThunk(
 
   export const addAuthor = createAsyncThunk(
     'authors/addAuthor',
-    async (author: unknown, { rejectWithValue }) => {
+    async (author: Author, { rejectWithValue }) => {
       try {
-        const response = await axios.post(url, author, config)
+        const response = await axios.post(url, author, config())
         console.log(response.data)
         return response.data
       } catch (error: any) {
@@ -68,7 +68,7 @@ export const fetchAuthors = createAsyncThunk(
     'author/removeAuthor',
     async ({id}: any , { rejectWithValue }) => {
       try {
-        const response = await axios.delete(url + id , config)
+        const response = await axios.delete(url + id , config())
         console.log(response.data)
         return response.data
       } catch (error: any) {
@@ -80,9 +80,9 @@ export const fetchAuthors = createAsyncThunk(
 
   export const updateAuthor = createAsyncThunk(
     'author/updateAuthor',
-    async ({id, ...author}:any , { rejectWithValue }) => {
+    async ({id, ...author}: any , { rejectWithValue }) => {
       try {
-        const response = await axios.put(url + id , {...author}, config)
+        const response = await axios.put(url + id , {...author}, config())
         console.log(response.data)
         return response.data
       } catch (error: any) {

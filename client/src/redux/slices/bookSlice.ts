@@ -33,11 +33,12 @@ const initialState: booksState = {
   deleteError: '',
 }
 
-console.log('config: ', config)
+
+
 export const booksFetch = createAsyncThunk(
   'books/fetchBooks', async (arg, { rejectWithValue }) => {
     try {
-      const response = await axios.get(url, config)
+      const response = await axios.get(url, config())
       console.log(response.data)
       return {
         data: response.data,
@@ -56,7 +57,7 @@ export const booksFetch = createAsyncThunk(
 export const fetchBookByStatus = createAsyncThunk(
   'books/fetchBookByTitle', async (status: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(url + 'status/' + status , config)
+      const response = await axios.get(url + 'status/' + status , config())
       console.log(response.data)
       return {
         data: response.data,
@@ -75,7 +76,7 @@ export const fetchBookByStatus = createAsyncThunk(
 export const fetchBookByCategory = createAsyncThunk(
   'books/fetchBookByCategory', async (category: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(url + 'category/' + category , config)
+      const response = await axios.get(url + 'category/' + category , config())
       console.log(response.data)
       return {
         data: response.data,
@@ -94,7 +95,7 @@ export const fetchBookByCategory = createAsyncThunk(
 export const fetchBookByTitle = createAsyncThunk(
   'books/fetchBookByStatus', async (title: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(url + 'title/' + title , config)
+      const response = await axios.get(url + 'title/' + title , config())
       console.log(response.data)
       return {
         data: response.data,
@@ -113,7 +114,7 @@ export const fetchBookByTitle = createAsyncThunk(
 export const fetchBookByIsbn = createAsyncThunk(
   'books/fetchBookByIsbn', async (isbn: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(url + 'isbn/' + isbn , config)
+      const response = await axios.get(url + 'isbn/' + isbn , config())
       console.log(response.data)
       return {
         data: response.data,
@@ -136,7 +137,7 @@ export const addBook = createAsyncThunk(
   async (book: unknown, { rejectWithValue }) => {
     console.log('config: ', config)
     try {
-      const response = await axios.post(url, book, config)
+      const response = await axios.post(url, book, config())
       console.log(response.data)
       return response.data
     } catch (error: any) {
@@ -150,7 +151,7 @@ export const updateBook = createAsyncThunk(
   'book/updateBook',
   async ({id, ...book}:any , { rejectWithValue }) => {
     try {
-      const response = await axios.put(url + id , {...book}, config)
+      const response = await axios.put(url + id , {...book}, config())
       console.log(response.data)
       return response.data
     } catch (error: any) {
@@ -165,7 +166,7 @@ export const borrowBook = createAsyncThunk(
   async ({id, borrowerId }: any , { rejectWithValue }) => {
     //console.log('updated book: ', borrowerId)
     try {
-      const response = await axios.put(borrowUrl + id , {borrowerId}, config)
+      const response = await axios.put(borrowUrl + id , {borrowerId}, config())
       console.log(response.data)
       return response.data
     } catch (error: any) {
@@ -180,7 +181,7 @@ export const returnBook = createAsyncThunk(
   async ({id, borrowerId }: any , { rejectWithValue }) => {
     try {
       console.log('pending')
-      const response = await axios.put(returnUrl + id , {borrowerId}, config)
+      const response = await axios.put(returnUrl + id , {borrowerId}, config())
       console.log(response.data)
       return response.data
     } catch (error: any) {
@@ -195,7 +196,7 @@ export const removeBook = createAsyncThunk(
   'book/removeBook',
   async ({book:any,id}: any , { rejectWithValue }) => {
     try {
-      const response = await axios.delete(url + id , config)
+      const response = await axios.delete(url + id , config())
       console.log(response.data)
       return response.data
     } catch (error: any) {

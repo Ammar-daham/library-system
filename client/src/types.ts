@@ -5,11 +5,11 @@ export type Book = {
   title: string  
   description: string
   publisher: string
-  borrowerId: {}
-  authors: {}
-  published_Date: string
-  borrow_Date: string
-  return_Date: string
+  borrowerId: []
+  authors: []
+  publishedDate: string
+  borrowDate: string
+  returnDate: string
   status: string
   category: string
 }
@@ -19,7 +19,7 @@ export type Author = {
   _id: string
   name: string
   email: string
-  books: {}
+  books: []
 }
 
 export type User = {

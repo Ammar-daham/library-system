@@ -91,7 +91,7 @@ const AuthorTable = () => {
     _id: '',
     name: '',
     email: '',
-    books: {},
+    books: [],
   })
 
   const [book, setBook] = useState({
@@ -118,8 +118,9 @@ const AuthorTable = () => {
   }
 
   const handleChange = (event: SelectChangeEvent) => {
+    let value = event.target.value
     setBook({...book, _id: event.target.value as string })
-    setAuthor({...author, books: event.target.value as string})
+    setAuthor({...author, books: value.split(',') as any})
   }
 
   return (

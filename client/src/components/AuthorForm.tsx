@@ -16,17 +16,18 @@ import { AppDispatch, RootState } from 'redux/store'
 import { addAuthor } from 'redux/slices/authorSlice'
 
 import '../App.css'
+import { Author } from 'types'
 
 const AuthorForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const authorsState = useSelector((state: RootState) => state.authors)
   const { books } = useSelector((state: RootState) => state)
 
-  const [author, setAuthor] = useState({
+  const [author, setAuthor] = useState<Author>({
     _id: '',
     name: '',
     email: '',
-    books: {},
+    books: [],
   })
 
   const [book, setBook] = useState({
@@ -37,8 +38,9 @@ const AuthorForm = () => {
   console.log('author: ', author)
 
   const handleChange = (event: SelectChangeEvent) => {
+    let value = event.target.value
     setBook({_id: event.target.value as string })
-    setAuthor({...author, books: event.target.value as string})
+    setAuthor({...author, books: value.split(',')  as any})
   }
 
   const handleAddBook = (e: React.FormEvent<EventTarget>) => {

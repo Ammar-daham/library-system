@@ -134,8 +134,7 @@ export const fetchBookByIsbn = createAsyncThunk(
 
 export const addBook = createAsyncThunk(
   'books/bookAdd',
-  async (book: unknown, { rejectWithValue }) => {
-    console.log('config: ', config)
+  async (book: Book, { rejectWithValue }) => {
     try {
       const response = await axios.post(url, book, config())
       console.log(response.data)

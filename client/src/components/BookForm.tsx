@@ -31,12 +31,12 @@ const BookForm = () => {
     description: '',
     publisher: '',
     category: '',
-    authors: {},
+    authors: [],
     status: '',
-    borrowerId: '',
-    published_Date: '',
-    borrow_Date: '',
-    return_Date: '',
+    borrowerId: [],
+    publishedDate: '',
+    borrowDate: '',
+    returnDate: '',
   })
 
   const [author, setAuthor] = useState({
@@ -45,8 +45,9 @@ const BookForm = () => {
   
   console.log('book: ', book)
   const handleChange = (event: SelectChangeEvent) => {
+    let value = event.target.value;
     setAuthor({ ...author, _id: event.target.value as string })
-    setBook({...book, authors: event.target.value as string})
+    setBook({...book, authors: value.split(',') as any})
   }
   
 
@@ -136,9 +137,9 @@ const BookForm = () => {
               id="publishedDate-input"
               name="publishedDate"
               type="date"
-              value={book.published_Date}
+              value={book.publishedDate}
               onChange={(e) =>
-                setBook({ ...book, published_Date: e.target.value })
+                setBook({ ...book, publishedDate: e.target.value })
               }
             />
           </Grid>

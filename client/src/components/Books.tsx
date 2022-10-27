@@ -30,18 +30,16 @@ const Books = () => {
     <Box sx={{ flexGrow: 1, padding: 20, background: 'wheat' }}>
       <Grid
         container
-        spacing={{ xs: 2, md: 3 }}
-        xs={6}
-        sm={12}
-        //columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {/* {booksState.bookList.map((book: any) => ( */}
+        {/* {Array.from(Array(3)).map((_, index: any) => ( */}
+        {booksState.bookList.map((book) => (
           <Grid xs={2} sm={4} md={4}>
-            <BookCard />
-          </Grid>
-        {/* //))
-        //} */}
-       
+            <BookCard book={book}/>
+          </Grid> 
+        ))
+
+        } 
+        {/* ))} */}
       </Grid>
     </Box>
   )

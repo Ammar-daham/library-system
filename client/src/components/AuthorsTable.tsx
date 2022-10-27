@@ -12,11 +12,6 @@ import {
   Box,
   Grid,
   TableContainer,
-  CircularProgress,
-  styled,
-  Dialog,
-  DialogTitle,
-  IconButton,
   DialogContent,
   TextField,
   DialogActions,
@@ -24,7 +19,6 @@ import {
   MenuItem,
   SelectChangeEvent,
 } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
 import { orange } from '@mui/material/colors'
 
 import ColorButton from './Button'
@@ -33,52 +27,7 @@ import { fetchAuthors, removeAuthor, updateAuthor } from 'redux/slices/authorSli
 import { DecodedUser } from 'types'
 import '../App.css'
 import { booksFetch } from 'redux/slices/bookSlice'
-
-
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-    background: 'wheat',
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-    background: 'wheat',
-  },
-}))
-
-export interface DialogTitleProps {
-  id: string
-  children?: React.ReactNode
-  onClose: () => void
-}
-
-const BootstrapDialogTitle = (props: DialogTitleProps) => {
-  const { children, onClose, ...other } = props
-
-  return (
-    <DialogTitle
-      sx={{ m: 0, p: 2, backgroundColor: orange[500], color: 'white' }}
-      {...other}
-    >
-      {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </DialogTitle>
-  )
-}
+import { BootstrapDialog, BootstrapDialogTitle } from './UpdateBootstrapDialog'
 
 
 const AuthorTable = () => {
@@ -105,10 +54,6 @@ const AuthorTable = () => {
   useEffect(() => {
     dispatch(fetchAuthors)
   }, [dispatch])
-
-  
-  const userToken = localStorage.getItem('userToken') || ''
-  const decoded = jwt_decode(userToken) as DecodedUser
 
 
   const [open, setOpen] = useState(false)

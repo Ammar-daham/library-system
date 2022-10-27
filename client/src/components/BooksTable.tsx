@@ -31,64 +31,17 @@ import CloseIcon from '@mui/icons-material/Close'
 import { orange } from '@mui/material/colors'
 import ColorButton from './Button'
 import {
-  borrowBook,
-  returnBook,
   removeBook,
   booksFetch,
   updateBook,
-  fetchBookByStatus,
-  fetchBookByTitle,
-  fetchBookByCategory,
-  fetchBookByIsbn,
 } from 'redux/slices/bookSlice'
 import { fetchAuthors } from 'redux/slices/authorSlice'
 import { DecodedUser } from 'types'
 
 import '../App.css'
+import Search from './Search'
+import { BootstrapDialog, BootstrapDialogTitle } from './UpdateBootstrapDialog'
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-    background: 'wheat',
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-    background: 'wheat',
-  },
-}))
-
-export interface DialogTitleProps {
-  id: string
-  children?: React.ReactNode
-  onClose: () => void
-}
-
-const BootstrapDialogTitle = (props: DialogTitleProps) => {
-  const { children, onClose, ...other } = props
-
-  return (
-    <DialogTitle
-      sx={{ m: 0, p: 2, backgroundColor: orange[500], color: 'white' }}
-      {...other}
-    >
-      {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </DialogTitle>
-  )
-}
 
 const BookTable = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -112,10 +65,6 @@ const BookTable = () => {
     borrowDate: '',
     returnDate: '',
   })
-
-  //console.log('book: ', book)
-  const userToken = localStorage.getItem('userToken') || ''
-  const decoded = jwt_decode(userToken) as DecodedUser
 
   const [open, setOpen] = useState(false)
 
@@ -259,58 +208,7 @@ const BookTable = () => {
 
       <Grid container>
         <Grid item xs={12} className="search">
-        <TextField
-           id="isbn-input" 
-           name="isbn" 
-           label="ISBN" 
-           type="text"
-           onChange={(e) => {
-            if(e.target.value === ''){
-              dispatch(booksFetch())
-            } else {
-              dispatch(fetchBookByIsbn(e.target.value))
-            }
-          }}
-           />
-          <TextField
-           id="title-input" 
-           name="title" 
-           label="TITLE" 
-           type="text"
-           onChange={(e) => {
-            if(e.target.value === ''){
-              dispatch(booksFetch())
-            } else {
-              dispatch(fetchBookByTitle(e.target.value))
-            }
-          }}
-           />
-          <TextField
-           id="category-input" 
-           name="category" 
-           label="CATEGORY" 
-           type="text"
-           onChange={(e) => {
-            if(e.target.value === ''){
-              dispatch(booksFetch())
-            } else {
-              dispatch(fetchBookByCategory(e.target.value))
-            }
-          }}
-           />
-          <TextField
-            id="status-input"
-            name="status"
-            label="STATUS"
-            type="text"
-            onChange={(e) => {
-              if(e.target.value === ''){
-                dispatch(booksFetch())
-              } else {
-                dispatch(fetchBookByStatus(e.target.value))
-              }
-            }}
-          />
+            <Search />
         </Grid>
 
         <Grid item xs={12}>
@@ -473,7 +371,7 @@ const BookTable = () => {
                             </ColorButton>
                           </TableCell>
                         )}
-                        {!isAdmin && (
+                        {/* {!isAdmin && (
                           <TableCell>
                             {book.status === 'borrowed' && (
                               <ColorButton disabled>Borrow</ColorButton>
@@ -504,10 +402,6 @@ const BookTable = () => {
                             {book.status === 'borrowed' && (
                               <ColorButton
                                 onClick={async () => {
-                                  // setBook({
-                                  //   ...book,
-                                  //   borrowerId: decoded.userId,
-                                  // })
                                   await dispatch(
                                     returnBook({
                                       id: book._id,
@@ -523,7 +417,7 @@ const BookTable = () => {
                               <ColorButton disabled>Return</ColorButton>
                             )}
                           </TableCell>
-                        )}
+                        )} */}
                       </TableRow>
                     ),
                 )}

@@ -1,29 +1,23 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Grid,
-  IconButton,
-  IconButtonProps,
-  styled,
   Typography,
   Collapse,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'redux/store'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'redux/store'
 import { Book, DecodedUser } from 'types'
 import background from '../books.jpg'
 import ColorButton from './Button'
 import jwt_decode from 'jwt-decode'
-import { borrowBook, returnBook } from 'redux/slices/bookSlice'
-
+import { booksFetch, borrowBook, returnBook } from 'redux/slices/bookSlice'
 import '../App.css'
-import React from 'react'
 import { ExpandMore } from './ExpandMoreIcon'
 
 
@@ -38,8 +32,8 @@ const BookCard = ({ book }: { book: Book }) => {
     setExpanded(!expanded)
   }
 
-  const borrow = async () => {
-    await dispatch(
+  const borrow = () => {
+    dispatch(
       borrowBook({
         id: book._id,
         borrowerId: decoded.userId,
@@ -47,8 +41,8 @@ const BookCard = ({ book }: { book: Book }) => {
     )
   }
 
-  const returnBorrowedBook = async () => {
-    await dispatch(
+  const returnBorrowedBook = () => {
+    dispatch(
       returnBook({
         id: book._id,
         borrowerId: null,
@@ -73,6 +67,22 @@ const BookCard = ({ book }: { book: Book }) => {
             {book.description}
           </Typography>
         </Collapse>
+        <Typography>
+            Publisher: {book.publisher}
+        </Typography>
+        <Typography>
+            Category: {book.category}
+        </Typography>
+        {book.status === 'borrowed' &&
+          <Typography>
+            Borrow-Date: {book.borrowDate}
+          </Typography>
+        }
+        {book.status === 'available' &&
+          <Typography>
+            Return-Date: {book.returnDate}
+          </Typography>
+        }
         <ul style={{ paddingLeft: 15 }}>
           {book.authors.map((author) => (
             <li key={author._id}>{author.name}</li>

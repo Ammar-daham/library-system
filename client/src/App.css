@@ -1,17 +1,17 @@
 
 
 .bookCard {
-    max-width: 345;
-    margin: 10px;
+    max-width: 350;
+    
+    margin: 20px;
     padding: 20px;
     box-shadow: 0 0 6px rgb(56, 57, 57);
-    border: 2px solid rgba(255,255,255,0.2);
+    border: 3px solid rgba(255,255,255,0.2);
 }
 
 .mainBox{
     height: 100%;
-    width: inherit;
-    position: absolute;
+    width: 100%;
     background-color: wheat;
 }
 

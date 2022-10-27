@@ -1,26 +1,28 @@
 import { Box, Grid } from '@mui/material'
 import Header from 'components/Header'
-import BookTable from 'components/BooksTable'
 import Books from 'components/Books'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { booksFetch } from 'redux/slices/bookSlice'
+import { AppDispatch } from 'redux/store'
 
 const ClientPage = () => {
-    return (
-        
-        <Box className='mainBox'>
-            <Grid container >
-                <Grid xs={12}>
-                    <Header />
-                    <Books />
-                </Grid>
-                <Grid  sx={{padding: '50px 150px'}}>
-                    <BookTable /> 
-                </Grid>
+  const dispatch = useDispatch<AppDispatch>()
 
-            </Grid>
-        </Box>
-        
-        
-    )
+  useEffect(() => {
+    dispatch(booksFetch())
+  }, [dispatch])
+
+  return (
+    <Box className="mainBox">
+      <Grid container>
+        <Grid xs={12}>
+          <Header />
+          <Books />
+        </Grid>
+      </Grid>
+    </Box>
+  )
 }
 
 export default ClientPage

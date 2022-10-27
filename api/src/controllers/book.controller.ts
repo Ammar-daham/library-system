@@ -73,9 +73,9 @@ export const bookBorrowed = async (
   try {
     const bookId = req.params.bookId
     req.body.status = 'borrowed'
-    req.body.borrow_Date =
+    req.body.borrowDate =
       date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-    req.body.return_Date = ''
+    req.body.returnDate = ''
 
     const updatedBook = await bookService.bookBorrowed(bookId, req.body)
     res.json(updatedBook)
@@ -97,8 +97,8 @@ export const bookReturned = async (
   try {
     const bookId = req.params.bookId
     req.body.status = 'available'
-    req.body.borrow_Date = ''
-    req.body.return_Date =
+    req.body.borrowDate = ''
+    req.body.returnDate =
       date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
 
     const updatedBook = await bookService.bookReturned(bookId, req.body)

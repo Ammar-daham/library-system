@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
 import { useDispatch } from 'react-redux'
-import jwt_decode from 'jwt-decode'
-
 import {
   Table,
   TableBody,
@@ -24,10 +22,9 @@ import { orange } from '@mui/material/colors'
 import ColorButton from './Button'
 import { useEffect, useState } from 'react'
 import { fetchAuthors, removeAuthor, updateAuthor } from 'redux/slices/authorSlice'
-import { DecodedUser } from 'types'
-import '../App.css'
 import { booksFetch } from 'redux/slices/bookSlice'
 import { BootstrapDialog, BootstrapDialogTitle } from './UpdateBootstrapDialog'
+import '../App.css'
 
 
 const AuthorTable = () => {

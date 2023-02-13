@@ -1,4 +1,4 @@
-import Author, { AuthorDocument } from '../models/Author'
+import Author, { AuthorDocument } from '../models/author'
 import { NotFoundError } from '../helpers/apiError'
 
 const create = async (author: AuthorDocument): Promise<AuthorDocument> => {

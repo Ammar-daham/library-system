@@ -1,5 +1,5 @@
 import GoogleTokenStrategy from 'passport-google-id-token'
-import User from '../models/User'
+import User from '../models/user'
 import { VerifiedCallback, ParsedToken } from '../types'
 import { GOOGLE_CLIENT_ID } from '../util/secrets'
 

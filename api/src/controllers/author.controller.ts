@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-import Author from '../models/Author'
+import Author from '../models/author'
 import authorService from '../services/author.service'
 import { BadRequestError } from '../helpers/apiError'
 

@@ -10,6 +10,7 @@ import apiContentType from './middlewares/apiContentType'
 import bookRouter from './routers/book.router'
 import authorRouter from './routers/author.router'
 import userRouter from './routers/user.router'
+import categoryRouter from './routers/category.router'
 
 import passport from 'passport'
 import loginWithGoogle from './passport/google'
@@ -50,6 +51,7 @@ passport.use(loginWithGoogle())
 app.use('/api/v1/books', bookRouter)
 app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/categories', categoryRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)

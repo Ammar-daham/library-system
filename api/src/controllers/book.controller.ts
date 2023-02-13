@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import Book from '../models/Book'
+import Book from '../models/book'
 import bookService from '../services/book.service'
 import { BadRequestError } from '../helpers/apiError'
 
@@ -18,8 +18,9 @@ export const createBook = async (
       publisher,
       authors,
       status,
-      category,
+      categories,
       publishedDate,
+      url,
     } = req.body
 
     const book = new Book({
@@ -29,8 +30,9 @@ export const createBook = async (
       publisher,
       authors,
       status,
-      category,
+      categories,
       publishedDate,
+      url,
     })
 
     await bookService.create(book)
@@ -164,7 +166,7 @@ export const findByTitle = async (
   }
 }
 
-// GET /books/category/:category
+// GET /books/categories/:category
 export const findByCategory = async (
   req: Request,
   res: Response,

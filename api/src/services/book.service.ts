@@ -1,4 +1,4 @@
-import Book, { BookDocument } from '../models/Book'
+import Book, { BookDocument } from '../models/book'
 import { NotFoundError } from '../helpers/apiError'
 
 const create = async (book: BookDocument): Promise<BookDocument> => {
@@ -39,8 +39,11 @@ const findByStatus = async (status: string): Promise<BookDocument[]> => {
 
 const findAll = async (): Promise<BookDocument[]> => {
   return await Book.find()
-    .populate('authors')
-    .populate('borrowerId')
+    .populate('authors', 'name')
+    .populate({
+      path: 'categories',
+      select: 'name',
+    })
     .sort({ title: 1 })
 }
 

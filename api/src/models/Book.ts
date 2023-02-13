@@ -6,12 +6,13 @@ export type BookDocument = Document & {
   description: string
   publisher: string
   status: string
-  category: string
+  categories: []
   authors: []
   borrowerId: []
   publishedDate: Date
-  borrowDate: string
-  returnDate: string
+  borrowDate: Date
+  returnDate: Date
+  url: string
 }
 
 const bookSchema = new mongoose.Schema({
@@ -37,17 +38,22 @@ const bookSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
+    default: 'available',
   },
-  category: {
-    type: String,
-    required: true,
-  },
-  authors: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Author',
-  },
+  categories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
+    },
+  ],
+  authors: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Author',
+    },
+  ],
   borrowerId: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
   publishedDate: {
@@ -55,10 +61,21 @@ const bookSchema = new mongoose.Schema({
     required: true,
   },
   borrowDate: {
-    type: String,
+    type: Date,
   },
   returnDate: {
+    type: Date,
+  },
+  url: {
     type: String,
+  },
+})
+
+bookSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
   },
 })
 

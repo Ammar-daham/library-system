@@ -57,3 +57,13 @@ export class BadRequestError extends ApiError {
     super(statusCode, message, source)
   }
 }
+
+export class UnknownEndpoint extends ApiError {
+  constructor(
+    readonly message: string = 'unknown endpoint',
+    readonly statusCode: number = 404,
+    source?: Error | any
+  ) {
+    super(statusCode, message, source)
+  }
+}

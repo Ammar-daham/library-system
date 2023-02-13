@@ -40,10 +40,7 @@ const findByStatus = async (status: string): Promise<BookDocument[]> => {
 const findAll = async (): Promise<BookDocument[]> => {
   return await Book.find()
     .populate('authors', 'name')
-    .populate({
-      path: 'categories',
-      select: 'name',
-    })
+    .populate('categories', { name: 1 })
     .sort({ title: 1 })
 }
 

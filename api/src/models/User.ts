@@ -6,7 +6,7 @@ export type UserDocument = Document & {
   last_name: string
   email: string
   isAdmin: boolean
-  password: string
+  passwordHash: string
 }
 
 const userSchema = new mongoose.Schema({

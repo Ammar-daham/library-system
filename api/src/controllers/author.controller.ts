@@ -4,7 +4,7 @@ import Author from '../models/author'
 import authorService from '../services/author.service'
 import { BadRequestError } from '../helpers/apiError'
 
-// POST /movies
+// POST /author
 export const createAuthor = async (
   req: Request,
   res: Response,
@@ -83,7 +83,7 @@ export const findById = async (
   }
 }
 
-// GET /movies
+// GET /authors
 export const findAllAuthors = async (
   req: Request,
   res: Response,

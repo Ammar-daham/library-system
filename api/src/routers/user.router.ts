@@ -2,7 +2,7 @@ import express from 'express'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../util/secrets'
-import { findAllUsers } from '../controllers/user.controller'
+import { findAllUsers, createUser } from '../controllers/user.controller'
 const router = express.Router()
 
 router.post(
@@ -19,5 +19,6 @@ router.post(
   }
 )
 router.get('/', findAllUsers)
+router.post('/', createUser)
 
 export default router

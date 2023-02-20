@@ -19,3 +19,9 @@ export interface VerifiedCallback {
 export type Role = {
   isAdmin: boolean
 }
+
+export type AuthorDocument = {
+  name: string
+  email: string
+  books: []
+}

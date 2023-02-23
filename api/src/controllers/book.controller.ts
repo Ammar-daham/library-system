@@ -133,6 +133,23 @@ export const deleteBook = async (
 }
 
 // GET /books/isbn/:isbn
+export const findById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.json(await bookService.findById(req.params.id))
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
+
+// GET /books/isbn/:isbn
 export const findByIsbn = async (
   req: Request,
   res: Response,

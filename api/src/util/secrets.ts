@@ -19,11 +19,12 @@ export const GOOGLE_CLIENT_ID = process.env['GOOGLE_CLIENT_ID'] as string
 export const GOOGLE_CLIENT_SECRET = process.env[
   'GOOGLE_CLIENT_SECRET'
 ] as string
-export const MONGODB_URI = process.env['MONGODB_URI'] as string
+//export const MONGODB_URI = process.env['MONGODB_URI'] as string
 // Use this instead if you want to use local mongodb
-// export const MONGODB_URI = process.env.NODE_ENV !== 'test'
-//   ? process.env['TEST_MONGODB_URI'] as string
-//   : process.env['MONGODB_URI'] as string
+export const MONGODB_URI =
+  process.env.NODE_ENV === 'test'
+    ? (process.env['TEST_MONGODB_URI'] as string)
+    : (process.env['MONGODB_URI'] as string)
 
 if (!JWT_SECRET) {
   logger.error('No client secret. Set JWT_SECRET environment variable.')

@@ -21,6 +21,6 @@ router.post(
 )
 router.get('/', findAllUsers)
 router.post('/', createUser)
-router.post('/login2', login)
+router.post('/login/email', login)
 
 export default router

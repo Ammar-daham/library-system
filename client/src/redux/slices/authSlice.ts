@@ -5,8 +5,9 @@ import { DecodedUser, User } from '../../types'
 import jwt_decode from 'jwt-decode'
 
 
+
 const url = `http://localhost:4000/api/v1/users/login`
-//const userUrl = `http://localhost:4000/api/v1/users`
+const userUrl = `http://localhost:4000/api/v1/users/`
 
 export interface authState {
   users: User[]   
@@ -15,6 +16,8 @@ export interface authState {
   isLoading: boolean
   error: any
   success: boolean
+  addUser: string
+  addError: string
 }
 
 const initialState: authState = {
@@ -23,8 +26,11 @@ const initialState: authState = {
   isLoggedIn: false,
   isLoading: false,
   error: null,
-  success: false
+  success: false,
+  addUser: '',
+  addError: ''
 }
+
 
 
 // export const userFetch = createAsyncThunk(
@@ -45,6 +51,22 @@ const initialState: authState = {
 //     }
 //   }
 // )
+
+export const createUser = createAsyncThunk(
+  'users/create',
+ async (user: User, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(userUrl, user)
+      console.log(response.data)
+      return response.data
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
+
+
 
 export const auth = createAsyncThunk(
   'user/register',
@@ -97,6 +119,26 @@ const authSlice = createSlice({
     builder.addCase(auth.rejected, (state, action) => {
       state.error = action.payload
       state.isLoading = false
+    })
+    builder.addCase(createUser.pending, (state) => {
+      return {
+        ...state,
+        isLoading: true
+      }
+    })
+    builder.addCase(createUser.fulfilled, (state, action) => {
+      return {
+        ...state,
+        users: [...state.users, action.payload.data],
+        addUser: 'success'
+      }
+    })
+    builder.addCase(createUser.rejected, (state, action) => {
+      return {
+        ...state,
+        addUser: 'rejected',
+        addError: 'error'
+      }
     })
     // builder.addCase(userFetch.pending, (state) => {
     //   return {

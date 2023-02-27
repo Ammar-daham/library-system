@@ -1,16 +1,36 @@
+import { useState } from 'react'
 import {  Grid, TextField } from '@mui/material'
 import ColorButton from './Button'
+import { useDispatch } from 'react-redux'
 
 import '../App.css'
 import { Link } from 'react-router-dom'
+import { AppDispatch } from 'redux/store'
+import { User } from 'types'
+import { createUser } from '../redux/slices/authSlice'
+import { initialUser } from '../types'
 
 
 const SignupForm = () => {
-  
-  
+
+  const [user, setUser] = useState<User>(initialUser)
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  const handleSignup = async (e: any) => {
+    e.preventDefault()
+    await dispatch(createUser(user))
+  }
+
+  const handleInputChange = ( e : any ) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    });
+  }
 
   return (
-      <form>
+      <form >
         <Grid
           className='grid-container'
           container
@@ -23,28 +43,31 @@ const SignupForm = () => {
               id="input"
               name="username"
               label="Username"
-              placeholder="username"
               type="text"
+              value={user.username}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
               id="input"
-              name="first-name"
+              name="first_name"
               label="First-name"
-              placeholder="first name"
               type="text"
+              value={user.first_name}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
               id="input"
-              name="last-name"
-              label="last-name"
-              placeholder="last name"
+              name="last_name"
+              label="Last-name"
               type="text"
+              value={user.last_name}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -54,8 +77,9 @@ const SignupForm = () => {
               id="input"
               name="email"
               label="Email"
-              placeholder="Email"
               type="text"
+              value={user.email}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -64,13 +88,14 @@ const SignupForm = () => {
               id="input"
               name="password"
               label="Password"
-              placeholder="Password"
               type="text"
+              value={user.password}
+              onChange={handleInputChange}
             />
           </Grid>
 
           <Grid item xs={12}>
-            <ColorButton sx={{ height: 40, width: 290 }} >Sign up</ColorButton>
+            <ColorButton onClick={handleSignup} sx={{ height: 40, width: 290 }} >Sign up</ColorButton>
           </Grid>
           <br />
           <br />

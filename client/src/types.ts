@@ -23,12 +23,23 @@ export type Author = {
 }
 
 export type User = {
-  _id: string
+  id: string
   username: string
   first_name: string
   last_name: string
   email: string
-  isAdmin: boolean,
+  isAdmin: boolean
+  password: string
+}
+
+export const initialUser: User = {
+  id: '',
+  username: '',
+  first_name: '',
+  last_name: '',
+  email: '',
+  isAdmin: false,
+  password: '',
 }
 
 export type DecodedUser = {

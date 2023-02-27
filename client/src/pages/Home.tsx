@@ -1,8 +1,6 @@
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import LoginForm from "components/LoginForm";
-import { orange } from '@mui/material/colors'
 import background from "../books.jpg";
-import SignupForm from "components/SignupForm";
 
 
 const Home = () => {

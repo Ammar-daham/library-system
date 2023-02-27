@@ -48,3 +48,8 @@ export type DecodedUser = {
     iat: number,
     exp: number
 }
+
+export interface NotificationProps {
+  successMessage: string | null;
+  errorMessage: string | null;
+}

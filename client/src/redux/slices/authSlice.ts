@@ -16,8 +16,7 @@ export interface authState {
   isLoading: boolean
   error: any
   success: boolean
-  addUser: string
-  addError: string
+  message: string
 }
 
 const initialState: authState = {
@@ -27,8 +26,7 @@ const initialState: authState = {
   isLoading: false,
   error: null,
   success: false,
-  addUser: '',
-  addError: ''
+  message: ''
 }
 
 
@@ -130,14 +128,15 @@ const authSlice = createSlice({
       return {
         ...state,
         users: [...state.users, action.payload.data],
-        addUser: 'success'
+        message: `You have successfully signed up to our service`,
+        success: true
       }
     })
     builder.addCase(createUser.rejected, (state, action) => {
       return {
         ...state,
-        addUser: 'rejected',
-        addError: 'error'
+        success: false,
+        message: 'Please fill out all required fields correctly before submitting the form',
       }
     })
     // builder.addCase(userFetch.pending, (state) => {

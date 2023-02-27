@@ -10,11 +10,37 @@
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
 }
 
-#input {
+.input {
     background: rgba(255,255,255,0.20);
     border-radius: 10px;
 }
   
+h6{
+    text-align: center;
+    color: red;
+}
+
+
+
+.success {
+    color: green;
+    background: rgba(255,255,255,0.20);
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .error {
+    color: red;
+    background: rgba(255,255,255,0.20);
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
   
 
 .bookCard {

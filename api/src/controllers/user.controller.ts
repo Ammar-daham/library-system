@@ -8,7 +8,7 @@ export const findAllUsers = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     res.json(await userService.findAllUsers())
   } catch (error) {
@@ -25,12 +25,12 @@ export const createUser = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const { username, first_name, last_name, email, password } = req.body
 
     if (!password || password.length < 3) {
-      return res
+      res
         .status(400)
         .json({ error: 'Password required must have at least 3 characters' })
         .end()

@@ -41,7 +41,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<LoginForm />} />
         <Route path="/singup" element={<SignupForm />} />
-        <Route path="/user" element={<ClientPage />} />
+        <Route path="/books" element={<ClientPage />} />
       </Routes>
     </Router>
     </Container> 

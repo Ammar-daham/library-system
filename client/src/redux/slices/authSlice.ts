@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { CredentialResponse } from '@react-oauth/google'
 import axios from 'axios'
-import { DecodedUser, User } from '../../types'
+import { DecodedUser, User, loggedInUser, initialLoggedInUser, loggedUser} from '../../types'
 import jwt_decode from 'jwt-decode'
 
 
@@ -17,6 +17,7 @@ export interface authState {
   error: any
   success: boolean
   message: string
+  user: loggedInUser
 }
 
 const initialState: authState = {
@@ -26,7 +27,8 @@ const initialState: authState = {
   isLoading: false,
   error: null,
   success: false,
-  message: ''
+  message: '',
+  user: initialLoggedInUser
 }
 
 
@@ -51,11 +53,24 @@ const initialState: authState = {
 // )
 
 export const createUser = createAsyncThunk(
-  'users/create',
+  'user/create',
  async (user: User, { rejectWithValue }) => {
     try {
       const response = await axios.post(userUrl, user)
-      console.log(response.data)
+      return response.data
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const login = createAsyncThunk(
+  'user/login',
+ async (user: loggedUser, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(url, user)
+      localStorage.setItem('userToken', response.data.token)
       return response.data
     } catch (error: any) {
       console.log(error)
@@ -65,15 +80,11 @@ export const createUser = createAsyncThunk(
 )
 
 
-
 export const auth = createAsyncThunk(
-  'user/register',
+  'user/loginWithGoogle',
   async (response: CredentialResponse, { rejectWithValue }) => {
-    console.log('response: ', response)
     try {
       if (response.credential) {
-        console.log('credential: ', response.credential)
-
         const res = await axios.post(
           url,
           {},
@@ -83,10 +94,8 @@ export const auth = createAsyncThunk(
             },
           },
         )
-        console.log('userToken: ', res.data.token)
         localStorage.setItem('userToken', res.data.token)
         const decoded = jwt_decode(res.data.token) as DecodedUser
-        console.log('decoded: ',decoded)
         localStorage.setItem('isAdmin', JSON.stringify(decoded.isAdmin))
         return res.data.token
       }
@@ -137,6 +146,27 @@ const authSlice = createSlice({
         ...state,
         success: false,
         message: 'Please fill out all required fields correctly before submitting the form',
+      }
+    })
+    builder.addCase(login.pending, (state) => {
+      return {
+        ...state,
+        isLoading: true
+      }
+    })
+    builder.addCase(login.fulfilled, (state, action) => {
+      return {
+        ...state,
+        user: action.payload,
+        message: `You have successfully logged in to our service`,
+        success: true
+      }
+    })
+    builder.addCase(login.rejected, (state, action) => {
+      return {
+        ...state,
+        success: false,
+        message: 'Email and password are required',
       }
     })
     // builder.addCase(userFetch.pending, (state) => {

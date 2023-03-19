@@ -4,10 +4,9 @@ import ColorButton from './Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { AppDispatch, RootState } from 'redux/store'
-import { User } from 'types'
 import { createUser } from '../redux/slices/authSlice'
-import { initialUser } from '../types'
-import Notification from './Notificatins'
+import { initialUser, User } from '../types'
+import Notification from './Notifications'
 import '../App.css'
 
 

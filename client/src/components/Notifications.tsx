@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css'
 
-const Notification = ({ successMessage, errorMessage }: any) => {
+const Notifications = ({ successMessage, errorMessage }: any) => {
   if (successMessage === null && errorMessage === null) {
     return null
   }
@@ -20,4 +20,4 @@ const Notification = ({ successMessage, errorMessage }: any) => {
   )
 }
 
-export default Notification
+export default Notifications

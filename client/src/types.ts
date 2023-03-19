@@ -32,6 +32,17 @@ export type User = {
   password: string
 }
 
+export type loggedUser = {
+  email: string
+  password: string
+}
+
+export type loggedInUser = {
+  email: string,
+  username: string,
+  token: string
+}
+
 export const initialUser: User = {
   id: '',
   username: '',
@@ -42,6 +53,17 @@ export const initialUser: User = {
   password: '',
 }
 
+export const initialLoggedUser: loggedUser = {
+  email: '',
+  password: '',
+}
+
+export const initialLoggedInUser: loggedInUser = {
+  email: '',
+  username: '',
+  token: ''
+}
+
 export type DecodedUser = {
     userId: string,
     isAdmin: boolean,
@@ -49,7 +71,4 @@ export type DecodedUser = {
     exp: number
 }
 
-export interface NotificationProps {
-  successMessage: string | null;
-  errorMessage: string | null;
-}
+

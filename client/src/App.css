@@ -41,16 +41,21 @@ h6{
     flex-direction: row;
 }
 
-.home-main-container {
+.header-link {
+    text-decoration: none;  
+}
+
+.home-main-container, .login-main-container {
     max-width: 1060px;
     width: 100%;
     background-color: #f7f6f2;
     border-radius: 5px;
     border: 1px solid #333;
+    padding-bottom: 2rem;
 }
 
-.home-h2 {
-    color: black;
+.home-h2, .login-h2 {
+    color: #333;
 }
 
 .book-card {
@@ -85,6 +90,12 @@ h6{
     box-shadow: 0 0 6px rgb(56, 57, 57);
     border: 3px solid rgba(255,255,255,0.2);
 }
+
+.login-divider {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+  
 
 .mainBox{
     height: 100%;

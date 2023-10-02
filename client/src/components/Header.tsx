@@ -54,7 +54,9 @@ const Header = () => {
         <List>
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
+            <Link className='header-link' to={`/login`}>
               <ListItemText>LOGIN</ListItemText>
+              </Link>
             </ListItemButton>
             <ReusedButton onClick={handleClick}>
               Sign Up

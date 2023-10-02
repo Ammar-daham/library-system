@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from '../pages/Home'
 import Dashboard from '../pages/Dashboard'
 import LoginForm from './LoginForm'
-import SignupForm from './SignupForm'
+import SignUpForm from './SignUpForm'
 import { Container } from '@mui/material'
 import background from '../books.jpg'
 import Header from './Header'
@@ -16,11 +16,10 @@ const App = () => {
         <div className='app-container' />
         <Header />
         <Routes>
-          {/* <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashb" element={<LoginForm />} />
-          <Route path="/singup" element={<SignupForm />} /> */}
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/login" element={<LoginForm />} /> 
+          <Route path="/sign-up" element={<SignUpForm />} />
         </Routes>
       </Router>
   )

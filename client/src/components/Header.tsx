@@ -54,13 +54,15 @@ const Header = () => {
         <List>
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-            <Link className='header-link' to={`/login`}>
-              <ListItemText>LOGIN</ListItemText>
+              <Link className='header-link' to={`/login`}>
+                <ListItemText>LOGIN</ListItemText>
               </Link>
             </ListItemButton>
-            <ReusedButton onClick={handleClick}>
-              Sign Up
-            </ReusedButton>
+            <Link className='header-link' to={`/sign-up`}>
+              <ReusedButton onClick={handleClick}>
+                Sign Up
+              </ReusedButton>
+            </Link>
           </ListItem>
         </List>
       </Toolbar>

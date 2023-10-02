@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {  Grid, TextField } from '@mui/material'
+import {  Grid, TextField, Container } from '@mui/material'
 import ColorButton from './Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -7,6 +7,8 @@ import { AppDispatch, RootState } from 'redux/store'
 import { createUser } from '../redux/slices/authSlice'
 import { initialUser, User } from '../types'
 import Notification from './Notifications'
+import ReusedButton from './Button'
+
 import '../App.css'
 
 
@@ -52,14 +54,20 @@ const SignUpForm = () => {
     });
   };
 
+  const handleClick = () => {
+    console.log('Button clicked!');
+  }
+
+
 
   return (
+    <Container className="signup-main-container">
+      <h2 className="signup-h2">SIGN UP</h2>
+      <p>Complete the form below to create a new imaginary library account</p>
       <form >
         <Grid
-          className='grid-container'
           container
           spacing={2}
-          id='grid-container'
         >
           <Grid item xs={12}>
             <TextField
@@ -134,6 +142,11 @@ const SignUpForm = () => {
             <Link to='/' style={{ textDecoration: 'none' }}><ColorButton sx={{ height: 40, width: 290 }} >Login</ColorButton></Link>
           </Grid> */}
           <Grid item xs={12}>
+            <ReusedButton onClick={handleClick} style={{ width: '15em' }}>
+              SIGN UP
+            </ReusedButton>
+          </Grid>
+          <Grid item xs={12}>
           {
             user &&
             <Notification successMessage={successMessage} errorMessage={errorMessage} />
@@ -141,6 +154,7 @@ const SignUpForm = () => {
           </Grid>
         </Grid>
       </form>
+      </Container>
   )
 }
 

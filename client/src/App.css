@@ -28,7 +28,7 @@ h6{
 
 .header-container {
     box-sizing: border-box;
-    max-width: 1060px;
+    max-width: 1250px;
     width: 100%;
     margin: 0 auto;
     z-index: 1;
@@ -45,7 +45,7 @@ h6{
     text-decoration: none;  
 }
 
-.home-main-container, .login-main-container {
+.home-main-container, .login-main-container, .signup-main-container {
     max-width: 1060px;
     width: 100%;
     background-color: #f7f6f2;
@@ -54,7 +54,7 @@ h6{
     padding-bottom: 2rem;
 }
 
-.home-h2, .login-h2 {
+.home-h2, .login-h2, .signup-h2 {
     color: #333;
 }
 

@@ -59,6 +59,10 @@ const BookTable = () => {
     publisher: '',
     category: '',
     authors: [],
+    cover: {
+      small: '',
+      large: ''
+    },
     status: '',
     borrowerId: [],
     publishedDate: '',
@@ -192,7 +196,7 @@ const BookTable = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <ColorButton
+          {/* <ColorButton
             autoFocus
             onClick={async () => {
               await dispatch(fetchAuthors())
@@ -202,7 +206,7 @@ const BookTable = () => {
             }}
           >
             Save changes
-          </ColorButton>
+          </ColorButton> */}
         </DialogActions>
       </BootstrapDialog>
 
@@ -354,7 +358,7 @@ const BookTable = () => {
                             </ColorButton>
                           </TableCell>
                         )}
-                        {isAdmin && book.status === 'borrowed' && (
+                        {/* {isAdmin && book.status === 'borrowed' && (
                           <TableCell>
                             <ColorButton disabled>Remove</ColorButton>
                           </TableCell>
@@ -370,7 +374,7 @@ const BookTable = () => {
                               Update
                             </ColorButton>
                           </TableCell>
-                        )}
+                        )} */}
                         {/* {!isAdmin && (
                           <TableCell>
                             {book.status === 'borrowed' && (

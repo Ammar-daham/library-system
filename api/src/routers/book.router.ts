@@ -15,8 +15,8 @@ import {
 import { checkAuthAdmin, checkAuthAdminUser } from '../middlewares/checkAuth'
 const router = express.Router()
 
-// Every path we define here will get /api/v1/movies prefix
-router.get('/', checkAuthAdminUser, findAllBooks)
+// Every path we define here will get /api/v1/books prefix
+router.get('/', findAllBooks)
 router.get('/isbn/:isbn', checkAuthAdminUser, findByIsbn)
 router.get('/title/:title', checkAuthAdminUser, findByTitle)
 router.get('/status/:status', checkAuthAdminUser, findByStatus)
@@ -35,10 +35,6 @@ router.delete(
   deleteBook
 )
 
-router.post(
-  '/',
-  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
-  createBook
-)
+router.post('/', createBook)
 
 export default router

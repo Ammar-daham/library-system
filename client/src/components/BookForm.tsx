@@ -32,6 +32,10 @@ const BookForm = () => {
     publisher: '',
     category: '',
     authors: [],
+    cover: {
+      small: '',
+      large: ''
+    },
     status: '',
     borrowerId: [],
     publishedDate: '',
@@ -156,13 +160,13 @@ const BookForm = () => {
             </Select>
           </Grid>
         </Grid>
-        <ColorButton type="submit" form="form1" variant="contained">
+        {/* <ColorButton type="submit" form="form1" variant="contained">
           {booksState.addBook === 'pending' ? (
             <CircularProgress size={24} color="secondary" />
           ) : (
             'Add A Book'
           )}
-        </ColorButton>
+        </ColorButton> */}
         <br />
         <br />
         {booksState.addBook === 'rejected' ? (

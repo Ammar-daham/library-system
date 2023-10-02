@@ -123,7 +123,7 @@ const SignUpForm = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <ColorButton onClick={handleSignUp} sx={{ height: 40, width: 290 }} >Sign up</ColorButton>
           </Grid>
           <br />
@@ -132,7 +132,7 @@ const SignUpForm = () => {
           
           <Grid item xs={12}>
             <Link to='/' style={{ textDecoration: 'none' }}><ColorButton sx={{ height: 40, width: 290 }} >Login</ColorButton></Link>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
           {
             user &&

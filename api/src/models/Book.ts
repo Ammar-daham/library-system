@@ -9,10 +9,13 @@ export type BookDocument = Document & {
   categories: []
   authors: []
   borrowerId: []
-  publishedDate: Date
+  cover: {
+    small: string
+    large: string
+  }
+  publishedDate: string
   borrowDate: Date
   returnDate: Date
-  url: string
 }
 
 const bookSchema = new mongoose.Schema({
@@ -56,8 +59,17 @@ const bookSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  cover: {
+    small: {
+      type: String,
+      required: true,
+    },
+    large: {
+      type: String,
+    },
+  },
   publishedDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   borrowDate: {
@@ -65,9 +77,6 @@ const bookSchema = new mongoose.Schema({
   },
   returnDate: {
     type: Date,
-  },
-  url: {
-    type: String,
   },
 })
 

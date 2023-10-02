@@ -124,7 +124,7 @@ const AuthorTable = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <ColorButton
+          {/* <ColorButton
             autoFocus
             onClick={async () => {
               await dispatch(booksFetch())
@@ -134,7 +134,7 @@ const AuthorTable = () => {
             }}
           >
             Save changes
-          </ColorButton>
+          </ColorButton> */}
         </DialogActions>
       </BootstrapDialog>
       <Grid container sx={{padding: '20px 100px'}}>
@@ -187,7 +187,7 @@ const AuthorTable = () => {
                             )}
                           </ul>
                         </TableCell>
-                          {
+                          {/* {
                             isAdmin && author.books.length === 0 &&
                         <TableCell>
                           <ColorButton
@@ -212,7 +212,7 @@ const AuthorTable = () => {
                               setAuthor({ ...author })
                             }}
                           >Update</ColorButton>
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     ),
                 )}

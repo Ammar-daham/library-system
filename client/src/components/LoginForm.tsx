@@ -77,9 +77,9 @@ const LoginForm = () => {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <ColorButton sx={{ height: 40, width: 290 }} onClick={handleLogin}>Login</ColorButton>
-        </Grid>
+        </Grid> */}
         <br />
         <br />
 

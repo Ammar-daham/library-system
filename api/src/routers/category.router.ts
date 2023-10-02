@@ -7,11 +7,7 @@ import {
 
 const router = express.Router()
 
-router.get(
-  '/',
-  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
-  findAllCategories
-)
+router.get('/', findAllCategories)
 
 router.post(
   '/',

@@ -1,50 +1,27 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from 'pages/Home'
-import  ClientPage from '../pages/ClientPage'
-import  Dashboard  from '../pages/Dashboard'
+import Home from '../pages/Home'
+import Dashboard from '../pages/Dashboard'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
-import { Container, Typography } from "@mui/material";
-import background from "../books.jpg";
-
-
-
-
+import { Container } from '@mui/material'
+import background from '../books.jpg'
+import Header from './Header'
 
 const App = () => {
-
-  window.onbeforeunload = function() {
-    localStorage.clear();
+  window.onbeforeunload = function () {
+    localStorage.clear()
   }
-
   return (
-    <Container
-    className='loginFormContainer'
-    maxWidth={false}
-    style={{ 
-     
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      rowGap: '100px',
-      minHeight: '100vh',
-      position: 'absolute',
-      backgroundImage: `url(${background})`,
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-   }}
-  >
-    <Router>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/singup" element={<SignupForm />} />
-        <Route path="/books" element={<ClientPage />} />
-      </Routes>
-    </Router>
-    </Container> 
+      <Router>
+        <div className='app-container' />
+        <Header />
+        <Routes>
+          {/* <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashb" element={<LoginForm />} />
+          <Route path="/singup" element={<SignupForm />} /> */}
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
   )
 }
 export default App

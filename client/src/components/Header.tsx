@@ -1,26 +1,41 @@
 import { Link } from 'react-router-dom'
-import {  Typography, AppBar, Toolbar } from '@mui/material'
-import Logo  from './book-borrow-icon.png'
+import {
+  List,
+  Typography,
+  Button,
+  Toolbar,
+  ListItemButton,
+  ListItem,
+  ListItemText,
+} from '@mui/material'
+import Logo from '../logo.png'
 import { useNavigate } from 'react-router-dom'
+import SearchInput from './Search'
+import ReusedButton from './Button'
 
 import '../App.css'
 
-const Header = () => {
 
+
+
+const Header = () => {
   const navigate = useNavigate()
 
+  // const handleLogout = () => {
+  //   localStorage.removeItem('isAdmin')
+  //   localStorage.removeItem('userToken')
+  //   navigate('/')
+  // }
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAdmin')
-    localStorage.removeItem('userToken')
-    navigate('/')
+  const handleClick = () => {
+    console.log('Button clicked!');
   }
-  
+
   return (
-    <AppBar sx={{ padding: 1, backgroundColor: '#ff9800' }} position="sticky">
+    <div className="header-container">
       <Toolbar>
         <Link to={`/`}>
-          <img src={Logo} width = '50' style={{padding: 10}} alt="logo"/>
+          <img src={Logo} width="100" alt="logo" />
         </Link>
 
         <Typography
@@ -29,15 +44,25 @@ const Header = () => {
           component="div"
           sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
         >
-          Library Management System
+          Imaginary Library
         </Typography>
 
-        <Typography className='logout' onClick={handleLogout}>
+        {/* <Typography className='logout' onClick={handleLogout}>
           Logout
-        </Typography>
-
+        </Typography> */}
+         <SearchInput />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText>LOGIN</ListItemText>
+            </ListItemButton>
+            <ReusedButton onClick={handleClick}>
+              Sign Up
+            </ReusedButton>
+          </ListItem>
+        </List>
       </Toolbar>
-    </AppBar>
+    </div>
   )
 }
 

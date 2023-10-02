@@ -108,13 +108,13 @@ const AuthorForm = () => {
           </Grid>
         </Grid>
 
-        <ColorButton type="submit" form="form1" variant="contained">
+        {/* <ColorButton type="submit" form="form1" variant="contained">
           {authorsState.addAuthor === 'pending' ? (
             <CircularProgress size={24} color="secondary" />
           ) : (
             'Add Author'
           )}
-        </ColorButton>
+        </ColorButton> */}
         <br />
         <br />
         {authorsState.addAuthor === 'rejected' ? (

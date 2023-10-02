@@ -18,6 +18,7 @@ export const createBook = async (
       publisher,
       authors,
       status,
+      cover: { small, large },
       categories,
       publishedDate,
       url,
@@ -30,6 +31,10 @@ export const createBook = async (
       publisher,
       authors,
       status,
+      cover: {
+        small,
+        large,
+      },
       categories,
       publishedDate,
       url,

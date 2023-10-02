@@ -20,7 +20,42 @@ h6{
     color: red;
 }
 
+.app-container {
+    background-color: #333;
+    padding: 5px;
+    height: 2rem;
+}
 
+.header-container {
+    box-sizing: border-box;
+    max-width: 1060px;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 1;
+    position: relative;
+    margin: 20px auto;
+    padding-top: 0;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.home-main-container {
+    max-width: 1060px;
+    width: 100%;
+    background-color: #f7f6f2;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+.home-h2 {
+    color: black;
+}
+
+.book-card {
+    margin-bottom: 2rem;  
+}
 
 .success {
     color: green;

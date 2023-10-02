@@ -11,11 +11,7 @@ import {
 
 const router = express.Router()
 
-router.get(
-  '/',
-  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
-  findAllAuthors
-)
+router.get('/', findAllAuthors)
 router.get(
   '/:authorId',
   (...args) => checkAuthAdmin(...args, { isAdmin: true }),
@@ -31,10 +27,6 @@ router.delete(
   (...args) => checkAuthAdmin(...args, { isAdmin: true }),
   deleteAuthor
 )
-router.post(
-  '/',
-  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
-  createAuthor
-)
+router.post('/', createAuthor)
 
 export default router

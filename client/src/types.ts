@@ -8,6 +8,10 @@ export type Book = {
   borrowerId: string[]
   authors: Author[]
   publishedDate: string
+  cover: {
+    small: string
+    large: string
+  }
   borrowDate: string
   returnDate: string
   status: string

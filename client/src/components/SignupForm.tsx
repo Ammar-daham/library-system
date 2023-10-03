@@ -13,15 +13,18 @@ import '../App.css'
 
 
 const SignUpForm = () => {
-
   const [user, setUser] = useState<User>(initialUser)
   const [ successMessage, setSuccessMessage ] = useState<string|null>('')
   const [ errorMessage , setErrorMessage ] = useState<string|null>('')
 
+  // to get the param
+  const pathname = window.location.pathname;
+  const staticPart = pathname.split('/').filter(Boolean)[0];
+
   const dispatch = useDispatch<AppDispatch>()
   const state = useSelector((state: RootState) => state.users)
 
-  
+  console.log("param ", staticPart)
   useEffect(() => {
     const setMessage = async () => {
       if (state.success) {
@@ -64,6 +67,7 @@ const SignUpForm = () => {
     <Container className="signup-main-container">
       <h2 className="signup-h2">SIGN UP</h2>
       <p>Complete the form below to create a new imaginary library account</p>
+      
       <form >
         <Grid
           container

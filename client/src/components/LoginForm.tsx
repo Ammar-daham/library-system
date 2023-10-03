@@ -180,7 +180,7 @@ const LoginForm = () => {
             </ReusedButton>
           </Grid>
           <Grid item xs={12}>
-            Not a member of imaginary library? <Link to="/singup"> Sign up now</Link>
+            Not a member of imaginary library? <Link to="/sign-up"> Sign up now</Link>
           </Grid>
         </Grid>
       </form>

@@ -23,26 +23,26 @@ h6{
 .app-container {
     background-color: #333;
     padding: 5px;
-    height: 2rem;
+    height: 6rem;
 }
 
-.header-container {
-    box-sizing: border-box;
+.header-container, .footer-container{
     max-width: 1250px;
     width: 100%;
     margin: 0 auto;
     z-index: 1;
     position: relative;
     margin: 20px auto;
-    padding-top: 0;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
+ 
 }
 
 .header-link {
-    text-decoration: none;  
+    text-decoration: none;
+    color: black;
+}
+
+.footer-link {
+    color: black;
 }
 
 .home-main-container, .login-main-container, .signup-main-container {
@@ -61,6 +61,7 @@ h6{
 .book-card {
     margin-bottom: 2rem;  
 }
+
 
 .success {
     color: green;

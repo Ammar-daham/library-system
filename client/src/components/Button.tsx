@@ -16,7 +16,7 @@ import React, { CSSProperties, ReactNode } from 'react';
 
 interface ButtonProps {
   children: ReactNode; 
-  onClick: () => void; 
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void; 
   style?: CSSProperties;
 }
 

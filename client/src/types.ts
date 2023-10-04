@@ -36,8 +36,13 @@ export type User = {
   password: string
 }
 
-export type loggedUser = {
+export type loggedGoogle = {
   email: string
+  password: string
+}
+
+export type loggedUser = {
+  username: string
   password: string
 }
 
@@ -57,8 +62,13 @@ export const initialUser: User = {
   password: '',
 }
 
-export const initialLoggedUser: loggedUser = {
+export const initialLoggedGoogle: loggedGoogle = {
   email: '',
+  password: '',
+}
+
+export const initialLoggedUser: loggedUser = {
+  username: '',
   password: '',
 }
 

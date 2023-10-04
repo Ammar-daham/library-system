@@ -3,6 +3,8 @@ import User from '../models/user'
 import userService from '../services/user.service'
 import { BadRequestError } from '../helpers/apiError'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { JWT_SECRET } from '../util/secrets'
 
 export const findAllUsers = async (
   req: Request,
@@ -56,4 +58,69 @@ export const createUser = async (
       next(error)
     }
   }
+}
+
+// POST /login
+export const loginWithGoogle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  (async (err, user) => {
+    try {
+      const user = req.body
+      if (err) {
+        return next(err)
+      }
+      if (user) {
+        console.log('Google user : ', user)
+        const token = await jwt.sign(
+          { userId: user.id, isAdmin: user.isAdmin },
+          JWT_SECRET,
+          { expiresIn: '1h' }
+        )
+        return res
+          .status(200)
+          .json({ token, username: user.username, email: user.email })
+      }
+
+      const { username, password } = req.body
+      console.log('req body:', req.body)
+      const userFromDB = await User.findOne({ username })
+
+      // Check if user is null
+      if (!userFromDB) {
+        return res.status(401).json({
+          error: 'Invalid username or password',
+        })
+      }
+
+      const passwordCorrect = await bcrypt.compare(
+        password,
+        userFromDB.passwordHash
+      )
+      if (!passwordCorrect) {
+        return res.status(401).json({
+          error: 'Invalid username or password',
+        })
+      }
+      console.log('User authenticated: ', userFromDB)
+      const token = await jwt.sign(
+        { userId: userFromDB._id, isAdmin: userFromDB.isAdmin },
+        JWT_SECRET,
+        { expiresIn: '1h' }
+      )
+      return res.status(200).json({
+        token,
+        username: userFromDB.username,
+        name: userFromDB.email,
+      })
+    } catch (error) {
+      if (error instanceof Error && error.name == 'ValidationError') {
+        next(new BadRequestError('Invalid Request', 400, error))
+      } else {
+        next(error)
+      }
+    }
+  })(req, res)
 }

@@ -6,8 +6,8 @@ import User from '../models/user'
 import { JWT_SECRET } from '../util/secrets'
 import passport from 'passport'
 
-// POST /login
-export const login = async (
+// POST /google-login
+export const loginWithGoogle = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -58,13 +58,11 @@ export const login = async (
           JWT_SECRET,
           { expiresIn: '1h' }
         )
-        return res
-          .status(200)
-          .json({
-            token,
-            username: userFromDB.username,
-            name: userFromDB.email,
-          })
+        return res.status(200).json({
+          token,
+          username: userFromDB.username,
+          name: userFromDB.email,
+        })
       } catch (error) {
         if (error instanceof Error && error.name == 'ValidationError') {
           next(new BadRequestError('Invalid Request', 400, error))
@@ -74,4 +72,50 @@ export const login = async (
       }
     }
   )(req, res, next)
+}
+
+// POST /login
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  (async (err, user) => {
+    try {
+      const { username, password } = req.body
+      const userFromDB = await User.findOne({ username })
+      // Check if user is null
+      if (!userFromDB) {
+        return res.status(401).json({
+          error: 'Invalid username or password',
+        })
+      }
+
+      const passwordCorrect = await bcrypt.compare(
+        password,
+        userFromDB.passwordHash
+      )
+      if (!passwordCorrect) {
+        return res.status(401).json({
+          error: 'Invalid username or password',
+        })
+      }
+      const token = await jwt.sign(
+        { userId: userFromDB._id, isAdmin: userFromDB.isAdmin },
+        JWT_SECRET,
+        { expiresIn: '1h' }
+      )
+      return res.status(200).json({
+        token,
+        username: userFromDB.username,
+        name: userFromDB.email,
+      })
+    } catch (error) {
+      if (error instanceof Error && error.name == 'ValidationError') {
+        next(new BadRequestError('Invalid Request', 400, error))
+      } else {
+        next(error)
+      }
+    }
+  })(req, res)
 }

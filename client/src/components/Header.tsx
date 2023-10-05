@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
 import {
   List,
-  Typography,
-  Button,
-  Toolbar,
   ListItemButton,
   ListItem,
   ListItemText,
@@ -13,6 +10,8 @@ import {
 import { useNavigate } from 'react-router-dom'
 import SearchInput from './Search'
 import ReusedButton from './Button'
+import Logout from './Logout'
+import Profile from './Profile'
 
 import '../App.css'
 
@@ -23,14 +22,11 @@ const Header = () => {
   const pathname = window.location.pathname
   const staticPart = pathname.split('/').filter(Boolean)[0]
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem('isAdmin')
-  //   localStorage.removeItem('userToken')
-  //   navigate('/')
-  // }
+  // get user token from local storage
+  const userToken = localStorage.getItem('userToken')
 
   const handleClick = () => {
-    console.log('Button clicked!')
+    navigate('/sign-up')
   }
 
   return (
@@ -71,21 +67,25 @@ const Header = () => {
               {staticPart !== 'sign-up' && staticPart !== 'login' && (
                 <SearchInput />
               )}
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <Link className="header-link" to={`/login`}>
-                  <ListItemText>LOGIN</ListItemText>
-                </Link>
-              </ListItemButton>
-              <Link className="header-link" to={`/sign-up`}>
-                <ReusedButton onClick={handleClick}>Sign Up</ReusedButton>
-              </Link>
+              {!userToken ? (
+                <>
+                  <ListItemButton sx={{ textAlign: 'center' }}>
+                    <Link className="header-link" to={`/login`}>
+                      <ListItemText>LOGIN</ListItemText>
+                    </Link>
+                  </ListItemButton>
+                  <ReusedButton onClick={handleClick}>Sign Up</ReusedButton>
+                </>
+              ) : (
+                <>
+                  <Profile />
+                  <Logout />
+                  </>
+              )}
             </ListItem>
           </List>
         </Grid>
       </Grid>
-      {/* <Typography className='logout' onClick={handleLogout}>
-          Logout
-        </Typography> */}
     </Container>
   )
 }

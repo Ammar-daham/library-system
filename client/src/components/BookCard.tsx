@@ -28,9 +28,6 @@ const BookCard = ({ book }: { book: Book }) => {
   // const decoded = jwt_decode(userToken) as DecodedUser
   // const dispatch = useDispatch<AppDispatch>()
 
-  const coverUrl = book.cover.large;
-  console.log(coverUrl)
-
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {

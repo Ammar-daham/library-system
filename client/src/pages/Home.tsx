@@ -20,7 +20,6 @@ const Home = () => {
           <h2 className='home-h2'>WELCOME TO OUR IMAGINARY LIBRARY</h2>
           <Books />
       </Container>
-      
     </Container>
   )
 }

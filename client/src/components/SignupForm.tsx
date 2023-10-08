@@ -1,83 +1,64 @@
-import { useEffect, useState } from 'react'
-import {  Grid, TextField, Container } from '@mui/material'
-import ColorButton from './Button'
+import { useState } from 'react'
+import { Grid, TextField, Container } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { AppDispatch, RootState } from 'redux/store'
-import { createUser } from '../redux/slices/authSlice'
 import { initialUser, User } from '../types'
 import Notification from './Notifications'
 import ReusedButton from './Button'
+import { useNavigate } from 'react-router-dom'
+import { createUser } from '../redux/slices/authSlice'
 
 import '../App.css'
 
-
 const SignUpForm = () => {
   const [user, setUser] = useState<User>(initialUser)
-  const [ successMessage, setSuccessMessage ] = useState<string|null>('')
-  const [ errorMessage , setErrorMessage ] = useState<string|null>('')
+  const [successMessage, setSuccessMessage] = useState<string | null>('')
+  const [errorMessage, setErrorMessage] = useState<string | null>('')
 
-  // to get the param
-  const pathname = window.location.pathname;
-  const staticPart = pathname.split('/').filter(Boolean)[0];
+  const navigate = useNavigate()
 
   const dispatch = useDispatch<AppDispatch>()
   const state = useSelector((state: RootState) => state.users)
 
-  console.log("param ", staticPart)
-  useEffect(() => {
-    const setMessage = async () => {
-      if (state.success) {
-        setSuccessMessage(state.message)
-        setErrorMessage('');
-      } else {
-        setErrorMessage(state.message);
-        setSuccessMessage('')
-      }
-    }
-    setMessage()
-    setTimeout(() => {
+  const handleClick = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ): Promise<void> => {
+    e.preventDefault()
+    const res = await dispatch(createUser(user))
+    if (res.type === 'user/create/fulfilled') {
+      setSuccessMessage(state.message)
       setErrorMessage('')
+      setTimeout(() => {
+        setErrorMessage('')
+        setSuccessMessage('')
+        navigate('/login')
+      }, 2000)
+    } else {
+      setErrorMessage(state.message)
       setSuccessMessage('')
-    }, 5000)
-  }, [state.message, state.success])
+    }
+    console.log('Button clicked!', res)
+  }
 
-  
-  
-  const handleSignUp = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-    e.preventDefault();
-    await dispatch(createUser(user));
-    setUser(initialUser)
-  };
-  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleClick = () => {
-    console.log('Button clicked!');
+    })
   }
-
-
 
   return (
     <Container className="signup-main-container">
       <h2 className="signup-h2">SIGN UP</h2>
       <p>Complete the form below to create a new imaginary library account</p>
-      
-      <form >
-        <Grid
-          container
-          spacing={2}
-        >
+
+      <form>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               required
               fullWidth
-              className='input'
+              className="input"
               name="username"
               label="Username"
               type="text"
@@ -89,7 +70,7 @@ const SignUpForm = () => {
             <TextField
               required
               fullWidth
-              className='input'
+              className="input"
               name="first_name"
               label="First-name"
               type="text"
@@ -101,7 +82,7 @@ const SignUpForm = () => {
             <TextField
               fullWidth
               required
-              className='input'
+              className="input"
               name="last_name"
               label="Last-name"
               type="text"
@@ -114,7 +95,7 @@ const SignUpForm = () => {
             <TextField
               fullWidth
               required
-              className='input'
+              className="input"
               name="email"
               label="Email"
               type="text"
@@ -126,7 +107,7 @@ const SignUpForm = () => {
             <TextField
               fullWidth
               required
-              className='input'
+              className="input"
               name="password"
               label="Password"
               type="password"
@@ -134,31 +115,22 @@ const SignUpForm = () => {
               onChange={handleInputChange}
             />
           </Grid>
-
-          {/* <Grid item xs={12}>
-            <ColorButton onClick={handleSignUp} sx={{ height: 40, width: 290 }} >Sign up</ColorButton>
-          </Grid>
-          <br />
-          <br />
-
-          
-          <Grid item xs={12}>
-            <Link to='/' style={{ textDecoration: 'none' }}><ColorButton sx={{ height: 40, width: 290 }} >Login</ColorButton></Link>
-          </Grid> */}
           <Grid item xs={12}>
             <ReusedButton onClick={handleClick} style={{ width: '15em' }}>
               SIGN UP
             </ReusedButton>
           </Grid>
           <Grid item xs={12}>
-          {
-            user &&
-            <Notification successMessage={successMessage} errorMessage={errorMessage} />
-          }
+            {user && (
+              <Notification
+                successMessage={successMessage}
+                errorMessage={errorMessage}
+              />
+            )}
           </Grid>
         </Grid>
       </form>
-      </Container>
+    </Container>
   )
 }
 

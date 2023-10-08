@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import ReusedButton from './Button'
@@ -13,9 +12,9 @@ const Logout = () => {
   }
 
   return (
-      <Typography className="logout-link" onClick={handleLogout}>
-        <ReusedButton onClick={handleLogout}> LOGOUT </ReusedButton>
-      </Typography>
+    <Typography className="logout-link" onClick={handleLogout}>
+      <ReusedButton onClick={handleLogout}> LOGOUT </ReusedButton>
+    </Typography>
   )
 }
 

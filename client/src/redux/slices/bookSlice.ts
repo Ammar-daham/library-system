@@ -224,7 +224,7 @@ export const bookSlice = createSlice({
         arg: { id }
       } = action.meta;
       if(id) {
-        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.bookList = state.bookList.map((book) => book.id === id ? action.payload : book);
         state.updateBook = 'success'
       }
     })
@@ -247,7 +247,7 @@ export const bookSlice = createSlice({
         arg: { id }
       } = action.meta;
       if(id) {
-        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.bookList = state.bookList.map((book) => book.id === id ? action.payload : book);
         state.updateBook = 'success'
       }
     })
@@ -271,7 +271,7 @@ export const bookSlice = createSlice({
         arg: { id }
       } = action.meta;
       if(id) {
-        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.bookList = state.bookList.map((book) => book.id === id ? action.payload : book);
         state.updateBook = 'success'
       }
     })
@@ -422,7 +422,7 @@ export const bookSlice = createSlice({
         arg: { id }
       } = action.meta;
       if(id) {
-        state.bookList = state.bookList.map((book) => book._id === id ? action.payload : book);
+        state.bookList = state.bookList.map((book) => book.id === id ? action.payload : book);
         state.deleteBook = 'success'
       }
     })

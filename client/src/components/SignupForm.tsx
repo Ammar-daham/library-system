@@ -64,6 +64,7 @@ const SignUpForm = () => {
               type="text"
               value={user.username}
               onChange={handleInputChange}
+              aria-required
             />
           </Grid>
           <Grid item xs={12}>

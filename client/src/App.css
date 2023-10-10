@@ -50,13 +50,14 @@ h6{
     color: black;
 }
 
-.home-main-container, .login-main-container, .signup-main-container {
+.home-main-container, .login-main-container, .signup-main-container, .book-main-container {
     max-width: 1060px;
     width: 100%;
     background-color: #f7f6f2;
     border-radius: 5px;
-    border: 1px solid #333;
+    border: 1px solid wheat;
     padding-bottom: 2rem;
+    padding: 2rem;
 }
 
 .home-h2, .login-h2, .signup-h2 {

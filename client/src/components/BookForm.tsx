@@ -25,7 +25,7 @@ const BookForm = () => {
   const authors = useSelector((state: RootState) => state.authors.authorList)
 
   const [book, setBook] = useState<Book>({
-    _id: '',
+    id: '',
     isbn: '',
     title: '',
     description: '',

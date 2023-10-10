@@ -48,9 +48,9 @@ const AuthorTable = () => {
   console.log('IsAdmin: ', isAdmin)
 
 
-  useEffect(() => {
-    dispatch(fetchAuthors)
-  }, [dispatch])
+ 
+  dispatch(fetchAuthors)
+
 
 
   const [open, setOpen] = useState(false)
@@ -113,8 +113,8 @@ const AuthorTable = () => {
               { 
               books.bookList.map((book) => (
                 <MenuItem 
-                    key={book._id}
-                    value={book._id}
+                    key={book.id}
+                    value={book.id}
                 >
                     {book.title}
                 </MenuItem>

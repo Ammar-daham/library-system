@@ -52,7 +52,7 @@ const BookTable = () => {
   console.log('IsAdmin: ', isAdmin)
 
   const [book, setBook] = useState<Book>({
-    _id: '',
+    id: '',
     isbn: '',
     title: '',
     description: '',

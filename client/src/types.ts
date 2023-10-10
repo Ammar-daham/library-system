@@ -1,6 +1,6 @@
 // Action types
 export type Book = {
-  _id: string
+  id: string
   isbn: string
   title: string  
   description: string
@@ -16,6 +16,10 @@ export type Book = {
   returnDate: string
   status: string
   category: string
+}
+
+export interface BooksProps {
+  books: Book[]; // Define the prop type here
 }
 
 

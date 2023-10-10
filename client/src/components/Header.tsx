@@ -80,7 +80,7 @@ const Header = () => {
                 <>
                   <Profile />
                   <Logout />
-                  </>
+                </>
               )}
             </ListItem>
           </List>

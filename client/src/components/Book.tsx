@@ -36,8 +36,13 @@ const Book: React.FC<BooksProps> = ({ books }) => {
           </Grid>
         </Grid>
         <Grid item xs={12} sm={9} md={9}>
-          <Item>
-            <h2>{book.title}</h2>
+          <Item sx={{textAlign: 'left'}}>
+            <Container style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h2>
+                    {book.title}
+                </h2>
+                    <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+            </Container>
             <Divider />
             <p>{book.description}</p>
           </Item>

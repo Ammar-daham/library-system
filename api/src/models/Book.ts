@@ -16,6 +16,8 @@ export type BookDocument = Document & {
   publishedDate: string
   borrowDate: Date
   returnDate: Date
+  language: string
+  pages: number
 }
 
 const bookSchema = new mongoose.Schema({
@@ -77,6 +79,14 @@ const bookSchema = new mongoose.Schema({
   },
   returnDate: {
     type: Date,
+  },
+  language: {
+    type: String,
+    required: true,
+  },
+  pages: {
+    type: Number,
+    required: true,
   },
 })
 

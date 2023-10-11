@@ -22,6 +22,8 @@ export const createBook = async (
       categories,
       publishedDate,
       url,
+      language,
+      pages,
     } = req.body
 
     const book = new Book({
@@ -38,6 +40,8 @@ export const createBook = async (
       categories,
       publishedDate,
       url,
+      language,
+      pages,
     })
 
     await bookService.create(book)

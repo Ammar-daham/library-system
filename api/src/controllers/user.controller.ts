@@ -31,6 +31,10 @@ export const createUser = async (
   try {
     const { username, first_name, last_name, email, password } = req.body
 
+    if (!username || !first_name || !last_name || !email || !password) {
+      res.status(400).json({ message: 'All fields are required' })
+    }
+
     if (!password || password.length < 3) {
       res
         .status(400)

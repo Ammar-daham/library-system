@@ -6,6 +6,7 @@ import BookCard from './BookCard'
 import { BooksProps } from '../types'
 import { useParams } from 'react-router-dom'
 import ReusedButton from './Button'
+import { Link } from 'react-router-dom'
 
 import 'App.css'
 
@@ -30,18 +31,37 @@ const Book: React.FC<BooksProps> = ({ books }) => {
   return (
     <Container className="book-main-container">
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={3} md={3}>
+        <Grid
+          item
+          xs={12}
+          sm={3}
+          md={3}
+          style={{ width: '15em', padding: '1rem', textAlign: 'center' }}
+        >
           <Grid>
             <BookCard book={book} />
           </Grid>
+          <Grid>
+            <Link className="item_link" to={`/login`}>
+              <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
+            </Link>
+          </Grid>
         </Grid>
         <Grid item xs={12} sm={9} md={9}>
-          <Item sx={{textAlign: 'left'}}>
-            <Container style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h2>
-                    {book.title}
-                </h2>
-                    <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+          <Item sx={{ textAlign: 'left' }}>
+            <Container
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Grid item xs={12} sm={9} md={9}>
+                <h2>{book.title}</h2>
+              </Grid>
+              <Grid>
+                <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+              </Grid>
             </Container>
             <Divider />
             <p>{book.description}</p>
@@ -69,7 +89,7 @@ const Book: React.FC<BooksProps> = ({ books }) => {
                 <b>
                   <u>Language</u>
                 </b>
-                <p>Language</p>
+                <p>{book.language}</p>
               </Item>
             </Grid>
             <Grid item xs={6} sm={3} md={3}>
@@ -77,7 +97,7 @@ const Book: React.FC<BooksProps> = ({ books }) => {
                 <b>
                   <u>Pages</u>
                 </b>
-                <p>Pages</p>
+                <p>{book.pages}</p>
               </Item>
             </Grid>
           </Grid>

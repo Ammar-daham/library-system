@@ -69,12 +69,16 @@ const Header = () => {
               )}
               {!userToken ? (
                 <>
-                  <ListItemButton sx={{ textAlign: 'center' }}>
-                    <Link className="header-link" to={`/login`}>
-                      <ListItemText>LOGIN</ListItemText>
-                    </Link>
-                  </ListItemButton>
-                  <ReusedButton onClick={handleClick}>Sign Up</ReusedButton>
+                  <Grid>
+                    <ListItemButton sx={{ textAlign: 'center' }}>
+                      <Link className="header-link" to={`/login`}>
+                        <ListItemText>LOGIN</ListItemText>
+                      </Link>
+                    </ListItemButton>
+                  </Grid>
+                  <Grid>
+                    <ReusedButton onClick={handleClick}>Sign Up</ReusedButton>
+                  </Grid>
                 </>
               ) : (
                 <>

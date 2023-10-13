@@ -68,6 +68,8 @@ const BookTable = () => {
     publishedDate: '',
     borrowDate: '',
     returnDate: '',
+    language: '',
+    pages: 0,
   })
 
   const [open, setOpen] = useState(false)

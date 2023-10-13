@@ -41,6 +41,8 @@ const BookForm = () => {
     publishedDate: '',
     borrowDate: '',
     returnDate: '',
+    language: '',
+    pages: 0,
   })
 
   const [author, setAuthor] = useState({

@@ -31,9 +31,17 @@ const Books: React.FC<BooksProps> = ({ books }) => {
                   <Link className="item_link" to={`/books/${book.id}`}>
                     <ReusedButton
                       onClick={handleClick}
-                      style={{ width: '15em' }}
                     >
                       Preview Only
+                    </ReusedButton>
+                  </Link>
+                </Grid>
+                <Grid item key={index}>
+                  <Link className="item_link" to={`/login`}>
+                    <ReusedButton
+                      onClick={handleClick}
+                    >
+                      Borrow
                     </ReusedButton>
                   </Link>
                 </Grid>

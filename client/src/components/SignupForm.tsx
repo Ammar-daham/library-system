@@ -117,7 +117,7 @@ const SignUpForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <ReusedButton onClick={handleClick} style={{ width: '15em' }}>
+            <ReusedButton onClick={handleClick} >
               SIGN UP
             </ReusedButton>
           </Grid>

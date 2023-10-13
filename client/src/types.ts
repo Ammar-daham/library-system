@@ -16,6 +16,8 @@ export type Book = {
   returnDate: string
   status: string
   category: string
+  language: string
+  pages: number
 }
 
 export interface BooksProps {

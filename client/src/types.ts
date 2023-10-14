@@ -98,9 +98,5 @@ export interface HeaderProps {
   setMenu: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface StickyState {
-  isSticky: boolean;
-  offset: number;
-}
 
 

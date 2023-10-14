@@ -30,9 +30,35 @@ h6{
     max-width: 1250px;
     width: 100%;
     margin: 0 auto;
-    z-index: 1;
-    position: relative;
-    margin: 20px auto;
+   
+    z-index: 0;
+}
+
+.sticky {
+    background-color: #E8DBC5;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: all 0.5s ease;
+    animation: smoothScroll 1s forwards;
+  }
+  
+  @keyframes smoothScroll {
+    0% {
+      transform: translateY(-142px);
+    }
+  
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+.app-bar-container {
+    max-width: 100%;
+    margin: auto;
+    background-color: #E8DBC5;
+    color: #555;
+    border-radius: 10px;
 }
 
 .header-link, .logout-link {

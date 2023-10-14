@@ -1,3 +1,6 @@
+import React from 'react'
+
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom'
 import {
   List,
@@ -7,15 +10,18 @@ import {
   Container,
   Grid,
 } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom'
 import SearchInput from './Search'
 import ReusedButton from './Button'
 import Logout from './Logout'
 import Profile from './Profile'
-
+import { HeaderProps } from 'types';
+import { StickyState } from 'types';
 import '../App.css'
 
-const Header = () => {
+
+const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
   const navigate = useNavigate()
 
   // to get the param
@@ -29,8 +35,40 @@ const Header = () => {
     navigate('/sign-up')
   }
 
+  const handleClickMenu = () => {
+    !menu ? setMenu(true) : setMenu(false) 
+  }
+
+  const [sticky, setSticky] = useState<StickyState>({ isSticky: false, offset: 0 });
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = (elTopOffset: number, elHeight: number) => {
+    if (window.pageYOffset > (elTopOffset + elHeight)) {
+      setSticky({ isSticky: true, offset: elHeight });
+    } else {
+      setSticky({ isSticky: false, offset: 0 });
+    }
+  };
+
+  useEffect(() => {
+    const header = headerRef.current?.getBoundingClientRect();
+
+    const handleScrollEvent = () => {
+      if (header) {
+        handleScroll(header.top, header.height);
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollEvent);
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollEvent);
+    };
+  }, []);
+
   return (
-    <Container className="header-container">
+    <div id="sticky-header" className={`navbar${sticky.isSticky ? ' sticky' : ''}`} ref={headerRef}>
+    <Container className='header-container'>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           {staticPart !== 'sign-up' && staticPart !== 'login' && (
@@ -86,11 +124,13 @@ const Header = () => {
                   <Logout />
                 </>
               )}
+              <MenuIcon fontSize='large' onClick={handleClickMenu}></MenuIcon>
             </ListItem>
           </List>
         </Grid>
       </Grid>
     </Container>
+    </div>
   )
 }
 

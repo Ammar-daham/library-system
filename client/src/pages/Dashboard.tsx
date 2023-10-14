@@ -63,7 +63,7 @@ const Dashboard = () => {
     <Box className='mainBox'>
       <Grid container className='mainGrid'>
         <Grid item xs={12} sx={{maxHeight:100}}>
-          <Header />
+          {/* <Header /> */}
         </Grid>
         <Grid item xs={2}>
           <div className='sideBarDashboard' style={{backgroundColor: orange[800]}}>

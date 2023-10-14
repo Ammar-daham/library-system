@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 // Action types
 export type Book = {
   id: string
@@ -89,6 +91,16 @@ export type DecodedUser = {
     isAdmin: boolean,
     iat: number,
     exp: number
+}
+
+export interface HeaderProps {
+  menu: boolean;
+  setMenu: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface StickyState {
+  isSticky: boolean;
+  offset: number;
 }
 
 

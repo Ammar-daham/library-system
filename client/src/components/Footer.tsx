@@ -2,8 +2,6 @@ import React from 'react'
 import {
   List,
   Typography,
-  ListItemButton,
-  ListItemText,
   Container,
   Grid,
   Divider,
@@ -56,7 +54,7 @@ const Footer = () => {
       </Grid>
 
       <Divider />
-      <Grid container spacing={2} sx={{ paddingTop: '1rem' }}>
+      <Grid container spacing={2} sx={{ paddingTop: '2rem' }}>
         <Grid xs={3} sm={2} md={2}>
           <Link to={`/`}>
             <img src={Logo} width="100" alt="logo" />

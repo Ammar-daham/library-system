@@ -10,6 +10,8 @@ import 'App.css'
 const Books: React.FC<BooksProps> = ({ books }) => {
   const handleClick = () => {}
 
+  const userToken = localStorage.getItem('userToken')
+
   return (
     <Container className="home-main-container">
       <Container className="home-sub-container">
@@ -30,21 +32,21 @@ const Books: React.FC<BooksProps> = ({ books }) => {
                 </Grid>
                 <Grid item key={index}>
                   <Link className="item_link" to={`/books/${book.id}`}>
-                    <ReusedButton
-                      onClick={handleClick}
-                    >
+                    <ReusedButton onClick={handleClick}>
                       Preview Only
                     </ReusedButton>
                   </Link>
                 </Grid>
                 <Grid item key={index}>
-                  <Link className="item_link" to={`/login`}>
-                    <ReusedButton
-                      onClick={handleClick}
-                    >
-                      Borrow
-                    </ReusedButton>
-                  </Link>
+                  {!userToken ? (
+                    <Link className="item_link" to={`/books/alert/${book.id}`}>
+                      <ReusedButton onClick={handleClick}>Delete</ReusedButton>
+                    </Link>
+                  ) : (
+                    <Link className="item_link" to={`/login`}>
+                      <ReusedButton onClick={handleClick}>Delete</ReusedButton>
+                    </Link>
+                  )}
                 </Grid>
               </Grid>
             ) : null,

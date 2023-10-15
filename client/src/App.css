@@ -29,7 +29,7 @@ h6{
     max-width: 1250px;
     width: 100%;
     margin: 0 auto;
-   
+    padding: 2rem;
     z-index: 0;
 }
 
@@ -69,10 +69,6 @@ h6{
 .profile-container {
     margin: 0;
     text-align: center;
-}
-
-.footer-link {
-    color: black;
 }
 
 .home-main-container, .login-main-container, .signup-main-container, .book-main-container {

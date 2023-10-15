@@ -1,20 +1,15 @@
 import React from 'react'
-
 import {
   List,
   Typography,
-  Button,
-  Toolbar,
   ListItemButton,
-  ListItem,
   ListItemText,
   Container,
   Grid,
   Divider,
-  Box,
 } from '@mui/material'
 import Logo from '../logo.png'
-
+import NavBar from './NavBar'
 import { Link } from 'react-router-dom'
 import '../App.css'
 
@@ -22,106 +17,61 @@ const Footer = () => {
   return (
     <Container className="footer-container">
       <Grid container spacing={1}>
-        <Grid container item spacing={1}>
-          <Grid item xs={12} md={3}>
-            <Typography sx={{ padding: '0', fontWeight: 'bold' }}>
+        <Grid
+          container
+          item
+          spacing={1}
+          xs={12}
+          sm={6}
+          md={4}
+          sx={{ display: 'flex', flexDirection: 'column' }}
+        >
+          <Grid item>
+            <List sx={{ display: 'flex', flexDirection: 'column'}}>
+              <Typography sx={{ fontWeight: 'bold', paddingLeft: '15px' }}>
+                Discover
+              </Typography>
+              <NavBar />
+            </List>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          item
+          spacing={1}
+          xs={12}
+          sm={6}
+          md={4}
+          sx={{ display: 'flex', flexDirection: 'column' }}
+        >
+          <Grid item>
+            <Typography sx={{ fontWeight: 'bold', paddingLeft: '15px' }}>
               Imaginary Library
             </Typography>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <Typography sx={{ padding: '0', fontWeight: 'bold' }}>
-              Discover
-            </Typography>
+          <Grid item>   
           </Grid>
-          <Grid item xs={12} md={3}></Grid>
-        </Grid>
-
-        <Grid container item spacing={1}>
-          <Grid item xs={12} md={3}>
-            <ListItemButton sx={{ padding: '0' }}>
-              <Link className="footer-link" to={`/login`}>
-                <ListItemText>CAREER</ListItemText>
-              </Link>
-            </ListItemButton>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <ListItemButton sx={{ padding: '0' }}>
-              <Link className="footer-link" to={`/login`}>
-                <ListItemText>BOOKS</ListItemText>
-              </Link>
-            </ListItemButton>
-          </Grid>
-
-          <Grid item xs={12} md={3}></Grid>
-        </Grid>
-
-        <Grid container item spacing={3}>
-          <Grid item xs={12} md={3}>
-            <ListItemButton sx={{ padding: '0' }}>
-              <Link className="footer-link" to={`/login`}>
-                <ListItemText>BLOGS</ListItemText>
-              </Link>
-            </ListItemButton>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <ListItemButton sx={{ padding: '0' }}>
-              <Link className="footer-link" to={`/login`}>
-                <ListItemText>AUTHORS</ListItemText>
-              </Link>
-            </ListItemButton>
-          </Grid>
-          <Grid item xs={12} md={3}></Grid>
-          <Grid item xs={12} md={3}></Grid>
-        </Grid>
-
-        <Grid container item spacing={3}>
-        <Grid item xs={12} md={3}>
-                <ListItemButton sx={{padding: '0'}}>
-                    <Link className="footer-link" to={`/login`}>
-                        <ListItemText>TERM OF SERVICE</ListItemText>
-                    </Link>
-                </ListItemButton>
-            </Grid>
-          <Grid item xs={12} md={3}>
-            <ListItemButton sx={{ padding: '0' }}>
-              <Link className="footer-link" to={`/login`}>
-                <ListItemText>ADDED BOOK</ListItemText>
-              </Link>
-            </ListItemButton>
-          </Grid>
-          <Grid item xs={12} md={3}></Grid>
-          <Grid item xs={12} md={3}></Grid>
-        </Grid>
-
-        <Grid container item spacing={3}>
-        <Grid item xs={12} md={3}>
-                <ListItemButton sx={{padding: '0'}}>
-                    <Link className="footer-link" to={`/login`}>
-                        <ListItemText>DONATE</ListItemText>
-                    </Link>
-                </ListItemButton>
-            </Grid>
-          <Grid item xs={12} md={3}>
-            <ListItemButton sx={{ padding: '0' }}>
-              <Link className="footer-link" to={`/login`}>
-                <ListItemText>ADDED AUTHOR</ListItemText>
-              </Link>
-            </ListItemButton>
-          </Grid>
-          <Grid item xs={12} md={3}></Grid>
-          <Grid item xs={12} md={3}></Grid>
         </Grid>
       </Grid>
 
       <Divider />
       <Grid container spacing={2} sx={{ paddingTop: '1rem' }}>
-        <Grid>
+        <Grid xs={3} sm={2} md={2}>
           <Link to={`/`}>
             <img src={Logo} width="100" alt="logo" />
           </Link>
         </Grid>
-        <Grid>
-          <p> Imaginary library is a web site for reading, borrowing books </p>
+        <Grid xs={9} sm={10} md={10}>
+          <Typography sx={{ textAlign: 'justify' }}>
+            Imaginary Library is a dynamic online platform designed to
+            facilitate the enjoyment of reading and borrowing books. As a
+            dedicated space for book enthusiasts, it offers a diverse range of
+            literary works, providing a gateway to a world of knowledge and
+            imagination. Users can explore, borrow, and immerse themselves in an
+            extensive collection of books, making it an invaluable resource for
+            avid readers and curious minds alike.
+          </Typography>
         </Grid>
       </Grid>
     </Container>

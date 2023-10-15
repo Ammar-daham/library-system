@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
       <Container className="header-container">
         <Grid container spacing={2}>
           <Grid item xs={2} sm={6} md={6}>
-            {isMobile && (
+            {isMobile && staticPart !== 'sign-up' && staticPart !== 'login' && (
               <ListItem
                 disablePadding
                 sx={{ textAlign: 'center', paddingTop: '15px' }}

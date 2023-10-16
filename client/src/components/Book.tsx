@@ -22,6 +22,8 @@ const Book: React.FC<BooksProps> = ({ books }) => {
   const id = useParams().id
   const book = books.find((book) => book.id === id)
 
+  const userToken = localStorage.getItem('userToken')
+
   if (!book) {
     return null
   }
@@ -42,9 +44,15 @@ const Book: React.FC<BooksProps> = ({ books }) => {
             <BookCard book={book} />
           </Grid>
           <Grid>
-            <Link className="item_link" to={`/login`}>
-              <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
-            </Link>
+            {!userToken ? (
+              <Link className="item_link" to={`/books/alert/${book.id}`}>
+                <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
+              </Link>
+            ) : (
+              <Link className="item_link" to={`/login`}>
+                <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
+              </Link>
+            )}
           </Grid>
         </Grid>
         <Grid item xs={12} sm={9} md={9}>
@@ -60,7 +68,15 @@ const Book: React.FC<BooksProps> = ({ books }) => {
                 <h2>{book.title}</h2>
               </Grid>
               <Grid>
-                <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+                {!userToken ? (
+                  <Link className="item_link" to={`/books/alert/${book.id}`}>
+                    <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+                  </Link>
+                ) : (
+                  <Link className="item_link" to={`/books/edit-book/${book.id}`}>
+                    <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+                  </Link>
+                )}
               </Grid>
             </Container>
             <Divider />

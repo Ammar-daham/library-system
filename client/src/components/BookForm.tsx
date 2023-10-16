@@ -1,190 +1,192 @@
-import React from 'react'
-
-import {
-  Container,
-  Grid,
-  TextField,
-  Typography,
-  Alert,
-  CircularProgress,
-  Select,
-  SelectChangeEvent,
-  MenuItem,
-} from '@mui/material'
-import ColorButton from 'components/Button'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { Grid, TextField, Container } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { addBook } from '../redux/slices/bookSlice'
 import { AppDispatch, RootState } from 'redux/store'
+import { Book, initialBook } from '../types'
+import Notification from './Notifications'
+import ReusedButton from './Button'
+import { useNavigate } from 'react-router-dom'
+import { BooksProps } from '../types'
+import { useParams } from 'react-router-dom'
+import { updateBook } from 'redux/slices/bookSlice'
+
+
 
 import '../App.css'
-import { current } from '@reduxjs/toolkit'
-import { Book } from 'types'
 
-const BookForm = () => {
+const BookForm : React.FC<BooksProps> = ({ books }) => {
+  const [ book, setBook ] = useState<Book>(initialBook)
+  const [successMessage, setSuccessMessage] = useState<string | null>('')
+  const [errorMessage, setErrorMessage] = useState<string | null>('')
+
+  const id = useParams().id
+
+  const editedBook = books.find((book) => book.id === id)
+
+  useEffect(() => {
+    if (editedBook) {
+      setBook(editedBook);
+    }
+  }, [editedBook]);
+  
+  const navigate = useNavigate()
+
   const dispatch = useDispatch<AppDispatch>()
-  const booksState = useSelector((state: RootState) => state.books)
-  const authors = useSelector((state: RootState) => state.authors.authorList)
 
-  const [book, setBook] = useState<Book>({
-    id: '',
-    isbn: '',
-    title: '',
-    description: '',
-    publisher: '',
-    category: '',
-    authors: [],
-    cover: {
-      small: '',
-      large: ''
-    },
-    status: '',
-    borrowerId: [],
-    publishedDate: '',
-    borrowDate: '',
-    returnDate: '',
-    language: '',
-    pages: 0,
-  })
-
-  const [author, setAuthor] = useState({
-    _id: '',
-  })
-  
-  console.log('book: ', book)
-  const handleChange = (event: SelectChangeEvent) => {
-    let value = event.target.value;
-    setAuthor({ ...author, _id: event.target.value as string })
-    setBook({...book, authors: value.split(',') as any})
+  if (!editedBook) {
+    return null
   }
-  
 
-  const handleAddBook = (e: React.FormEvent<EventTarget>) => {
+
+  const handleClick = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ): Promise<void> => {
     e.preventDefault()
-    dispatch(addBook(book))
+    const res = await dispatch(updateBook({id, book}))
+    console.log("res ", res)
+    // if (res.type === 'book/updateBook/fulfilled') {
+    //   setSuccessMessage(state.message)
+    //   setErrorMessage('')
+    //   setTimeout(() => {
+    //     setErrorMessage('')
+    //     setSuccessMessage('')
+    //     navigate('/login')
+    //   }, 2000)
+    // } else {
+    //   setErrorMessage(state.message)
+    //   setSuccessMessage('')
+    // }
+    // console.log('Button clicked!', res)
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setBook({
+      ...book,
+      [e.target.name]: e.target.value,
+    })
   }
 
   return (
-    <Container disableGutters maxWidth={false} className="addContainer">
-      <form onSubmit={handleAddBook} id="form1">
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography
-              className="addBookHeader"
-              variant="h6"
-              sx={{ marginBottom: '40px' }}
-            >
-              Add A Book
-            </Typography>
-          </Grid>
-          <Grid item xs={6} className="addBookInput">
+    <Container className="signup-main-container">
+      <h2 className="book-form-h2">Book Form</h2>
+      <p>Refine an Existing Book or Introduce a new book</p>
+
+      <form>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
             <TextField
-              id="isbn-input"
+              required
+              fullWidth
+              className="input"
               name="isbn"
-              label="ISBN"
+              label="Isbn"
               type="text"
               value={book.isbn}
-              onChange={(e) => setBook({ ...book, isbn: e.target.value })}
+              onChange={handleInputChange}
+              aria-required
             />
           </Grid>
-          <Grid item xs={6} className="addInput">
+          <Grid item xs={12} sm={6}>
             <TextField
-              id="title-input"
+              required
+              fullWidth
+              className="input"
               name="title"
               label="Title"
               type="text"
               value={book.title}
-              onChange={(e) => setBook({ ...book, title: e.target.value })}
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={6} className="addInput">
+          <Grid item xs={12} sm={6}>
             <TextField
-              id="description-input"
-              name="description"
-              label="Description"
-              type="text"
-              value={book.description}
-              onChange={(e) =>
-                setBook({ ...book, description: e.target.value })
-              }
-            />
-          </Grid>
-          <Grid item xs={6} className="addInput">
-            <TextField
-              id="publisher-input"
+              fullWidth
+              required
+              className="input"
               name="publisher"
               label="Publisher"
               type="text"
               value={book.publisher}
-              onChange={(e) => setBook({ ...book, publisher: e.target.value })}
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={6} className="addInput">
+
+          <Grid item xs={12} sm={6}>
             <TextField
-              id="category-input"
-              name="category"
-              label="Category"
-              type="text"
-              value={book.category}
-              onChange={(e) => setBook({ ...book, category: e.target.value })}
-            />
-          </Grid>
-          <Grid item xs={6} className="addInput">
-            <TextField
-              id="status-input"
+              fullWidth
+              className="input"
               name="status"
               label="Status"
               type="text"
               value={book.status}
-              onChange={(e) => setBook({ ...book, status: e.target.value })}
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={6} className="addInput">
+          <Grid item xs={12} sm={6}>
             <TextField
-              sx={{width: '200px'}}
-              id="publishedDate-input"
-              name="publishedDate"
-              type="date"
+              fullWidth
+              required
+              className="input"
+              name="published-date"
+              label="Published-date"
+              type="text"
               value={book.publishedDate}
-              onChange={(e) =>
-                setBook({ ...book, publishedDate: e.target.value })
-              }
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={6} className="addInput">
-            <Select
-              value={author._id}
-              label="Author-Name"
-              onChange={handleChange}
-              sx={{width: '200px', background:'wheat'}}
-            >
-              {authors.map((author) => (
-                <MenuItem key={author._id}  value={author._id} sx={{background:'wheat'}}>{author.name}</MenuItem>
-              ))}
-            </Select>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              className="input"
+              name="language"
+              label="Language"
+              type="text"
+              value={book.language}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              className="input"
+              name="pages"
+              label="Pages"
+              type="text"
+              value={book.pages}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              className="input"
+              label="Description"
+              multiline
+              rows={4}
+              name="description"
+              fullWidth
+              type="text"
+              value={book.description}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} >
+            <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+          </Grid>
+          <Grid item xs={12}>
+            {/* {user && (
+              <Notification
+                successMessage={successMessage}
+                errorMessage={errorMessage}
+              />
+            )} */}
           </Grid>
         </Grid>
-        {/* <ColorButton type="submit" form="form1" variant="contained">
-          {booksState.addBook === 'pending' ? (
-            <CircularProgress size={24} color="secondary" />
-          ) : (
-            'Add A Book'
-          )}
-        </ColorButton> */}
-        <br />
-        <br />
-        {booksState.addBook === 'rejected' ? (
-          <Alert severity="error" style={{ backgroundColor: '#F8D6CE' }}>
-            Error
-          </Alert>
-        ) : null}
-        {booksState.addBook === 'success' ? (
-          <Alert severity="success">Book Added...</Alert>
-        ) : null}
       </form>
     </Container>
   )
 }
-
 
 export default BookForm

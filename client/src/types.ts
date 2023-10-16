@@ -22,8 +22,29 @@ export type Book = {
   pages: number
 }
 
+export const initialBook: Book = {
+  id: '',
+  isbn: '',
+  title: '',  
+  description: '',
+  publisher: '',
+  borrowerId: [],
+  authors: [],
+  publishedDate: '',
+  cover: {
+    small: '',
+    large: ''
+  },
+  borrowDate: '',
+  returnDate: '',
+  status: '',
+  category: '',
+  language: '',
+  pages: 0
+}
+
 export interface BooksProps {
-  books: Book[]; // Define the prop type here
+  books: Book[]; 
 }
 
 

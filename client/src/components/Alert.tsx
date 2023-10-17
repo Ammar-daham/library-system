@@ -1,23 +1,10 @@
-import React from 'react'
-
-import { Grid, TextField, Container, Divider, Typography } from '@mui/material'
-import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
-// import ColorButton from './Button'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'redux/store'
-import 'App.css'
-import LoginForm from './LoginForm'
-import { useParams } from 'react-router-dom'
-
+import React from 'react';
+import { Container, Typography } from '@mui/material';
+import LoginForm from './LoginForm';
+import { useParams } from 'react-router-dom';
 
 const Alert = () => {
-
-  const id = useParams().id
-
-  
-
-  
-
+  const id = useParams().id;
   return (
     <>
       <Container className="alert-container">

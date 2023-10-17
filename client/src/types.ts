@@ -7,8 +7,8 @@ export type Book = {
   title: string  
   description: string
   publisher: string
-  borrowerId: string[]
-  authors: Author[]
+  // borrowerId: string[]
+  // authors: Author[]
   publishedDate: string
   cover: {
     small: string
@@ -17,7 +17,7 @@ export type Book = {
   borrowDate: string
   returnDate: string
   status: string
-  category: string
+  categories: string
   language: string
   pages: number
 }
@@ -28,8 +28,8 @@ export const initialBook: Book = {
   title: '',  
   description: '',
   publisher: '',
-  borrowerId: [],
-  authors: [],
+  // borrowerId: [],
+  // authors: [],
   publishedDate: '',
   cover: {
     small: '',
@@ -38,13 +38,21 @@ export const initialBook: Book = {
   borrowDate: '',
   returnDate: '',
   status: '',
-  category: '',
+  categories: '',
   language: '',
   pages: 0
 }
 
 export interface BooksProps {
   books: Book[]; 
+}
+
+export interface BookFormProps {
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  book: Book | null;
+  name: string
+  title: string
+  setBook: React.Dispatch<React.SetStateAction<Book>>
 }
 
 

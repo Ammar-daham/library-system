@@ -149,6 +149,7 @@ export const addBook = createAsyncThunk(
 export const updateBook = createAsyncThunk(
   'book/updateBook',
   async ({id, ...book}:any , { rejectWithValue }) => {
+    console.log("new book in slice ", {...book}, " id ", id)
     try {
       const response = await axios.put(url + id , {...book}, config())
       console.log(response.data)
@@ -266,7 +267,6 @@ export const bookSlice = createSlice({
       }
     })
     builder.addCase(updateBook.fulfilled, (state, action) => {
-      console.log('action: ', action)
       const {
         arg: { id }
       } = action.meta;

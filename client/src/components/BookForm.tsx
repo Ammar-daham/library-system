@@ -1,75 +1,51 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Grid, TextField, Container } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'redux/store'
+
 import { Book, initialBook } from '../types'
 import Notification from './Notifications'
 import ReusedButton from './Button'
-import { useNavigate } from 'react-router-dom'
-import { BooksProps } from '../types'
 import { useParams } from 'react-router-dom'
-import { updateBook } from 'redux/slices/bookSlice'
-
-
+import { BookFormProps } from '../types'
 
 import '../App.css'
 
-const BookForm : React.FC<BooksProps> = ({ books }) => {
-  const [ book, setBook ] = useState<Book>(initialBook)
+const BookForm: React.FC<BookFormProps> = ({
+  handleClick,
+  book,
+  name,
+  title,
+  setBook,
+}) => {
   const [successMessage, setSuccessMessage] = useState<string | null>('')
   const [errorMessage, setErrorMessage] = useState<string | null>('')
 
-  const id = useParams().id
-
-  const editedBook = books.find((book) => book.id === id)
-
-  useEffect(() => {
-    if (editedBook) {
-      setBook(editedBook);
-    }
-  }, [editedBook]);
-  
-  const navigate = useNavigate()
-
-  const dispatch = useDispatch<AppDispatch>()
-
-  if (!editedBook) {
+  if (!book) {
     return null
   }
 
-
-  const handleClick = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-  ): Promise<void> => {
-    e.preventDefault()
-    const res = await dispatch(updateBook({id, book}))
-    console.log("res ", res)
-    // if (res.type === 'book/updateBook/fulfilled') {
-    //   setSuccessMessage(state.message)
-    //   setErrorMessage('')
-    //   setTimeout(() => {
-    //     setErrorMessage('')
-    //     setSuccessMessage('')
-    //     navigate('/login')
-    //   }, 2000)
-    // } else {
-    //   setErrorMessage(state.message)
-    //   setSuccessMessage('')
-    // }
-    // console.log('Button clicked!', res)
-  }
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  //   setBook({
+  //     ...book,
+  //     [e.target.name]: e.target.value,
+  //   })
+  // }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target
+
+    // If the input is for pages, convert the value to an integer
+    const parsedValue = name === 'pages' ? parseInt(value) : value
+
     setBook({
       ...book,
-      [e.target.name]: e.target.value,
+      [name]: parsedValue,
     })
   }
 
   return (
-    <Container className="signup-main-container">
-      <h2 className="book-form-h2">Book Form</h2>
+    <Container className="book-form-container">
+      <h2 className="book-form-h2">{title}</h2>
       <p>Refine an Existing Book or Introduce a new book</p>
 
       <form>
@@ -154,8 +130,8 @@ const BookForm : React.FC<BooksProps> = ({ books }) => {
               className="input"
               name="pages"
               label="Pages"
-              type="text"
-              value={book.pages}
+              type="number"
+              value={Number(book.pages)}
               onChange={handleInputChange}
             />
           </Grid>
@@ -172,8 +148,8 @@ const BookForm : React.FC<BooksProps> = ({ books }) => {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={12} >
-            <ReusedButton onClick={handleClick}>Edit</ReusedButton>
+          <Grid item xs={12}>
+            <ReusedButton onClick={handleClick}>{name}</ReusedButton>
           </Grid>
           <Grid item xs={12}>
             {/* {user && (

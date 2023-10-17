@@ -71,7 +71,7 @@ h6{
     text-align: center;
 }
 
-.home-main-container, .login-main-container, .signup-main-container, .book-main-container, .alert-container {
+.home-main-container, .login-main-container, .signup-main-container, .book-main-container, .alert-container, .book-form-container {
     max-width: 1060px;
     width: 100%;
     background-color: #f7f6f2;

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { booksFetch } from 'redux/slices/bookSlice'
 import { AppDispatch } from '../redux/store'
-import  BookTable from '../components/BooksTable' 
 import AuthorTable from '../components/AuthorsTable'
 import { Box, CircularProgress, Grid, Typography } from '@mui/material'
 import Header from 'components/Header'
@@ -10,7 +9,6 @@ import { orange } from '@mui/material/colors'
 
 
 import '../App.css'
-import BookForm from 'components/BookForm'
 import { fetchAuthors } from 'redux/slices/authorSlice'
 import AuthorForm from 'components/AuthorForm'
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Books from './Books'
-import Dashboard from '../pages/Dashboard'
 import LoginForm from './LoginForm'
 import Book from './Book'
 import SignUpForm from './SignUpForm'
@@ -17,8 +16,8 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { booksFetch } from 'redux/slices/bookSlice'
 import AppBar from './MobileAppBar'
-import  Alert from './Alert'
-import BookForm from './BookForm'
+import Alert from './Alert'
+import EditBook from './EditBook'
 
 const App = () => {
   window.onbeforeunload = function () {
@@ -55,7 +54,7 @@ const App = () => {
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/books/:id" element={<Book books={booksState} />} />
         <Route path="/books/alert/:id" element={<Alert />} />
-        <Route path="books/edit-book/:id" element={<BookForm books={booksState}/>} />
+        <Route path="books/edit-book/:id" element={<EditBook books={booksState}/>} />
       </Routes>
       <Footer />
     </Router>

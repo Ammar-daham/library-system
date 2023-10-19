@@ -8,7 +8,7 @@ export type Book = {
   description: string
   publisher: string
   // borrowerId: string[]
-  // authors: Author[]
+  authors: Author[]
   publishedDate: string
   cover: {
     small: string
@@ -17,7 +17,7 @@ export type Book = {
   borrowDate: string
   returnDate: string
   status: string
-  categories: string
+  categories: string[]
   language: string
   pages: number
 }
@@ -29,7 +29,7 @@ export const initialBook: Book = {
   description: '',
   publisher: '',
   // borrowerId: [],
-  // authors: [],
+  authors: [],
   publishedDate: '',
   cover: {
     small: '',
@@ -38,7 +38,7 @@ export const initialBook: Book = {
   borrowDate: '',
   returnDate: '',
   status: '',
-  categories: '',
+  categories: [],
   language: '',
   pages: 0
 }
@@ -52,6 +52,8 @@ export interface BookFormProps {
   book: Book | null;
   name: string
   title: string
+  successMessage: string | null
+  errorMessage: string | null
   setBook: React.Dispatch<React.SetStateAction<Book>>
 }
 
@@ -127,5 +129,9 @@ export interface HeaderProps {
   setMenu: Dispatch<SetStateAction<boolean>>;
 }
 
+export interface CustomError {
+  code: number;
+  message: string;
+}
 
 

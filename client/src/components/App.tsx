@@ -17,7 +17,7 @@ import { useEffect } from 'react'
 import { booksFetch } from 'redux/slices/bookSlice'
 import AppBar from './MobileAppBar'
 import Alert from './Alert'
-import EditBook from './EditBook'
+import UpdatedBook from './UpdatedBook'
 
 const App = () => {
   window.onbeforeunload = function () {
@@ -54,7 +54,7 @@ const App = () => {
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/books/:id" element={<Book books={booksState} />} />
         <Route path="/books/alert/:id" element={<Alert />} />
-        <Route path="books/edit-book/:id" element={<EditBook books={booksState}/>} />
+        <Route path="books/edit-book/:id" element={<UpdatedBook books={booksState}/>} />
       </Routes>
       <Footer />
     </Router>

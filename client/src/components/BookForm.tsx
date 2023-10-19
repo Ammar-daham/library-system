@@ -16,10 +16,9 @@ const BookForm: React.FC<BookFormProps> = ({
   name,
   title,
   setBook,
+  successMessage,
+  errorMessage,
 }) => {
-  const [successMessage, setSuccessMessage] = useState<string | null>('')
-  const [errorMessage, setErrorMessage] = useState<string | null>('')
-
   if (!book) {
     return null
   }
@@ -152,12 +151,10 @@ const BookForm: React.FC<BookFormProps> = ({
             <ReusedButton onClick={handleClick}>{name}</ReusedButton>
           </Grid>
           <Grid item xs={12}>
-            {/* {user && (
-              <Notification
-                successMessage={successMessage}
-                errorMessage={errorMessage}
-              />
-            )} */}
+          <Notification
+            successMessage={successMessage}
+            errorMessage={errorMessage}
+          />
           </Grid>
         </Grid>
       </form>

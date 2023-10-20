@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React from 'react'
 import { Grid, TextField, Container } from '@mui/material'
-
-import { Book, initialBook } from '../types'
 import Notification from './Notifications'
 import ReusedButton from './Button'
-import { useParams } from 'react-router-dom'
 import { BookFormProps } from '../types'
 
 import '../App.css'
@@ -24,6 +20,16 @@ const BookForm: React.FC<BookFormProps> = ({
   }
 
   // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  //   const { name, value } = e.target
+
+  //   // If the input is for pages, convert the value to an integer
+  //   const parsedValue = name === 'pages' ? parseInt(value) : value
+
+  //   // setBook({
+  //   //   ...book,
+  //   //   [name]: parsedValue,
+  //   // })
+
   //   setBook({
   //     ...book,
   //     [e.target.name]: e.target.value,
@@ -31,16 +37,29 @@ const BookForm: React.FC<BookFormProps> = ({
   // }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
+  
+    // If the input is for cover.small, update it directly
+    if (name === 'cover.small') {
+      setBook((prevBook) => ({
+        ...prevBook,
+        cover: {
+          ...prevBook.cover,
+          small: value,
+        },
+      }));
+    } else {
+      // For other properties, update the book object as usual
+      setBook((prevBook) => ({
+        ...prevBook,
+        [name]: value,
+      }));
+    }
+  };
+  
 
-    // If the input is for pages, convert the value to an integer
-    const parsedValue = name === 'pages' ? parseInt(value) : value
+  
 
-    setBook({
-      ...book,
-      [name]: parsedValue,
-    })
-  }
 
   return (
     <Container className="book-form-container">
@@ -103,7 +122,7 @@ const BookForm: React.FC<BookFormProps> = ({
               fullWidth
               required
               className="input"
-              name="published-date"
+              name="publishedDate"
               label="Published-date"
               type="text"
               value={book.publishedDate}
@@ -134,6 +153,18 @@ const BookForm: React.FC<BookFormProps> = ({
               onChange={handleInputChange}
             />
           </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              className="input"
+              name="cover.small"
+              label="Cover"
+              type="text"
+              value={book.cover.small}
+              onChange={handleInputChange}
+            />
+          </Grid>
           <Grid item xs={12} sm={12}>
             <TextField
               className="input"
@@ -151,10 +182,10 @@ const BookForm: React.FC<BookFormProps> = ({
             <ReusedButton onClick={handleClick}>{name}</ReusedButton>
           </Grid>
           <Grid item xs={12}>
-          <Notification
-            successMessage={successMessage}
-            errorMessage={errorMessage}
-          />
+            <Notification
+              successMessage={successMessage}
+              errorMessage={errorMessage}
+            />
           </Grid>
         </Grid>
       </form>

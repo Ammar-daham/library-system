@@ -15,7 +15,7 @@ const NavBar = () => {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link className="header-link" to={`/`}>
+        <Link className="header-link" to={`/books/new-book`}>
           <ListItemText>ADD BOOK</ListItemText>
         </Link>
       </ListItemButton>

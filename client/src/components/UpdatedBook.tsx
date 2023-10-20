@@ -14,13 +14,9 @@ const UpdatedBook: React.FC<BooksProps> = ({ books }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>('')
 
   const state = useSelector((state: RootState) => state.books)
-
   const id = useParams().id
-
   const editedBook = books.find((book) => book.id === id)
-
   const dispatch = useDispatch<AppDispatch>()
-
   const navigate = useNavigate()
 
   useEffect(() => {

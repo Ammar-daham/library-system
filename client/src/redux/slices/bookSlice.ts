@@ -19,7 +19,7 @@ interface BooksState {
   updateError: CustomError | null
   deleteBook: string
   deleteError: CustomError | null
-  updateBook: string, 
+  updateBook: string
 }
 
 const initialState: BooksState = {
@@ -288,14 +288,31 @@ export const bookSlice = createSlice({
       state.updateBook = 'rejected';
     })
 
+    builder.addCase(addBook.pending, (state) => {
+      return {
+        ...state,
+        addBook: 'pending',
+      }
+    })
+    builder.addCase(addBook.fulfilled, (state, action) => {
+        state.bookList = [...state.bookList, action.payload.data]
+        state.message = 'Thank you, you have successfully added new book'
+        state.addBook = 'success'
+    })
+    
+    builder.addCase(addBook.rejected, (state, action) => {
+      state.addError = action.payload as CustomError;
+      state.addBook = 'rejected'
+    })
+
     builder.addCase(booksFetch.pending, (state) => {
     state.getBooks = 'pending';
   })
-  .addCase(booksFetch.fulfilled, (state, action) => {
+  builder.addCase(booksFetch.fulfilled, (state, action) => {
     state.getBooks = 'success';
     state.bookList = action.payload.data;
   })
-  .addCase(booksFetch.rejected, (state, action) => {
+  builder.addCase(booksFetch.rejected, (state, action) => {
     state.getBooks = 'rejected';
     state.getError = action.payload as CustomError;
   });
@@ -384,26 +401,7 @@ export const bookSlice = createSlice({
     //   }
     // })
 
-    // builder.addCase(addBook.pending, (state) => {
-    //   return {
-    //     ...state,
-    //     addBook: 'pending',
-    //   }
-    // })
-    // builder.addCase(addBook.fulfilled, (state, action) => {
-    //   return {
-    //     ...state,
-    //     bookList: [...state.bookList, action.payload.data],
-    //     addBook: 'success',
-    //   }
-    // })
-    // builder.addCase(addBook.rejected, (state, action) => {
-    //   return {
-    //     ...state,
-    //     addBook: 'rejected',
-    //     addError: action.payload,
-    //   }
-    // })
+   
 
     // builder.addCase(removeBook.pending, (state) => {
     //   return {

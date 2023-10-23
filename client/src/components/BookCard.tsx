@@ -77,7 +77,7 @@ const BookCard = ({ book }: { book: Book }) => {
     //         Publisher: {book.publisher}
     //     </Typography>
     //     <Typography>
-    //         Category: {book.category}
+    //         category: {book.category}
     //     </Typography>
     //     {/* {book.status === 'borrowed' &&
     //       <Typography>

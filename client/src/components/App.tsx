@@ -15,10 +15,12 @@ import { AppDispatch } from '../redux/store'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { booksFetch } from 'redux/slices/bookSlice'
+import { fetchCategories } from 'redux/slices/categorySlice'
 import AppBar from './MobileAppBar'
 import Alert from './Alert'
 import UpdatedBook from './UpdatedBook'
 import NewBook from './NewBook'
+import { fetchAuthors } from 'redux/slices/authorSlice'
 
 const App = () => {
   window.onbeforeunload = function () {
@@ -30,12 +32,17 @@ const App = () => {
   const [ menu, setMenu ] = useState(false)
 
   const booksState = useSelector((state: RootState) => state.books.bookList)
+  const categoriesState = useSelector((state: RootState) => state.categories.categoryList)
+  const authorsState = useSelector((state: RootState) => state.authors.authorList)
+
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     dispatch(booksFetch())
-  }, [dispatch, booksState])
-
+    dispatch(fetchCategories())
+    dispatch(fetchAuthors())
+  }, [dispatch])
+  
   return (
     <Router>
       <div className="app-container">
@@ -56,7 +63,7 @@ const App = () => {
         <Route path="/books/:id" element={<Book books={booksState} />} />
         <Route path="/books/alert/:id" element={<Alert />} />
         <Route path="/books/edit-book/:id" element={<UpdatedBook books={booksState} />} />
-        <Route path="/books/new-book" element={<NewBook />} />
+        <Route path="/books/new-book" element={<NewBook categories={categoriesState} authors={authorsState}/>} />
       </Routes>
       <Footer />
     </Router>

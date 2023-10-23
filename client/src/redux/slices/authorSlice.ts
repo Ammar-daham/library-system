@@ -151,7 +151,7 @@ extraReducers: (builder) => {
           arg: { id }
         } = action.meta;
         if(id) {
-          state.authorList = state.authorList.map((author) => author._id === id ? action.payload : author);
+          state.authorList = state.authorList.map((author) => author.id === id ? action.payload : author);
           state.deleteAuthor = 'success'
         }
       })
@@ -174,7 +174,7 @@ extraReducers: (builder) => {
           arg: { id }
         } = action.meta;
         if(id) {
-          state.authorList = state.authorList.map((author) => author._id === id ? action.payload : author);
+          state.authorList = state.authorList.map((author) => author.id === id ? action.payload : author);
           state.updateAuthor = 'success'
         }
       })

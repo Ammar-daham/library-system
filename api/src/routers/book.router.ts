@@ -25,10 +25,9 @@ router.put('/status/borrowed/:bookId', checkAuthAdminUser, bookBorrowed)
 router.put('/status/available/:bookId', checkAuthAdminUser, bookReturned)
 router.put(
   '/:bookId',
-  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
+  // (...args) => checkAuthAdmin(...args, { isAdmin: true }),
   updateBook
 )
-
 router.delete(
   '/:bookId',
   (...args) => checkAuthAdmin(...args, { isAdmin: true }),

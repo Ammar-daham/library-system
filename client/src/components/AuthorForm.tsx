@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
   Container,
   Grid,
@@ -26,7 +25,7 @@ const AuthorForm = () => {
   const { books } = useSelector((state: RootState) => state)
 
   const [author, setAuthor] = useState<Author>({
-    _id: '',
+    id: '',
     name: '',
     email: '',
     books: [],

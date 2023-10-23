@@ -13,11 +13,11 @@ const UpdatedBook: React.FC<BooksProps> = ({ books }) => {
   const [successMessage, setSuccessMessage] = useState<string | null>('')
   const [errorMessage, setErrorMessage] = useState<string | null>('')
 
-  const state = useSelector((state: RootState) => state.books)
-  const id = useParams().id
-  const editedBook = books.find((book) => book.id === id)
-  const dispatch = useDispatch<AppDispatch>()
-  const navigate = useNavigate()
+  const state = useSelector((state: RootState) => state.books);
+  const id = useParams().id;
+  const editedBook = books.find((book) => book.id === id);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (editedBook) {
@@ -61,6 +61,8 @@ const UpdatedBook: React.FC<BooksProps> = ({ books }) => {
       book={updatedBook}
       setBook={setUpdatedBook}
       name={'EDIT'}
+      categories={null}
+      authors={null}
       title={'Edit and existing book'}
       successMessage={successMessage}
       errorMessage={errorMessage}

@@ -42,7 +42,6 @@ const bookSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: true,
     default: 'available',
   },
   categories: [
@@ -64,7 +63,7 @@ const bookSchema = new mongoose.Schema({
   cover: {
     small: {
       type: String,
-      required: true,
+      // required: true,
     },
     large: {
       type: String,

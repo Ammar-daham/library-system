@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import bookReducer from './slices/bookSlice'
 import authReducer from './slices/authSlice';
 import authorReducer from './slices/authorSlice'
+import categoryReducer from './slices/categorySlice'
 
 export const store = configureStore({
   reducer: {
     books: bookReducer,
     users: authReducer,
-    authors: authorReducer
+    authors: authorReducer,
+    categories: categoryReducer
   },
 });
 

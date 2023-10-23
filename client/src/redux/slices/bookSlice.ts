@@ -306,7 +306,10 @@ export const bookSlice = createSlice({
     })
 
     builder.addCase(booksFetch.pending, (state) => {
-    state.getBooks = 'pending';
+      return {
+        ...state,
+        getBooks: 'pending'
+      }
   })
   builder.addCase(booksFetch.fulfilled, (state, action) => {
     state.getBooks = 'success';

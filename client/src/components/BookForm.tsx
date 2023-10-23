@@ -1,10 +1,16 @@
-import React from 'react'
-import { Grid, TextField, Container } from '@mui/material'
+import {
+  Grid,
+  TextField,
+  Container,
+} from '@mui/material'
 import Notification from './Notifications'
 import ReusedButton from './Button'
 import { BookFormProps } from '../types'
 
 import '../App.css'
+import SelectComponent from './SelectComponent'
+
+
 
 const BookForm: React.FC<BookFormProps> = ({
   handleClick,
@@ -14,32 +20,13 @@ const BookForm: React.FC<BookFormProps> = ({
   setBook,
   successMessage,
   errorMessage,
+  categories,
+  authors
 }) => {
-  if (!book) {
-    return null
-  }
-
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-  //   const { name, value } = e.target
-
-  //   // If the input is for pages, convert the value to an integer
-  //   const parsedValue = name === 'pages' ? parseInt(value) : value
-
-  //   // setBook({
-  //   //   ...book,
-  //   //   [name]: parsedValue,
-  //   // })
-
-  //   setBook({
-  //     ...book,
-  //     [e.target.name]: e.target.value,
-  //   })
-  // }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-  
-    // If the input is for cover.small, update it directly
+    const { name, value } = e.target
+
     if (name === 'cover.small') {
       setBook((prevBook) => ({
         ...prevBook,
@@ -47,19 +34,34 @@ const BookForm: React.FC<BookFormProps> = ({
           ...prevBook.cover,
           small: value,
         },
-      }));
+      }))
     } else {
-      // For other properties, update the book object as usual
       setBook((prevBook) => ({
         ...prevBook,
         [name]: value,
-      }));
+      }))
     }
-  };
-  
+  }
 
-  
+  console.log('category ', categories)
+  console.log('book ', book)
 
+  // const handleChange = (event: SelectChangeEvent<typeof book.categories>) => {
+  //   const {
+  //     target: { value },
+  //   } = event
+  //   if (value.length === 0) {
+  //     setBook((prevBook) => ({
+  //       ...prevBook,
+  //       categories: [], // Set categories to an empty array when none are chosen
+  //     }));
+  //   } else {
+  //     setBook((prevBook) => ({
+  //       ...prevBook,
+  //       categories: typeof value === 'string' ? value.split(',') : value,
+  //     }));
+  //   }
+  // }
 
   return (
     <Container className="book-form-container">
@@ -152,6 +154,12 @@ const BookForm: React.FC<BookFormProps> = ({
               value={Number(book.pages)}
               onChange={handleInputChange}
             />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <SelectComponent book={book} setBook={setBook} name={"Category"} label={"Category"} categories={categories} authors={null}/>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <SelectComponent book={book} setBook={setBook} name={"Author"} label={"Author"} authors={authors} categories={null}/>
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField

@@ -47,19 +47,40 @@ export interface BooksProps {
   books: Book[]; 
 }
 
+export interface NewBookProps {
+  categories : Category[];
+  authors: Author[];
+}
+
+export interface SelectedProps {
+  book: Book,
+  name: string,
+  label: string,
+  setBook: React.Dispatch<React.SetStateAction<Book>>
+  categories: Category[] | null
+  authors: Author[] | null
+}
+
 export interface BookFormProps {
   handleClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
-  book: Book | null;
+  book: Book;
   name: string
   title: string
   successMessage: string | null
   errorMessage: string | null
   setBook: React.Dispatch<React.SetStateAction<Book>>
+  categories: Category[] | null
+  authors: Author[] | null
 }
 
+export type Category = {
+  id: string,
+  name: string,
+  books: Book[]
+}
 
 export type Author = {
-  _id: string
+  id: string
   name: string
   email: string
   books: Book[]

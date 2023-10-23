@@ -1,4 +1,4 @@
-import Category, { CategoryDocument } from '../models/category'
+import category, { CategoryDocument } from '../models/category'
 import { NotFoundError } from '../helpers/apiError'
 
 const create = async (
@@ -8,7 +8,7 @@ const create = async (
 }
 
 const findAll = async (): Promise<CategoryDocument[]> => {
-  return await Category.find()
+  return await category.find()
 }
 
 export default {

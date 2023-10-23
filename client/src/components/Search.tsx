@@ -68,7 +68,7 @@ const SearchInput = () => {
   //       }
   //     }
 
-  //     const searchByCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     const searchBycategory = (e: React.ChangeEvent<HTMLInputElement>) => {
   //       if (e.target.value === '') {
   //         dispatch(booksFetch())
   //       } else {
@@ -103,9 +103,9 @@ const SearchInput = () => {
     //           <TextField
     //             id="category-input"
     //             name="category"
-    //             label="CATEGORY"
+    //             label="category"
     //             type="text"
-    //             onChange={searchByCategory}
+    //             onChange={searchBycategory}
     //           />
     //           <TextField
     //             id="status-input"

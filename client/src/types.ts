@@ -8,12 +8,9 @@ export type Book = {
   description: string
   publisher: string
   // borrowerId: string[]
-  authors: Author[]
+  authors: string[]
   publishedDate: string
-  cover: {
-    small: string
-    large: string
-  }
+  cover: string
   borrowDate: string
   returnDate: string
   status: string
@@ -31,10 +28,7 @@ export const initialBook: Book = {
   // borrowerId: [],
   authors: [],
   publishedDate: '',
-  cover: {
-    small: '',
-    large: ''
-  },
+  cover: '',
   borrowDate: '',
   returnDate: '',
   status: '',

@@ -69,7 +69,7 @@ const Book: React.FC<BooksProps> = ({ books }) => {
               </Grid>
               <Grid>
                 {!userToken ? (
-                  <Link className="item_link" to={`/books/alert/${book.id}`}>
+                  <Link className="item_link" to={`/books/alert/`}>
                     <ReusedButton onClick={handleClick}>Edit</ReusedButton>
                   </Link>
                 ) : (

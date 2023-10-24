@@ -56,12 +56,11 @@ const App = () => {
         <AppBar />
       }
       <Routes>
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         <Route path="/" element={<Books books={booksState} />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/books/:id" element={<Book books={booksState} />} />
-        <Route path="/books/alert/:id" element={<Alert />} />
+        <Route path="/books/alert/" element={<Alert />} />
         <Route path="/books/edit-book/:id" element={<UpdatedBook books={booksState} />} />
         <Route path="/books/new-book" element={<NewBook categories={categoriesState} authors={authorsState}/>} />
       </Routes>

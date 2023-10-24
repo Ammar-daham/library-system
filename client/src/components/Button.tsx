@@ -1,16 +1,4 @@
-import { Button, styled } from '@mui/material'
-
-
-//  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-//     color: theme.palette.getContrastText(orange[500]),
-//     backgroundColor: orange[500],
-//     '&:hover': {
-//       backgroundColor: orange[700],
-//       color: 'white',
-//     },
-//   }))
-
-// export default ColorButton
+import { Button } from '@mui/material'
 
 import React, { CSSProperties, ReactNode } from 'react';
 

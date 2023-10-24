@@ -2,6 +2,9 @@ import { ListItemButton, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const NavBar = () => {
+
+  const userToken = localStorage.getItem('userToken')
+
   return (
     <>
       <ListItemButton>
@@ -15,9 +18,16 @@ const NavBar = () => {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link className="header-link" to={`/books/new-book`}>
-          <ListItemText>ADD BOOK</ListItemText>
-        </Link>
+        { 
+          !userToken ? (
+          <Link className="header-link" to={`/books/alert/`}>
+            <ListItemText>ADD BOOK</ListItemText>
+          </Link>
+          ): 
+          <Link className="header-link" to={`/books/new-book`}>
+            <ListItemText>ADD BOOK</ListItemText>
+          </Link>
+        }
       </ListItemButton>
       <ListItemButton>
         <Link className="header-link" to={`/`}>

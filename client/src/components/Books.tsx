@@ -22,7 +22,6 @@ const Books: React.FC<BooksProps> = ({ books }) => {
           sx={{ justifyContent: 'center' }}
         >
           {books.map((book, index) =>
-            book.cover ? (
               <Grid
                 item
                 style={{ width: '15em', padding: '1rem', textAlign: 'center' }}
@@ -30,7 +29,7 @@ const Books: React.FC<BooksProps> = ({ books }) => {
                 <Grid item key={index}>
                   <BookCard book={book} />
                 </Grid>
-                <Grid item key={index}>
+                <Grid item key={index} sx={{paddingBottom: "10px"}}>
                   <Link className="item_link" to={`/books/${book.id}`}>
                     <ReusedButton onClick={handleClick}>
                       Preview Only
@@ -39,7 +38,7 @@ const Books: React.FC<BooksProps> = ({ books }) => {
                 </Grid>
                 <Grid item key={index}>
                   {!userToken ? (
-                    <Link className="item_link" to={`/books/alert/${book.id}`}>
+                    <Link className="item_link" to={`/books/alert/`}>
                       <ReusedButton onClick={handleClick}>Delete</ReusedButton>
                     </Link>
                   ) : (
@@ -49,7 +48,6 @@ const Books: React.FC<BooksProps> = ({ books }) => {
                   )}
                 </Grid>
               </Grid>
-            ) : null,
           )}
         </Grid>
       </Container>

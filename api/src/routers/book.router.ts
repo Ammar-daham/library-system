@@ -34,6 +34,6 @@ router.delete(
   deleteBook
 )
 
-router.post('/', createBook)
+router.post('/', checkAuthAdminUser, createBook)
 
 export default router

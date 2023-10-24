@@ -139,8 +139,14 @@ export const addBook = createAsyncThunk(
       console.log(response.data)
       return response.data
     } catch (error: any) {
-      console.log(error)
-      return  
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({
+          code: 500,
+          message: 'An unexpected error occurred.',
+        });
+      }
     }
   },
 );

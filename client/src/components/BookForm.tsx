@@ -26,42 +26,13 @@ const BookForm: React.FC<BookFormProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
-
-    if (name === 'cover.small') {
-      setBook((prevBook) => ({
-        ...prevBook,
-        cover: {
-          ...prevBook.cover,
-          small: value,
-        },
-      }))
-    } else {
       setBook((prevBook) => ({
         ...prevBook,
         [name]: value,
       }))
-    }
   }
 
-  console.log('category ', categories)
   console.log('book ', book)
-
-  // const handleChange = (event: SelectChangeEvent<typeof book.categories>) => {
-  //   const {
-  //     target: { value },
-  //   } = event
-  //   if (value.length === 0) {
-  //     setBook((prevBook) => ({
-  //       ...prevBook,
-  //       categories: [], // Set categories to an empty array when none are chosen
-  //     }));
-  //   } else {
-  //     setBook((prevBook) => ({
-  //       ...prevBook,
-  //       categories: typeof value === 'string' ? value.split(',') : value,
-  //     }));
-  //   }
-  // }
 
   return (
     <Container className="book-form-container">
@@ -166,10 +137,10 @@ const BookForm: React.FC<BookFormProps> = ({
               fullWidth
               required
               className="input"
-              name="cover.small"
+              name="cover"
               label="Cover"
               type="text"
-              value={book.cover.small}
+              value={book.cover}
               onChange={handleInputChange}
             />
           </Grid>
@@ -184,6 +155,7 @@ const BookForm: React.FC<BookFormProps> = ({
               type="text"
               value={book.description}
               onChange={handleInputChange}
+              required
             />
           </Grid>
           <Grid item xs={12}>

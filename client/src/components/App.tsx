@@ -56,12 +56,12 @@ const App = () => {
         <AppBar />
       }
       <Routes>
-        <Route path="/" element={<Books books={booksState} />} />
+        <Route path="/" element={<Books books={booksState} categories={categoriesState} authors={authorsState}/>} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
-        <Route path="/books/:id" element={<Book books={booksState} />} />
+        <Route path="/books/:id" element={<Book books={booksState} categories={categoriesState} authors={authorsState}/>} />
         <Route path="/books/alert/" element={<Alert />} />
-        <Route path="/books/edit-book/:id" element={<UpdatedBook books={booksState} />} />
+        <Route path="/books/edit-book/:id" element={<UpdatedBook books={booksState} categories={categoriesState} authors={authorsState} />} />
         <Route path="/books/new-book" element={<NewBook categories={categoriesState} authors={authorsState}/>} />
       </Routes>
       <Footer />

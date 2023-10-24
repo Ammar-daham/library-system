@@ -6,11 +6,8 @@ import {
 import Notification from './Notifications'
 import ReusedButton from './Button'
 import { BookFormProps } from '../types'
-
-import '../App.css'
 import SelectComponent from './SelectComponent'
-
-
+import '../App.css'
 
 const BookForm: React.FC<BookFormProps> = ({
   handleClick,

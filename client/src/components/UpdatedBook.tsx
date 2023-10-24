@@ -8,7 +8,7 @@ import BookForm from './BookForm'
 import { useState, useEffect } from 'react'
 import { Book, initialBook } from '../types'
 
-const UpdatedBook: React.FC<BooksProps> = ({ books }) => {
+const UpdatedBook: React.FC<BooksProps> = ({ books, categories, authors }) => {
   const [updatedBook, setUpdatedBook] = useState<Book>(initialBook)
   const [successMessage, setSuccessMessage] = useState<string | null>('')
   const [errorMessage, setErrorMessage] = useState<string | null>('')
@@ -61,8 +61,8 @@ const UpdatedBook: React.FC<BooksProps> = ({ books }) => {
       book={updatedBook}
       setBook={setUpdatedBook}
       name={'EDIT'}
-      categories={null}
-      authors={null}
+      categories={categories}
+      authors={authors}
       title={'Edit and existing book'}
       successMessage={successMessage}
       errorMessage={errorMessage}

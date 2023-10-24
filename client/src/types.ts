@@ -39,6 +39,8 @@ export const initialBook: Book = {
 
 export interface BooksProps {
   books: Book[]; 
+  categories : Category[];
+  authors: Author[];
 }
 
 export interface NewBookProps {

@@ -8,8 +8,6 @@ You should use either `npm` or `yarn` but not both. **It's recommended** to use 
 
 This template already comes with all the needed packages. In case you want to install extra ones ie MUI feel free.
 
-
-
 you have two different folders:
 
 1. `api:` where your backend lives
@@ -125,3 +123,24 @@ You should have by now, mine and Vincent's 1on1 30mins links, feel free to book.
 * Can I know my own evaluation?
   * this data is between me and the BD team
   * you can still book 1on1 session with me or send me a DM where I would tell you my opinion of your tech/soft skills.
+
+
+| Date  | Hours | subject | 
+| ------------- | ------------- | ------------- |
+| 2.10.2023  | 6h  | Login From/Functionality/style |
+| 2.10.2023  | 6h  | Sign up Form/Functionality/style |
+| 3.10.2023  | 8h  | NavBar/Header/Footer/style |
+| 4.10.2023  | 7h  | Logout/Profile page/style |
+| 6.10.2023  | 3h  | refactoring Login/sign up pages |
+| 8.10.2023  | 9h  | Book card/Books |
+| 10.10.2023  | 3h  | Book page |
+| 11.10.2023  | 2h  | api: added language and pages |
+| 12.10.2023  | 2h  | Button style |
+| 13.10.2023  | 4h  | Header refactoring |
+| 14.10.2023  | 2h  | Alert page |
+| 15.10.2023  | 5h  | Book Form |
+| 16.10.2023  | 1h  | Book Form Refactored |
+| 17.10.2023  | 3h  | Update book |
+| 22.10.2023  | 8h  | Refactoring new book and update Book and selected authors and categories|
+| 23.10.2023  | 4h  | Refactoring code |
+| 23.10.2023  | 73h  | Refactoring code |

@@ -1,4 +1,5 @@
 import React from 'react'
+import Alert from '@mui/material/Alert'
 import '../App.css'
 
 const Notifications = ({ successMessage, errorMessage }: any) => {
@@ -8,14 +9,16 @@ const Notifications = ({ successMessage, errorMessage }: any) => {
 
   return (
     <div>
-      {
-        successMessage &&
-          <div className="success">{successMessage}</div>
-      }
-      {
-        errorMessage &&
-          <div className="error">{errorMessage}</div>
-      }
+      {successMessage && (
+        <Alert variant="filled" severity="success">
+          {successMessage}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert variant="filled" severity="error">
+          {errorMessage}
+        </Alert>
+      )}
     </div>
   )
 }

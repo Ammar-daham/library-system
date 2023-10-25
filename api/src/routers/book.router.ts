@@ -28,12 +28,7 @@ router.put(
   // (...args) => checkAuthAdmin(...args, { isAdmin: true }),
   updateBook
 )
-router.delete(
-  '/:bookId',
-  (...args) => checkAuthAdmin(...args, { isAdmin: true }),
-  deleteBook
-)
-
+router.delete('/:bookId', checkAuthAdminUser, deleteBook)
 router.post('/', checkAuthAdminUser, createBook)
 
 export default router

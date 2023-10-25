@@ -41,11 +41,23 @@ export interface BooksProps {
   books: Book[]; 
   categories : Category[];
   authors: Author[];
+  successMessage: string | null
+  errorMessage: string | null
+  setSuccessMessage: React.Dispatch<string | null>
+  setErrorMessage: React.Dispatch<string | null>
+  handleDeleteClick: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => Promise<void> | null
 }
 
 export interface NewBookProps {
   categories : Category[];
   authors: Author[];
+  successMessage: string | null
+  errorMessage: string | null
+  setSuccessMessage: React.Dispatch<string | null>
+  setErrorMessage: React.Dispatch<string | null>
 }
 
 export interface SelectedProps {

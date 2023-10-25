@@ -89,28 +89,6 @@ h6{
     margin-bottom: 2rem;  
 }
 
-
-.success {
-    color: green;
-    background: rgba(255,255,255,0.20);
-    font-size: 12px;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .error {
-    color: red;
-    background: rgba(255,255,255,0.20);
-    font-size: 12px;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-
 .bookCard {
     max-width: 350;
     margin: 20px;

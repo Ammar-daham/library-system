@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }))
 
-const Book: React.FC<BooksProps> = ({ books }) => {
+const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
   const id = useParams().id
   const book = books.find((book) => book.id === id)
 
@@ -43,15 +43,28 @@ const Book: React.FC<BooksProps> = ({ books }) => {
           <Grid>
             <BookCard book={book} />
           </Grid>
-          <Grid>
+          <Grid sx={{ paddingBottom: '10px' }}>
             {!userToken ? (
-              <Link className="item_link" to={`/books/alert/${book.id}`}>
+              <Link className="item_link" to={`/books/alert/`}>
                 <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
               </Link>
             ) : (
-              <Link className="item_link" to={`/login`}>
-                <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
+                <ReusedButton onClick={handleClick}>
+                    Borrow
+                </ReusedButton>
+            )}
+          </Grid>
+          <Grid sx={{ paddingBottom: '10px' }}>
+            {!userToken ? (
+              <Link className="item_link" to={`/books/alert/`}>
+                <ReusedButton onClick={handleClick}>Delete</ReusedButton>
               </Link>
+            ) : (
+              <>
+                <ReusedButton onClick={(e) => handleDeleteClick(e, book.id)}>
+                  Delete
+                </ReusedButton>
+              </>
             )}
           </Grid>
         </Grid>
@@ -119,6 +132,7 @@ const Book: React.FC<BooksProps> = ({ books }) => {
           </Grid>
         </Grid>
       </Grid>
+
     </Container>
   )
 }

@@ -207,14 +207,21 @@ export const returnBook = createAsyncThunk(
 
 export const removeBook = createAsyncThunk(
   'book/removeBook',
-  async ({book:any,id}: any , { rejectWithValue }) => {
+  async (id: any , { rejectWithValue }) => {
+    console.log("id ", id)
     try {
       const response = await axios.delete(url + id , config())
       console.log(response.data)
       return response.data
     } catch (error: any) {
-      console.log(error)
-      return rejectWithValue(error.response.data)
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({
+          code: 500,
+          message: 'An unexpected error occurred.',
+        });
+      }
     }
   },
 );
@@ -326,6 +333,27 @@ export const bookSlice = createSlice({
     state.getError = action.payload as CustomError;
   });
 
+   builder.addCase(removeBook.pending, (state) => {
+      return {
+        ...state,
+        deleteBook: 'pending'
+      }
+    })
+    builder.addCase(removeBook.fulfilled, (state, action) => {
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.bookList = state.bookList.map((book) => book.id === id ? action.payload : book);
+        state.message = 'Thank you, you have successfully deleted book';
+        state.deleteBook = 'success'
+      }
+    })
+    builder.addCase(removeBook.rejected, (state, action) => {
+      state.deleteError = action.payload as CustomError;
+      state.deleteBook = 'rejected';
+    })
+
     // builder.addCase(fetchBookByIsbn.pending, (state) => {
     //   return {
     //     ...state,
@@ -412,29 +440,7 @@ export const bookSlice = createSlice({
 
    
 
-    // builder.addCase(removeBook.pending, (state) => {
-    //   return {
-    //     ...state,
-    //     deleteBook: 'pending'
-    //   }
-    // })
-    // builder.addCase(removeBook.fulfilled, (state, action) => {
-    //   console.log('action: ', action)
-    //   const {
-    //     arg: { id }
-    //   } = action.meta;
-    //   if(id) {
-    //     state.bookList = state.bookList.map((book) => book.id === id ? action.payload : book);
-    //     state.deleteBook = 'success'
-    //   }
-    // })
-    // builder.addCase(removeBook.rejected, (state, action) => {
-    //   return {
-    //     ...state,
-    //     deleteBook: 'rejected',
-    //     deleteError: action.payload,
-    //   }
-    // })
+   
   
 }
 })

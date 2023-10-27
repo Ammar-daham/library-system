@@ -19,6 +19,7 @@ import NewBook from './NewBook'
 import { fetchAuthors } from 'redux/slices/authorSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'redux/store'
+import NewAuthor from './NewAuthor'
 
 const App = () => {
   window.onbeforeunload = function () {
@@ -86,6 +87,8 @@ const App = () => {
         <Route path="/books/alert/" element={<Alert />} />
         <Route path="/books/edit-book/:id" element={<UpdatedBook handleDeleteClick={handleDeleteClick} books={booksState} categories={categoriesState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />} />
         <Route path="/books/new-book" element={<NewBook categories={categoriesState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
+        <Route path="/books/authors/new-author" element={<NewAuthor books={booksState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
+
       </Routes>
       <Footer />
     </Router>

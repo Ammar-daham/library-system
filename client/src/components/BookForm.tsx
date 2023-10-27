@@ -1,8 +1,4 @@
-import {
-  Grid,
-  TextField,
-  Container,
-} from '@mui/material'
+import { Grid, TextField, Container } from '@mui/material'
 import Notification from './Notifications'
 import ReusedButton from './Button'
 import { BookFormProps } from '../types'
@@ -18,18 +14,15 @@ const BookForm: React.FC<BookFormProps> = ({
   successMessage,
   errorMessage,
   categories,
-  authors
+  authors,
 }) => {
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
-      setBook((prevBook) => ({
-        ...prevBook,
-        [name]: value,
-      }))
+    setBook((prevBook) => ({
+      ...prevBook,
+      [name]: value,
+    }))
   }
-
-  console.log('book ', book)
 
   return (
     <Container className="book-form-container">
@@ -124,10 +117,34 @@ const BookForm: React.FC<BookFormProps> = ({
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <SelectComponent book={book} setBook={setBook} name={"Category"} label={"Category"} categories={categories} authors={null}/>
+            <SelectComponent
+              book={book}
+              author={null}
+              category={null}
+              setBook={setBook}
+              setAuthor={null}
+              setCategory={null}
+              name={'Category'}
+              label={'Category'}
+              categories={categories}
+              books={null}
+              authors={null}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <SelectComponent book={book} setBook={setBook} name={"Author"} label={"Author"} authors={authors} categories={null}/>
+            <SelectComponent
+              author={null}
+              category={null}
+              book={book}
+              setBook={setBook}
+              setCategory={null}
+              setAuthor={null}
+              name={'Author'}
+              label={'Author'}
+              authors={authors}
+              categories={null}
+              books={null}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField

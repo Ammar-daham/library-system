@@ -21,44 +21,85 @@ const MenuProps = {
 
 const SelectComponent: React.FC<SelectedProps> = ({
   book,
+  author,
+  category,
   name,
   setBook,
+  setAuthor,
+  setCategory,
   categories,
   authors,
+  books,
   label,
 }) => {
-  const handleCategoriesChange = (event: SelectChangeEvent<typeof book.categories>) => {
-    const { target: { value } } = event;
+  if (!book || !author || !category || !setBook || !setAuthor || !setCategory) {
+    return null
+  }
+  const handleCategoriesChange = (
+    event: SelectChangeEvent<typeof book.categories>,
+  ) => {
+    const {
+      target: { value },
+    } = event
 
     setBook((prevBook) => ({
       ...prevBook,
       categories: typeof value === 'string' ? value.split(',') : value,
-    }));
+    }))
   }
 
-  const handleAuthorsChange = (event: SelectChangeEvent<typeof book.authors>) => {
-    const { target: { value } } = event;
+  const handleAuthorsChange = (
+    event: SelectChangeEvent<typeof book.authors>,
+  ) => {
+    const {
+      target: { value },
+    } = event
 
     setBook((prevBook) => ({
       ...prevBook,
       authors: typeof value === 'string' ? value.split(',') : value,
-    }));
+    }))
   }
 
+  const handleBooksChange = (event: SelectChangeEvent<typeof author.books>) => {
+    const {
+      target: { value },
+    } = event
+
+    setAuthor((prevAuthor) => ({
+      ...prevAuthor,
+      books: typeof value === 'string' ? value.split(',') : value,
+    }))
+  }
 
   return (
     <FormControl fullWidth>
       <InputLabel>{name}</InputLabel>
       <Select
         multiple
-        value={categories ? book.categories : book.authors}
-        onChange={categories ? handleCategoriesChange : handleAuthorsChange}
+        value={
+          categories
+            ? book.categories
+            : authors
+            ? book.authors
+            : books
+            ? author.books
+            : ''
+        }
+        onChange={
+          categories
+            ? handleCategoriesChange
+            : authors
+            ? handleAuthorsChange
+            : handleBooksChange
+        }
         input={<OutlinedInput label={label} />}
         MenuProps={MenuProps}
       >
         <MenuItem value={''}>None</MenuItem>
         {categories != null &&
           !authors &&
+          books &&
           categories.map((category) => (
             <MenuItem key={category.id} value={category.id}>
               {category.name}
@@ -66,9 +107,16 @@ const SelectComponent: React.FC<SelectedProps> = ({
           ))}
         {authors != null &&
           !categories &&
+          !books &&
           authors.map((author) => (
             <MenuItem key={author.id} value={author.id}>
               {author.name}
+            </MenuItem>
+          ))}
+        {books != null &&
+          books.map((book) => (
+            <MenuItem key={book.id} value={book.id}>
+              {book.title}
             </MenuItem>
           ))}
       </Select>

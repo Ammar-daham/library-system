@@ -37,6 +37,20 @@ export const initialBook: Book = {
   pages: 0
 }
 
+export type Author = {
+  id: string
+  name: string
+  email: string
+  books: string[]
+}
+
+export const initialAuthor: Author = {
+  id: '',
+  name: '',
+  email: '',
+  books: []
+}
+
 export interface BooksProps {
   books: Book[]; 
   categories : Category[];
@@ -60,13 +74,26 @@ export interface NewBookProps {
   setErrorMessage: React.Dispatch<string | null>
 }
 
+export interface NewAuthorProps {
+  books: Book[];
+  successMessage: string | null
+  errorMessage: string | null
+  setSuccessMessage: React.Dispatch<string | null>
+  setErrorMessage: React.Dispatch<string | null>
+}
+
 export interface SelectedProps {
-  book: Book,
+  book: Book | null
+  author: Author | null
+  category: Category | null
   name: string,
   label: string,
-  setBook: React.Dispatch<React.SetStateAction<Book>>
+  setBook: React.Dispatch<React.SetStateAction<Book>> | null
+  setAuthor: React.Dispatch<React.SetStateAction<Author>> | null
+  setCategory: React.Dispatch<React.SetStateAction<Category>> | null
   categories: Category[] | null
   authors: Author[] | null
+  books: Book[] | null
 }
 
 export interface BookFormProps {
@@ -81,18 +108,24 @@ export interface BookFormProps {
   authors: Author[] | null
 }
 
+export interface AuthorFormProps {
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>
+  author: Author
+  name: string
+  title: string
+  books: Book[] | null
+  setAuthor: React.Dispatch<React.SetStateAction<Author>>
+  successMessage: string | null
+  errorMessage: string | null
+}
+
 export type Category = {
   id: string,
   name: string,
   books: Book[]
 }
 
-export type Author = {
-  id: string
-  name: string
-  email: string
-  books: Book[]
-}
+
 
 export type User = {
   id: string

@@ -1,175 +1,177 @@
-
 #grid-container {
-    text-align: 'center';
-    padding: 60px;
-    background-color: rgba(255,255,255,0.13);
-    width: 430px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  text-align: 'center';
+  padding: 60px;
+  background-color: rgba(255, 255, 255, 0.13);
+  width: 430px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
 }
 
 .input {
-    background: rgba(255,255,255,0.20);
-    border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
 }
-  
-h6{
-    text-align: center;
-    color: red;
+
+h6 {
+  text-align: center;
+  color: red;
 }
 
 .app-container {
-    background-color: #333;
-    padding: 5px;
+  background-color: #333;
+  padding: 5px;
 }
 
-.header-container, .footer-container{
-    max-width: 1250px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 1rem;
-    z-index: 0;
+.header-container,
+.footer-container {
+  max-width: 1250px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  z-index: 0;
 }
 
 .sticky {
-    background-color: #E8DBC5;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    transition: all 0.5s ease;
-    animation: smoothScroll 1s forwards;
-  }
-  
-  @keyframes smoothScroll {
-    0% {
-      transform: translateY(-142px);
-    }
-  
-    100% {
-      transform: translateY(0px);
-    }
-  }
-
-.app-bar-container {
-    max-width: 100%;
-    margin: auto;
-    background-color: #E8DBC5;
-    color: #555;
-    border-radius: 10px;
+  background-color: #e8dbc5;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: all 0.5s ease;
+  animation: smoothScroll 1s forwards;
 }
 
-.header-link, .logout-link {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
+@keyframes smoothScroll {
+  0% {
+    transform: translateY(-142px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.app-bar-container {
+  max-width: 100%;
+  margin: auto;
+  background-color: #e8dbc5;
+  color: #555;
+  border-radius: 10px;
+}
+
+.header-link,
+.logout-link {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
 }
 
 .profile-container {
-    margin: 0;
-    text-align: center;
+  margin: 0;
+  text-align: center;
 }
 
-.home-main-container, .login-main-container, .signup-main-container, .book-main-container, .alert-container, .book-form-container {
-    max-width: 1060px;
-    width: 100%;
-    background-color: #f7f6f2;
-    border-radius: 5px;
-    border: 1px solid wheat;
-    padding-bottom: 2rem;
-    padding: 2rem;
+.home-main-container,
+.login-main-container,
+.signup-main-container,
+.author-form-container,
+.book-main-container,
+.alert-container,
+.book-form-container {
+  max-width: 1060px;
+  width: 100%;
+  background-color: #f7f6f2;
+  border-radius: 5px;
+  border: 1px solid wheat;
+  padding-bottom: 2rem;
+  padding: 2rem;
 }
 
-.home-h2, .login-h2, .signup-h2 {
-    color: #333;
+.home-h2,
+.login-h2,
+.signup-h2 {
+  color: #333;
 }
 
 .book-card {
-    margin-bottom: 2rem;  
+  margin-bottom: 2rem;
 }
 
 .bookCard {
-    max-width: 350;
-    margin: 20px;
-    padding: 20px;
-    box-shadow: 0 0 6px rgb(56, 57, 57);
-    border: 3px solid rgba(255,255,255,0.2);
+  max-width: 350;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 0 6px rgb(56, 57, 57);
+  border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .login-divider {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-}
-  
-
-.mainBox{
-    height: 100%;
-    width: 100%;
-    background-color: wheat;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 }
 
-
+.mainBox {
+  height: 100%;
+  width: 100%;
+  background-color: wheat;
+}
 
 .sideBarDashboard {
-    box-shadow: 0 0 6px rgb(56, 57, 57);
-    border: 2px solid rgba(255,255,255,0.2);
-    position: absolute;
-    height: -webkit-fill-available;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    padding-top: 50px;
+  box-shadow: 0 0 6px rgb(56, 57, 57);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: absolute;
+  height: -webkit-fill-available;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
 }
 
-
-
 .link {
-    text-decoration: none;
-    padding: 15px 0 15px 40px;
-    color: white;
-    font-weight: bold;
+  text-decoration: none;
+  padding: 15px 0 15px 40px;
+  color: white;
+  font-weight: bold;
 }
 
 .link:hover {
-    background-color: black;
-    color: rgb(228, 126, 3);
-    cursor: pointer;
+  background-color: black;
+  color: rgb(228, 126, 3);
+  cursor: pointer;
 }
 
 .search {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
 }
 
 .table {
-    background-color: rgb(240, 211, 157);
-    border: 2px solid rgba(130, 122, 115, 0.2);
+  background-color: rgb(240, 211, 157);
+  border: 2px solid rgba(130, 122, 115, 0.2);
 }
 
 .tableContainer {
-    max-height: 600px;
-    box-shadow: 0 0 6px rgb(26, 50, 50);
+  max-height: 600px;
+  box-shadow: 0 0 6px rgb(26, 50, 50);
 }
 
 .addContainer {
-    padding: initial;
-    background-color: wheat;
-    text-align: center;
-    border: 2px solid rgba(130, 122, 115, 0.2);
-    box-shadow: 0 0 6px rgb(26, 50, 50);
-    backdrop-filter: blur(100px),
-}       
-
+  padding: initial;
+  background-color: wheat;
+  text-align: center;
+  border: 2px solid rgba(130, 122, 115, 0.2);
+  box-shadow: 0 0 6px rgb(26, 50, 50);
+  backdrop-filter: blur(100px);
+}
 
 .addBookHeader {
-    background-color: orange;
-    color: white;
-    padding: 10px;
+  background-color: orange;
+  color: white;
+  padding: 10px;
 }
 
 .addInput {
-    padding: 10px;
+  padding: 10px;
 }
-

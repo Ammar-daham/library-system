@@ -145,5 +145,8 @@ You should have by now, mine and Vincent's 1on1 30mins links, feel free to book.
 | 23.10.2023  | 4h  | Refactoring code |
 | 24.10.2023  | 1h  | added categories and authors type to BookProps |
 | 25.10.2023  | 3h  | Delete Book and refactoring |
-| 23.10.2023  | 77h  | Refactoring code |
+| 26.10.2023  | 1h  | Deploying first version to fly |
+| 27.10.2023  | 1h  | updated author slice |
+| 27.10.2023  | 3h  | added author form |
+| 23.10.2023  | 82h  | Refactoring code |
 

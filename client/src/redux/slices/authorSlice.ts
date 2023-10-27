@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { Author } from '../../types'
+import { Author, CustomError } from '../../types'
 import { config } from './token'
 
 
@@ -10,26 +10,29 @@ const url = `http://localhost:4000/api/v1/authors/`
 export interface authorsState {
     authorList: Author[]
     addAuthor: string
-    addError: any
+    addError: CustomError | null
     getAuthors: string
-    getError: any
+    getError: CustomError | null
     updateAuthor: string
-    updateError: any
+    updateError: CustomError | null
     deleteAuthor: string
-    deleteError: any
+    deleteError: CustomError | null
+    message: string
   }
 
 const initialState: authorsState = {
     authorList: [],
     addAuthor: '',
-    addError: '',
+    addError: null,
     getAuthors: '',
-    getError: '',
+    getError: null,
     updateAuthor: '',
-    updateError: '',
+    updateError: null,
     deleteAuthor: '',
-    deleteError: '',
+    deleteError: null,
+    message: '',
 }
+
 
 export const fetchAuthors = createAsyncThunk(
     'authors/fetchAuthors', async (arg, { rejectWithValue }) => {
@@ -58,8 +61,14 @@ export const fetchAuthors = createAsyncThunk(
         console.log(response.data)
         return response.data
       } catch (error: any) {
-        console.log(error)
-        return rejectWithValue(error.response.data)
+        if (error.response) {
+          return rejectWithValue(error.response.data);
+        } else {
+          return rejectWithValue({
+            code: 500,
+            message: 'An unexpected error occurred.',
+          });
+        }
       }
     },
   );
@@ -72,8 +81,14 @@ export const fetchAuthors = createAsyncThunk(
         console.log(response.data)
         return response.data
       } catch (error: any) {
-        console.log(error)
-        return rejectWithValue(error.response.data)
+        if (error.response) {
+          return rejectWithValue(error.response.data);
+        } else {
+          return rejectWithValue({
+            code: 500,
+            message: 'An unexpected error occurred.',
+          });
+        }
       }
     },
   );
@@ -86,8 +101,14 @@ export const fetchAuthors = createAsyncThunk(
         console.log(response.data)
         return response.data
       } catch (error: any) {
-        console.log(error)
-        return rejectWithValue(error.response.data)
+        if (error.response) {
+          return rejectWithValue(error.response.data);
+        } else {
+          return rejectWithValue({
+            code: 500,
+            message: 'An unexpected error occurred.',
+          });
+        }
       }
     },
   );
@@ -106,85 +127,72 @@ extraReducers: (builder) => {
         }
     })
     builder.addCase(fetchAuthors.fulfilled, (state, action) => {
-        return {
-        ...state,
-        authorList: action.payload.data,
-        getAuthors: 'success',
-        }
+        state.getAuthors = 'success';
+        state.authorList = action.payload.data;
     })
     builder.addCase(fetchAuthors.rejected, (state, action) => {
-        return {
-        ...state,
-        getAuthors: 'rejected',
-        getError: action.payload,
-        }
+        state.getAuthors = 'rejected';
+        state.getError = action.payload as CustomError;
     })
+
     builder.addCase(addAuthor.pending, (state) => {
         return {
           ...state,
           addAuthor: 'pending',
         }
-      })
-      builder.addCase(addAuthor.fulfilled, (state, action) => {
-        return {
-          ...state,
-          authorList: [...state.authorList, action.payload.data],
-          addAuthor: 'success',
-        }
-      })
-      builder.addCase(addAuthor.rejected, (state, action) => {
-        return {
-          ...state,
-          addAuthor: 'rejected',
-          addError: action.payload,
-        }
-      })
-      builder.addCase(removeAuthor.pending, (state) => {
-        return {
-          ...state,
-          deleteAuthor: 'pending'
-        }
-      })
-      builder.addCase(removeAuthor.fulfilled, (state, action) => {
-        console.log('action: ', action)
-        const {
-          arg: { id }
-        } = action.meta;
-        if(id) {
-          state.authorList = state.authorList.map((author) => author.id === id ? action.payload : author);
-          state.deleteAuthor = 'success'
-        }
-      })
-      builder.addCase(removeAuthor.rejected, (state, action) => {
-        return {
-          ...state,
-          deleteAuthor: 'rejected',
-          deleteError: action.payload,
-        }
-      })
-      builder.addCase(updateAuthor.pending, (state) => {
-        return {
-          ...state,
-          updateAuthor: 'pending',
-        }
-      })
-      builder.addCase(updateAuthor.fulfilled, (state, action) => {
-        console.log('action: ', action)
-        const {
-          arg: { id }
-        } = action.meta;
-        if(id) {
-          state.authorList = state.authorList.map((author) => author.id === id ? action.payload : author);
-          state.updateAuthor = 'success'
-        }
-      })
-      builder.addCase(updateAuthor.rejected, (state, action) => {
-        return {
-          ...state,
-          updateAuthor: 'rejected',
-          updateError: action.payload,
-        }
-      })
+    })
+    builder.addCase(addAuthor.fulfilled, (state, action) => {
+      state.authorList = [...state.authorList, action.payload.data]
+      state.message = 'Thank you, you have successfully added author'
+      state.addAuthor = 'success'
+    })
+    builder.addCase(addAuthor.rejected, (state, action) => {
+      state.addError = action.payload as CustomError;
+      state.addAuthor = 'rejected'
+    })
+    builder.addCase(removeAuthor.pending, (state) => {
+      return {
+        ...state,
+        deleteAuthor: 'pending'
+      }
+    })   
+    builder.addCase(removeAuthor.fulfilled, (state, action) => {
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.authorList = state.authorList.map((author) => author.id === id ? action.payload : author);
+        state.message = 'Thank you, you have successfully deleted author';
+        state.deleteAuthor = 'success'
+      }
+    })
+    builder.addCase(removeAuthor.rejected, (state, action) => {
+      state.deleteError = action.payload as CustomError;
+      state.deleteAuthor = 'rejected';
+    })
+
+
+    builder.addCase(updateAuthor.pending, (state) => {
+      return {
+        ...state,
+        updateAuthor: 'pending',
+      }
+    })
+    builder.addCase(updateAuthor.fulfilled, (state, action) => {
+      console.log('action: ', action)
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.authorList = state.authorList.map((author) => author.id === id ? action.payload : author);
+        state.updateAuthor = 'success'
+        state.message = "Thank you, you have successfully updated author's information"
+      }
+    })
+    builder.addCase(updateAuthor.rejected, (state, action) => {
+      state.updateError = action.payload as CustomError;
+      state.updateAuthor = 'rejected';
+    })
 }
 })
 

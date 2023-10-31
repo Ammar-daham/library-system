@@ -7,8 +7,8 @@ const Alert = () => {
     <>
       <Container className="alert-container">
         <h2>Permission denied.</h2>
-        <Typography>Permission denied to delete, updated and add new book</Typography>
-        <Typography>Only logged users are allowed to modify, add and delete books and authors</Typography>
+        <Typography>Permission denied to delete, updated and add books, authors and categories</Typography>
+        <Typography>Only logged users are allowed to modify, add and delete books, authors and categories</Typography>
       </Container>
       <LoginForm />
     </>

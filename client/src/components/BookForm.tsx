@@ -25,7 +25,7 @@ const BookForm: React.FC<BookFormProps> = ({
   }
 
   return (
-    <Container className="book-form-container">
+    <Container className="main-container">
       <h2 className="book-form-h2">{title}</h2>
       <p>Refine an Existing Book or Introduce a new book</p>
 

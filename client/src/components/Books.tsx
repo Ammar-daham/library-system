@@ -21,7 +21,7 @@ const Books: React.FC<BooksProps> = ({
   const userToken = localStorage.getItem('userToken')
 
   return (
-    <Container className="home-main-container">
+    <Container className="main-container">
       <Container className="home-sub-container">
         <h2 className="home-h2">WELCOME TO OUR IMAGINARY LIBRARY</h2>
         <Grid
@@ -37,7 +37,7 @@ const Books: React.FC<BooksProps> = ({
               <Grid item key={index}>
                 <BookCard book={book} />
               </Grid>
-              <Grid item key={index} sx={{ paddingBottom: '10px' }}>
+              <Grid item key={index} >
                 <Link className="item_link" to={`/books/${book.id}`}>
                   <ReusedButton onClick={handleClick}>
                     Preview Only
@@ -46,7 +46,7 @@ const Books: React.FC<BooksProps> = ({
               </Grid>
               <Grid item key={index}>
                 {!userToken ? (
-                  <Link className="item_link" to={`/books/alert/`}>
+                  <Link className="item_link" to={`/books/books-alert/`}>
                     <ReusedButton onClick={handleClick}>Delete</ReusedButton>
                   </Link>
                 ) : (

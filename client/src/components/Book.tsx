@@ -31,7 +31,7 @@ const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
   const handleClick = () => {}
 
   return (
-    <Container className="book-main-container">
+    <Container className="main-container">
       <Grid container spacing={2}>
         <Grid
           item
@@ -45,7 +45,7 @@ const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
           </Grid>
           <Grid sx={{ paddingBottom: '10px' }}>
             {!userToken ? (
-              <Link className="item_link" to={`/books/alert/`}>
+              <Link className="item_link" to={`/books/books-alert/`}>
                 <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
               </Link>
             ) : (
@@ -56,7 +56,7 @@ const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
           </Grid>
           <Grid sx={{ paddingBottom: '10px' }}>
             {!userToken ? (
-              <Link className="item_link" to={`/books/alert/`}>
+              <Link className="item_link" to={`/books/books-alert/`}>
                 <ReusedButton onClick={handleClick}>Delete</ReusedButton>
               </Link>
             ) : (
@@ -82,7 +82,7 @@ const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
               </Grid>
               <Grid>
                 {!userToken ? (
-                  <Link className="item_link" to={`/books/alert/`}>
+                  <Link className="item_link" to={`/books/books-alert/`}>
                     <ReusedButton onClick={handleClick}>Edit</ReusedButton>
                   </Link>
                 ) : (

@@ -49,7 +49,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <Container className="signup-main-container">
+    <Container className="main-container">
       <h2 className="signup-h2">SIGN UP</h2>
       <p>Complete the form below to create a new imaginary library account</p>
 

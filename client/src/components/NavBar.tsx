@@ -21,7 +21,7 @@ const NavBar = () => {
       <ListItemButton>
         { 
           !userToken ? (
-          <Link className="header-link" to={`/books/alert/`}>
+          <Link className="header-link" to={`/books/books-alert/`}>
             <ListItemText>ADD BOOK</ListItemText>
           </Link>
           ): 
@@ -33,11 +33,11 @@ const NavBar = () => {
       <ListItemButton>
         { 
           !userToken ? (
-          <Link className="header-link" to={`/books/alert/`}>
+          <Link className="header-link" to={`/authors/authors-alert/`}>
             <ListItemText>ADD AUTHOR</ListItemText>
           </Link>
           ): 
-          <Link className="header-link" to={`/books/authors/new-author`}>
+          <Link className="header-link" to={`/authors/new-author`}>
             <ListItemText>ADD AUTHOR</ListItemText>
           </Link>
         }

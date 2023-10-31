@@ -1,33 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'redux/store'
+import { booksFetch,removeBook } from 'redux/slices/bookSlice'
+import { fetchCategories } from 'redux/slices/categorySlice'
+import { fetchAuthors } from 'redux/slices/authorSlice'
 import Books from './Books'
 import LoginForm from './LoginForm'
 import Book from './Book'
 import SignUpForm from './SignUpForm'
 import Footer from './Footer'
 import Header from './Header'
-import { Link } from 'react-router-dom'
-import { useState } from 'react';
 import Logo from '../header-logo.png'
-import { useEffect } from 'react'
-import { booksFetch,removeBook } from 'redux/slices/bookSlice'
-import { fetchCategories } from 'redux/slices/categorySlice'
-import AppBar from './MobileAppBar'
+import MobileAppBar from './MobileAppBar'
 import Alert from './Alert'
 import UpdatedBook from './UpdatedBook'
 import NewBook from './NewBook'
-import { fetchAuthors } from 'redux/slices/authorSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'redux/store'
 import NewAuthor from './NewAuthor'
 import Authors from './Authors'
+import UpdatedAuthor from './UpdatedAuthor'
 
 const App = () => {
   window.onbeforeunload = function () {
     localStorage.clear()
   }
-
-
 
   const [ menu, setMenu ] = useState(false)
   const [successMessage, setSuccessMessage] = useState<string | null>('')
@@ -73,13 +70,13 @@ const App = () => {
     <Router>
       <div className="app-container">
         <Link to={`/`}>
-          <img src={Logo} width="100" alt="logo" />
+          <img src={Logo} width="60" alt="logo" />
         </Link>
       </div>
       <Header menu={menu} setMenu={setMenu}/>
       {
         menu && 
-        <AppBar />
+        <MobileAppBar />
       }
       <Routes>
         <Route path="/" element={<Books books={booksState} categories={categoriesState} authors={authorsState} successMessage={successMessage}
@@ -87,11 +84,13 @@ const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/books/:id" element={<Book books={booksState} handleDeleteClick={handleDeleteClick} categories={categoriesState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />} />
-        <Route path="/books/alert/" element={<Alert />} />
+        <Route path="/books/books-alert/" element={<Alert />} />
         <Route path="/books/edit-book/:id" element={<UpdatedBook handleDeleteClick={handleDeleteClick} books={booksState} categories={categoriesState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />} />
         <Route path="/books/new-book" element={<NewBook categories={categoriesState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
-        <Route path="/books/authors/new-author" element={<NewAuthor books={booksState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
-        <Route path="/authors" element={<Authors authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
+        <Route path="/authors/new-author" element={<NewAuthor books={booksState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
+        <Route path="/authors" element={<Authors  books={booksState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
+        <Route path="/authors/edit-author/:id" element={<UpdatedAuthor books={booksState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />} />
+        <Route path="/authors/authors-alert/" element={<Alert />} />
       </Routes>
       <Footer />
     </Router>

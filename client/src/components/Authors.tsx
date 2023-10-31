@@ -24,6 +24,7 @@ const Authors: React.FC<AuthorsProps> = ({
   const dispatch = useDispatch<AppDispatch>()
   const state = useSelector((state: RootState) => state.authors)
 
+
   const handleClick = () => {}
 
   const handleDeleteAuthor = async (
@@ -52,14 +53,13 @@ const Authors: React.FC<AuthorsProps> = ({
   }
 
   return (
-    <Container className="author-form-container">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <Container className="main-container">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Update</TableCell>
-            <TableCell align="right">Remove</TableCell>
+            <TableCell align="center" sx={{fontWeight: "bold"}}>Name</TableCell>
+            <TableCell align="center" sx={{fontWeight: "bold"}}>Email</TableCell>
+            <TableCell align="center" sx={{fontWeight: "bold"}}>Update</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -68,32 +68,27 @@ const Authors: React.FC<AuthorsProps> = ({
               key={author.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" align="center">
                 {author.name}
               </TableCell>
-              <TableCell align="right">{author.email}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{author.email}</TableCell>
+              <TableCell align="center">
                 {!userToken ? (
-                  <Link className="item_link" to={`/books/alert/`}>
+                  <Link className="item_link" to={`/authors/authors-alert/`}>
                     <ReusedButton onClick={handleClick}>Update</ReusedButton>
-                  </Link>
-                ) : (
-                  <Link className="item_link" to={`/books/alert/`}>
-                    <ReusedButton onClick={handleClick}>Update</ReusedButton>
-                  </Link>
-                )}
-              </TableCell>
-              <TableCell align="right">
-                {!userToken ? (
-                  <Link className="item_link" to={`/books/alert/`}>
                     <ReusedButton onClick={handleClick}>Delete</ReusedButton>
                   </Link>
                 ) : (
-                  <ReusedButton
+                  <>
+                    <Link className="item_link" to={`/authors/edit-author/${author.id}`}>
+                      <ReusedButton onClick={handleClick}>Update</ReusedButton>
+                    </Link>
+                    <ReusedButton
                     onClick={(e) => handleDeleteAuthor(e, author.id)}
                   >
                     Delete
                   </ReusedButton>
+                  </>
                 )}
               </TableCell>
             </TableRow>

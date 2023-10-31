@@ -10,7 +10,7 @@ interface ButtonProps {
 
 const ReusedButton: React.FC<ButtonProps> = ({ children, onClick, style }) => {
   return (
-    <Button variant="contained" onClick={onClick} style={{width: '100%'}}>
+    <Button variant="contained" onClick={onClick} style={{width: '100%', marginBottom: '1em'}}>
       {children}
     </Button>
   );

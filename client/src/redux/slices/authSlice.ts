@@ -31,6 +31,7 @@ const initialState: authState = {
 
 
 
+
 // export const userFetch = createAsyncThunk(
 //   'user/fetchUser', async (arg, { rejectWithValue }) => {
 //     try {
@@ -68,7 +69,6 @@ export const login = createAsyncThunk(
  async (user: loggedUser, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseUrl}login`, user)
-      console.log(`${baseUrl}+login`)
       localStorage.setItem('userToken', response.data.token)
       return response.data
     } catch (error: any) {

@@ -31,9 +31,9 @@ const AuthorForm: React.FC<AuthorFormProps> = ({
   }
 
   return (
-    <Container className="author-form-container">
-      <h2 className="author-form-h2">{title}</h2>
-      <p>Refine an Existing Author's info or Introduce a new author</p>
+    <Container className="main-container">
+      <h2>{title}</h2>
+      <p>Refine an existing author's info or introduce a new author</p>
       <form>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12}>

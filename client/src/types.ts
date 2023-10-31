@@ -64,7 +64,8 @@ export const initialCategory: Category = {
 }
 
 export interface AuthorsProps {
-  authors: Author[];
+  authors: Author[]
+  books: Book[]
   successMessage: string | null
   errorMessage: string | null
   setSuccessMessage: React.Dispatch<string | null>

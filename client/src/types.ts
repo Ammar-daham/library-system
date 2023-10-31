@@ -51,6 +51,26 @@ export const initialAuthor: Author = {
   books: []
 }
 
+export type Category = {
+  id: string,
+  name: string,
+  books: []
+}
+
+export const initialCategory: Category = {
+  id: '',
+  name: '',
+  books: []
+}
+
+export interface AuthorsProps {
+  authors: Author[];
+  successMessage: string | null
+  errorMessage: string | null
+  setSuccessMessage: React.Dispatch<string | null>
+  setErrorMessage: React.Dispatch<string | null>
+}
+
 export interface BooksProps {
   books: Book[]; 
   categories : Category[];
@@ -82,17 +102,22 @@ export interface NewAuthorProps {
   setErrorMessage: React.Dispatch<string | null>
 }
 
-export interface SelectedProps {
+export interface SelectedAuthorsCategoriesProps {
   book: Book | null
+  name: string,
+  label: string,
+  setBook: React.Dispatch<React.SetStateAction<Book>> | null
+  categories: Category[] | null
+  authors: Author[] | null
+}
+
+export interface SelectedBooksProps {
   author: Author | null
   category: Category | null
   name: string,
   label: string,
-  setBook: React.Dispatch<React.SetStateAction<Book>> | null
   setAuthor: React.Dispatch<React.SetStateAction<Author>> | null
   setCategory: React.Dispatch<React.SetStateAction<Category>> | null
-  categories: Category[] | null
-  authors: Author[] | null
   books: Book[] | null
 }
 
@@ -118,14 +143,6 @@ export interface AuthorFormProps {
   successMessage: string | null
   errorMessage: string | null
 }
-
-export type Category = {
-  id: string,
-  name: string,
-  books: Book[]
-}
-
-
 
 export type User = {
   id: string

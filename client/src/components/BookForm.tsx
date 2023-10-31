@@ -2,7 +2,7 @@ import { Grid, TextField, Container } from '@mui/material'
 import Notification from './Notifications'
 import ReusedButton from './Button'
 import { BookFormProps } from '../types'
-import SelectComponent from './SelectComponent'
+import SelectAuthorsCategories from './SelectAuthorsCategories'
 import '../App.css'
 
 const BookForm: React.FC<BookFormProps> = ({
@@ -117,33 +117,23 @@ const BookForm: React.FC<BookFormProps> = ({
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <SelectComponent
+            <SelectAuthorsCategories
               book={book}
-              author={null}
-              category={null}
               setBook={setBook}
-              setAuthor={null}
-              setCategory={null}
-              name={'Category'}
-              label={'Category'}
+              name={'Categories'}
+              label={'Categories'}
               categories={categories}
-              books={null}
               authors={null}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <SelectComponent
-              author={null}
-              category={null}
+            <SelectAuthorsCategories
               book={book}
               setBook={setBook}
-              setCategory={null}
-              setAuthor={null}
-              name={'Author'}
-              label={'Author'}
+              name={'Authors'}
+              label={'Authors'}
               authors={authors}
               categories={null}
-              books={null}
             />
           </Grid>
           <Grid item xs={12} sm={6}>

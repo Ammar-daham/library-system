@@ -148,5 +148,6 @@ You should have by now, mine and Vincent's 1on1 30mins links, feel free to book.
 | 26.10.2023  | 1h  | Deploying first version to fly |
 | 27.10.2023  | 1h  | updated author slice |
 | 27.10.2023  | 3h  | added author form |
-| 23.10.2023  | 82h  | Refactoring code |
+| 30.10.2023  | 2h  | fetch authors and delete author |
+| 23.10.2023  | 84h  | Refactoring code |
 

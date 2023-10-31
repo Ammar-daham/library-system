@@ -75,7 +75,7 @@ export const fetchAuthors = createAsyncThunk(
 
   export const removeAuthor = createAsyncThunk(
     'author/removeAuthor',
-    async ({id}: any , { rejectWithValue }) => {
+    async (id: any , { rejectWithValue }) => {
       try {
         const response = await axios.delete(url + id , config())
         console.log(response.data)

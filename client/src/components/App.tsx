@@ -20,11 +20,14 @@ import { fetchAuthors } from 'redux/slices/authorSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'redux/store'
 import NewAuthor from './NewAuthor'
+import Authors from './Authors'
 
 const App = () => {
   window.onbeforeunload = function () {
     localStorage.clear()
   }
+
+
 
   const [ menu, setMenu ] = useState(false)
   const [successMessage, setSuccessMessage] = useState<string | null>('')
@@ -88,7 +91,7 @@ const App = () => {
         <Route path="/books/edit-book/:id" element={<UpdatedBook handleDeleteClick={handleDeleteClick} books={booksState} categories={categoriesState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />} />
         <Route path="/books/new-book" element={<NewBook categories={categoriesState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
         <Route path="/books/authors/new-author" element={<NewAuthor books={booksState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
-
+        <Route path="/authors" element={<Authors authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
       </Routes>
       <Footer />
     </Router>

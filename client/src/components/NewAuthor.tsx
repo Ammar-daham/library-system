@@ -17,12 +17,7 @@ const NewAuthor: React.FC<NewAuthorProps> = ({
   const [author, setAuthor] = useState<Author>(initialAuthor)
   const dispatch = useDispatch<AppDispatch>()
   const state = useSelector((state: RootState) => state.authors)
-
   const navigate = useNavigate()
-
-  if (!author) {
-    return null
-  }
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -32,14 +27,14 @@ const NewAuthor: React.FC<NewAuthorProps> = ({
     if (response.type === 'authors/addAuthor/fulfilled') {
       dispatch(fetchAuthors())
       setSuccessMessage(
-        `${state.message} ` ||
+        state.message ||
           `Thank you, you have successfully added author`,
       )
       setErrorMessage('')
       setTimeout(() => {
         setErrorMessage('')
         setSuccessMessage('')
-        navigate(`/`)
+        navigate(`/authors`)
       }, 3000)
     } else {
       setTimeout(() => {

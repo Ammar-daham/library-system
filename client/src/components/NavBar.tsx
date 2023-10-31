@@ -1,6 +1,7 @@
 import { ListItemButton, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
 
+
 const NavBar = () => {
 
   const userToken = localStorage.getItem('userToken')
@@ -13,7 +14,7 @@ const NavBar = () => {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link className="header-link" to={`/`}>
+        <Link className="header-link" to={`/authors`}>
           <ListItemText>AUTHORS</ListItemText>
         </Link>
       </ListItemButton>

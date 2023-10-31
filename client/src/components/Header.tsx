@@ -28,7 +28,6 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
 
   // get user token from local storage
   const userToken = localStorage.getItem('userToken')
-
   const handleClick = () => {
     navigate('/sign-up')
   }

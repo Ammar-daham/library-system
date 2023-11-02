@@ -19,6 +19,11 @@ const NavBar = () => {
         </Link>
       </ListItemButton>
       <ListItemButton>
+        <Link className="header-link" to={`/genres`}>
+          <ListItemText>GENRES</ListItemText>
+        </Link>
+      </ListItemButton>
+      <ListItemButton>
         { 
           !userToken ? (
           <Link className="header-link" to={`/books/books-alert/`}>
@@ -39,6 +44,18 @@ const NavBar = () => {
           ): 
           <Link className="header-link" to={`/authors/new-author`}>
             <ListItemText>ADD AUTHOR</ListItemText>
+          </Link>
+        }
+      </ListItemButton>
+      <ListItemButton>
+        { 
+          !userToken ? (
+          <Link className="header-link" to={`/genres/genres-alert/`}>
+            <ListItemText>ADD GENRE</ListItemText>
+          </Link>
+          ): 
+          <Link className="header-link" to={`/genres/new-genre`}>
+            <ListItemText>ADD GENRE</ListItemText>
           </Link>
         }
       </ListItemButton>

@@ -20,6 +20,8 @@ import NewBook from './NewBook'
 import NewAuthor from './NewAuthor'
 import Authors from './Authors'
 import UpdatedAuthor from './UpdatedAuthor'
+import Genres from './Genres'
+import NewGenre from './NewGenre'
 
 const App = () => {
   window.onbeforeunload = function () {
@@ -91,6 +93,9 @@ const App = () => {
         <Route path="/authors" element={<Authors  books={booksState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
         <Route path="/authors/edit-author/:id" element={<UpdatedAuthor books={booksState} authors={authorsState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />} />
         <Route path="/authors/authors-alert/" element={<Alert />} />
+        <Route path="/genres" element={<Genres  books={booksState} categories={categoriesState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
+        <Route path="/genres/new-genre" element={<NewGenre books={booksState} successMessage={successMessage} errorMessage={errorMessage} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage}/>} />
+        <Route path="/genres/genres-alert/" element={<Alert />} />
       </Routes>
       <Footer />
     </Router>

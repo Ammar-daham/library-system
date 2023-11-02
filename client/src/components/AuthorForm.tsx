@@ -64,11 +64,11 @@ const AuthorForm: React.FC<AuthorFormProps> = ({
             <SelectBooks
               author={author}
               setAuthor={setAuthor}
-              category={null}
-              setCategory={null}
               name={'Books'}
               label={'Books'}
               books={books}
+              category={null}
+              setCategory={null}
             />
           </Grid>
           <Grid item xs={12}>

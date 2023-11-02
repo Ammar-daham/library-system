@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
   return (
       <Container className="header-container">
         <Grid container spacing={2}>
-          <Grid item xs={2} sm={6} md={6}>
+          <Grid item xs={2} sm={6} md={8}>
             {isMobile && staticPart !== 'sign-up' && staticPart !== 'login' && (
               <ListItem
                 disablePadding
@@ -70,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
             )}
           </Grid>
 
-          <Grid item xs={10} sm={6} md={6}>
+          <Grid item xs={10} sm={6} md={4}>
             <List sx={{ float: 'right' }}>
               <ListItem disablePadding>
                 {staticPart !== 'sign-up' &&

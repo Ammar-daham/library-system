@@ -37,7 +37,6 @@ export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories', async (arg, { rejectWithValue }) => {
       try {
         const response = await axios.get(url, config())
-        console.log(response.data)
         return {
           data: response.data,
           status: response.status,
@@ -52,19 +51,24 @@ export const fetchCategories = createAsyncThunk(
     }
   )
 
-//   export const addAuthor = createAsyncThunk(
-//     'authors/addAuthor',
-//     async (author: Author, { rejectWithValue }) => {
-//       try {
-//         const response = await axios.post(url, author, config())
-//         console.log(response.data)
-//         return response.data
-//       } catch (error: any) {
-//         console.log(error)
-//         return rejectWithValue(error.response.data)
-//       }
-//     },
-//   );
+  export const addCategory = createAsyncThunk(
+    'categories/addCategory',
+    async (category: Category, { rejectWithValue }) => {
+      try {
+        const response = await axios.post(url, category, config())
+        return response.data
+      } catch (error: any) {
+        if (error.response) {
+          return rejectWithValue(error.response.data);
+        } else {
+          return rejectWithValue({
+            code: 500,
+            message: 'An unexpected error occurred.',
+          });
+        }
+      }
+    },
+  );
 
 //   export const removeAuthor = createAsyncThunk(
 //     'author/removeAuthor',
@@ -115,26 +119,21 @@ extraReducers: (builder) => {
         state.getCategories = 'rejected'
         state.getError = action.payload as CustomError;
     })
-//     builder.addCase(addAuthor.pending, (state) => {
-//         return {
-//           ...state,
-//           addAuthor: 'pending',
-//         }
-//       })
-//       builder.addCase(addAuthor.fulfilled, (state, action) => {
-//         return {
-//           ...state,
-//           authorList: [...state.authorList, action.payload.data],
-//           addAuthor: 'success',
-//         }
-//       })
-//       builder.addCase(addAuthor.rejected, (state, action) => {
-//         return {
-//           ...state,
-//           addAuthor: 'rejected',
-//           addError: action.payload,
-//         }
-//       })
+    builder.addCase(addCategory.pending, (state) => {
+      return {
+        ...state,
+        addCategory: 'pending',
+      }
+    })
+    builder.addCase(addCategory.fulfilled, (state, action) => {
+      state.categoryList = [...state.categoryList, action.payload.data]
+      state.message = 'Thank you, you have successfully added new category'
+      state.addCategory = 'success'
+    })
+    builder.addCase(addCategory.rejected, (state, action) => {
+      state.addError = action.payload as CustomError;
+      state.addCategory = 'rejected'
+    })
 //       builder.addCase(removeAuthor.pending, (state) => {
 //         return {
 //           ...state,

@@ -4,8 +4,8 @@ import {
   InputLabel,
   FormControl,
   OutlinedInput,
+  SelectChangeEvent,
 } from '@mui/material'
-import { SelectChangeEvent } from '@mui/material/Select'
 import { SelectedBooksProps } from 'types'
 
 const ITEM_HEIGHT = 48
@@ -21,44 +21,42 @@ const MenuProps = {
 
 const SelectBooks: React.FC<SelectedBooksProps> = ({
   name,
-  setAuthor,
-  setCategory,
-  label,
   author,
   category,
-  books
+  setCategory,
+  label,
+  books,
+  setAuthor,
 }) => {
-  
-  if(!author || !setAuthor ) {
-    return null
+  const handleAuthorBooksChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event
+    if (setAuthor)
+      setAuthor((prevAuthor) => ({
+        ...prevAuthor,
+        books: typeof value === 'string' ? value.split(',') : value,
+      }))
   }
 
-  const handleAuthorBooksChange = (event: SelectChangeEvent<typeof author.books>) => {
-    const { target: { value } } = event;
-
-    setAuthor((prevAuthor) => ({
-      ...prevAuthor,
-      books: typeof value === 'string' ? value.split(',') : value,
-    }));
+  const handleCategoryBooksChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event
+    if (setCategory)
+      setCategory((prevCategory) => ({
+        ...prevCategory,
+        books: typeof value === 'string' ? value.split(',') : value,
+      }))
   }
-
-  // const handleCategoryBooksChange = (event: SelectChangeEvent<typeof category.books>) => {
-  //   const { target: { value } } = event;
-
-  //   setCategory((prevCategory) => ({
-  //     ...prevCategory,
-  //     books: typeof value === 'string' ? value.split(',') : value,
-  //   }));
-  // }
-
 
   return (
     <FormControl fullWidth>
       <InputLabel>{name}</InputLabel>
       <Select
         multiple
-        value={author.books}
-        onChange={handleAuthorBooksChange}
+        value={author ? author.books : category?.books}
+        onChange={author ? handleAuthorBooksChange : handleCategoryBooksChange}
         input={<OutlinedInput label={label} />}
         MenuProps={MenuProps}
       >
@@ -74,4 +72,4 @@ const SelectBooks: React.FC<SelectedBooksProps> = ({
   )
 }
 
-export default SelectBooks;
+export default SelectBooks

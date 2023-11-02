@@ -28,6 +28,8 @@ const LoginForm = () => {
         navigate('/authors')
       } else if (staticPart === 'books') {
         navigate('/')
+      } else {
+        navigate('/genres')
       }
     } else {
       console.log('error')
@@ -41,6 +43,8 @@ const LoginForm = () => {
         navigate('/authors')
       } else if (staticPart === 'books') {
         navigate('/')
+      } else {
+        navigate('/genres')
       }
     } else {
       console.log('error')

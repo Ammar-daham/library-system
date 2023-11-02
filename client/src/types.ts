@@ -1,3 +1,4 @@
+import { Category } from "@mui/icons-material"
 import { Dispatch, SetStateAction } from "react"
 
 // Action types
@@ -54,7 +55,7 @@ export const initialAuthor: Author = {
 export type Category = {
   id: string,
   name: string,
-  books: []
+  books: string[]
 }
 
 export const initialCategory: Category = {
@@ -65,6 +66,15 @@ export const initialCategory: Category = {
 
 export interface AuthorsProps {
   authors: Author[]
+  books: Book[]
+  successMessage: string | null
+  errorMessage: string | null
+  setSuccessMessage: React.Dispatch<string | null>
+  setErrorMessage: React.Dispatch<string | null>
+}
+
+export interface GenresProps {
+  categories: Category[]
   books: Book[]
   successMessage: string | null
   errorMessage: string | null
@@ -95,7 +105,7 @@ export interface NewBookProps {
   setErrorMessage: React.Dispatch<string | null>
 }
 
-export interface NewAuthorProps {
+export interface NewAuthorCategoryProps {
   books: Book[];
   successMessage: string | null
   errorMessage: string | null
@@ -141,6 +151,17 @@ export interface AuthorFormProps {
   title: string
   books: Book[] | null
   setAuthor: React.Dispatch<React.SetStateAction<Author>>
+  successMessage: string | null
+  errorMessage: string | null
+}
+
+export interface GenreFormProps {
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>
+  category: Category
+  name: string
+  title: string
+  books: Book[] | null
+  setCategory: React.Dispatch<React.SetStateAction<Category>>
   successMessage: string | null
   errorMessage: string | null
 }

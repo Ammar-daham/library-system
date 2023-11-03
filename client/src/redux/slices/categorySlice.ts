@@ -4,7 +4,7 @@ import { Category, CustomError } from '../../types'
 import { config } from './token'
 
 
-const url = `http://localhost:4000/api/v1/categories`
+const url = `http://localhost:4000/api/v1/categories/`
 
 
 interface categoriesState {
@@ -70,33 +70,45 @@ export const fetchCategories = createAsyncThunk(
     },
   );
 
-//   export const removeAuthor = createAsyncThunk(
-//     'author/removeAuthor',
-//     async ({id}: any , { rejectWithValue }) => {
-//       try {
-//         const response = await axios.delete(url + id , config())
-//         console.log(response.data)
-//         return response.data
-//       } catch (error: any) {
-//         console.log(error)
-//         return rejectWithValue(error.response.data)
-//       }
-//     },
-//   );
+  export const removeCategory = createAsyncThunk(
+    'category/removeCategory',
+    async (id: any , { rejectWithValue }) => {
+      try {
+        const response = await axios.delete(url + id , config())
+        console.log(response.data)
+        return response.data
+      } catch (error: any) {
+        if (error.response) {
+          return rejectWithValue(error.response.data);
+        } else {
+          return rejectWithValue({
+            code: 500,
+            message: 'An unexpected error occurred.',
+          });
+        }
+      }
+    },
+  );
 
-//   export const updateAuthor = createAsyncThunk(
-//     'author/updateAuthor',
-//     async ({id, ...author}: any , { rejectWithValue }) => {
-//       try {
-//         const response = await axios.put(url + id , {...author}, config())
-//         console.log(response.data)
-//         return response.data
-//       } catch (error: any) {
-//         console.log(error)
-//         return rejectWithValue(error.response.data)
-//       }
-//     },
-//   );
+  export const updateCategory = createAsyncThunk(
+    'category/updateCategory',
+    async ({id, ...category}: any , { rejectWithValue }) => {
+      try {
+        const response = await axios.put(url + id , {...category}, config())
+        console.log(response.data)
+        return response.data
+      } catch (error: any) {
+        if (error.response) {
+          return rejectWithValue(error.response.data);
+        } else {
+          return rejectWithValue({
+            code: 500,
+            message: 'An unexpected error occurred.',
+          });
+        }
+      }
+    },
+  );
 
 
 export const categorySlice = createSlice({
@@ -134,52 +146,49 @@ extraReducers: (builder) => {
       state.addError = action.payload as CustomError;
       state.addCategory = 'rejected'
     })
-//       builder.addCase(removeAuthor.pending, (state) => {
-//         return {
-//           ...state,
-//           deleteAuthor: 'pending'
-//         }
-//       })
-//       builder.addCase(removeAuthor.fulfilled, (state, action) => {
-//         console.log('action: ', action)
-//         const {
-//           arg: { id }
-//         } = action.meta;
-//         if(id) {
-//           state.authorList = state.authorList.map((author) => author._id === id ? action.payload : author);
-//           state.deleteAuthor = 'success'
-//         }
-//       })
-//       builder.addCase(removeAuthor.rejected, (state, action) => {
-//         return {
-//           ...state,
-//           deleteAuthor: 'rejected',
-//           deleteError: action.payload,
-//         }
-//       })
-//       builder.addCase(updateAuthor.pending, (state) => {
-//         return {
-//           ...state,
-//           updateAuthor: 'pending',
-//         }
-//       })
-//       builder.addCase(updateAuthor.fulfilled, (state, action) => {
-//         console.log('action: ', action)
-//         const {
-//           arg: { id }
-//         } = action.meta;
-//         if(id) {
-//           state.authorList = state.authorList.map((author) => author._id === id ? action.payload : author);
-//           state.updateAuthor = 'success'
-//         }
-//       })
-//       builder.addCase(updateAuthor.rejected, (state, action) => {
-//         return {
-//           ...state,
-//           updateAuthor: 'rejected',
-//           updateError: action.payload,
-//         }
-//       })
+    builder.addCase(removeCategory.pending, (state) => {
+      return {
+        ...state,
+        deleteCategory: 'pending'
+      }
+    })   
+    builder.addCase(removeCategory.fulfilled, (state, action) => {
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.categoryList = state.categoryList.map((author) => author.id === id ? action.payload : author);
+        state.message = 'Thank you, you have successfully deleted category';
+        state.deleteCategory = 'success'
+      }
+    })
+    builder.addCase(removeCategory.rejected, (state, action) => {
+      state.deleteError = action.payload as CustomError;
+      state.deleteCategory = 'rejected';
+    })
+
+
+    builder.addCase(updateCategory.pending, (state) => {
+      return {
+        ...state,
+        updateCategory: 'pending',
+      }
+    })
+    builder.addCase(updateCategory.fulfilled, (state, action) => {
+      console.log('action: ', action)
+      const {
+        arg: { id }
+      } = action.meta;
+      if(id) {
+        state.categoryList = state.categoryList.map((category) => category.id === id ? action.payload : category);
+        state.updateCategory = 'success'
+        state.message = "Thank you, you have successfully updated category"
+      }
+    })
+    builder.addCase(updateCategory.rejected, (state, action) => {
+      state.updateError = action.payload as CustomError;
+      state.updateCategory = 'rejected';
+    })
  }
 })
 

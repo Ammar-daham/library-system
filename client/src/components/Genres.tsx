@@ -10,8 +10,8 @@ import ReusedButton from './Button'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'redux/store'
-import { removeAuthor, fetchAuthors } from 'redux/slices/authorSlice'
 import Notification from './Notifications'
+import { fetchCategories, removeCategory } from 'redux/slices/categorySlice'
 
 const Genres: React.FC<GenresProps> = ({
   categories,
@@ -27,24 +27,23 @@ const Genres: React.FC<GenresProps> = ({
 
   const handleClick = () => {}
 
-  const handleDeleteAuthor = async (
+  const handleDeleteCategory = async (
     e: React.MouseEvent<HTMLButtonElement>,
     id: string,
   ) => {
-    console.log("id ", id)
-    const response = await dispatch(removeAuthor(id))
-    if (response.type === 'author/removeAuthor/fulfilled') {
-      dispatch(fetchAuthors())
+    const response = await dispatch(removeCategory(id))
+    if (response.type === 'category/removeCategory/fulfilled') {
+      dispatch(fetchCategories())
       setSuccessMessage(
         state.message ||
-        `Thank you, you have successfully deleted the author ${id}`,
+        `Thank you, you have successfully deleted category ${id}`,
       )
       setTimeout(() => {
         setSuccessMessage('')
         setErrorMessage('')
       }, 3000)
     } else {
-      setErrorMessage(`Deleting the author with id ${id} failed`)
+      setErrorMessage(`Deleting the category with id ${id} failed`)
       setTimeout(() => {
         setSuccessMessage('')
         setErrorMessage('')
@@ -72,7 +71,7 @@ const Genres: React.FC<GenresProps> = ({
               </TableCell>
               <TableCell align="center">
                 {!userToken ? (
-                  <Link className="item_link" to={`/authors/authors-alert/`}>
+                  <Link className="item_link" to={`/genres/genres-alert/`}>
                     <ReusedButton onClick={handleClick}>Update</ReusedButton>
                     <ReusedButton onClick={handleClick}>Delete</ReusedButton>
                   </Link>
@@ -82,7 +81,7 @@ const Genres: React.FC<GenresProps> = ({
                       <ReusedButton onClick={handleClick}>Update</ReusedButton>
                     </Link>
                     <ReusedButton
-                    onClick={(e) => handleDeleteAuthor(e, category.id)}
+                    onClick={(e) => handleDeleteCategory(e, category.id)}
                   >
                     Delete
                   </ReusedButton>

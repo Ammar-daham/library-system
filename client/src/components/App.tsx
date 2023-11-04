@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'redux/store'
 import { booksFetch,removeBook } from 'redux/slices/bookSlice'
@@ -12,7 +11,6 @@ import Book from './Book'
 import SignUpForm from './SignUpForm'
 import Footer from './Footer'
 import Header from './Header'
-import Logo from '../header-logo.png'
 import MobileAppBar from './MobileAppBar'
 import Alert from './Alert'
 import UpdatedBook from './UpdatedBook'
@@ -71,11 +69,7 @@ const App = () => {
 	
 	return (
 		<Router>
-			<div className="app-container">
-				<Link to={`/`}>
-					<img src={Logo} width="60" alt="logo" />
-				</Link>
-			</div>
+			
 			<Header menu={menu} setMenu={setMenu}/>
 			{
 				menu && 

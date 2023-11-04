@@ -6,7 +6,7 @@ import BookCard from './BookCard'
 import { BooksProps } from '../types'
 import { useParams } from 'react-router-dom'
 import ReusedButton from './Button'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import 'App.css'
 
@@ -21,14 +21,20 @@ const Item = styled(Paper)(({ theme }) => ({
 const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
   const id = useParams().id
   const book = books.find((book) => book.id === id)
-
+  const navigate = useNavigate()
   const userToken = localStorage.getItem('userToken')
 
   if (!book) {
     return null
   }
 
-  const handleClick = () => {}
+  const handleClick = () => {
+    navigate(`/books/books-alert/`)
+  }
+
+  const handleUpdate = (id: string) => {
+    navigate(`/books/edit-book/${id}`)
+  }
 
   return (
     <Container className="main-container">
@@ -44,7 +50,7 @@ const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
             <BookCard book={book} />
           </Grid>
           <Grid sx={{ paddingBottom: '10px' }}>
-            {!userToken ? (
+            {/* {!userToken ? (
               <Link className="item_link" to={`/books/books-alert/`}>
                 <ReusedButton onClick={handleClick}>Borrow</ReusedButton>
               </Link>
@@ -52,19 +58,15 @@ const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
                 <ReusedButton onClick={handleClick}>
                     Borrow
                 </ReusedButton>
-            )}
+            )} */}
           </Grid>
           <Grid sx={{ paddingBottom: '10px' }}>
-            {!userToken ? (
-              <Link className="item_link" to={`/books/books-alert/`}>
-                <ReusedButton onClick={handleClick}>Delete</ReusedButton>
-              </Link>
-            ) : (
-              <>
+            {userToken ? (
                 <ReusedButton onClick={(e) => handleDeleteClick(e, book.id)}>
                   Delete
                 </ReusedButton>
-              </>
+            ) : (
+                <ReusedButton onClick={handleClick}>Delete</ReusedButton>
             )}
           </Grid>
         </Grid>
@@ -81,14 +83,10 @@ const Book: React.FC<BooksProps> = ({ books, handleDeleteClick }) => {
                 <h2>{book.title}</h2>
               </Grid>
               <Grid>
-                {!userToken ? (
-                  <Link className="item_link" to={`/books/books-alert/`}>
-                    <ReusedButton onClick={handleClick}>Edit</ReusedButton>
-                  </Link>
+                {userToken ? (
+                    <ReusedButton onClick={(e) => handleUpdate(book.id)}>Edit</ReusedButton>
                 ) : (
-                  <Link className="item_link" to={`/books/edit-book/${book.id}`}>
                     <ReusedButton onClick={handleClick}>Edit</ReusedButton>
-                  </Link>
                 )}
               </Grid>
             </Container>

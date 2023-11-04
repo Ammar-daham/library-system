@@ -31,7 +31,7 @@ const NewBook: React.FC<NewBookProps> = ({
     if (response.type === 'books/bookAdd/fulfilled') {
       dispatch(booksFetch())
       setSuccessMessage(
-        `${state.message} ` ||
+        state.message ||
           `Thank you, you have successfully added new book`,
       )
       setErrorMessage('')
@@ -41,11 +41,12 @@ const NewBook: React.FC<NewBookProps> = ({
         navigate(`/`)
       }, 3000)
     } else {
+      setErrorMessage(
+        state.updateError?.message ||
+          `Adding new book failed, make sure all the required fields filled`,
+      )
       setTimeout(() => {
-        setErrorMessage(
-          state.updateError?.message ||
-            `Adding new book failed, make sure all the required fields filled`,
-        )
+        setErrorMessage('')
         setSuccessMessage('')
       }, 3000)
     }

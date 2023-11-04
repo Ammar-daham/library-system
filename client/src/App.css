@@ -60,10 +60,15 @@ h6 {
   border-radius: 10px;
 }
 
-.header-link,
-.logout-link {
+.header-link {
   text-decoration: none;
   color: black;
+  font-weight: bold;
+}
+
+.logout-login-link {
+  text-decoration: none;
+  color: white;
   font-weight: bold;
 }
 

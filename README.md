@@ -149,5 +149,10 @@ You should have by now, mine and Vincent's 1on1 30mins links, feel free to book.
 | 27.10.2023  | 1h  | updated author slice |
 | 27.10.2023  | 3h  | added author form |
 | 30.10.2023  | 2h  | fetch authors and delete author |
-| 23.10.2023  | 84h  | Refactoring code |
+| 31.10.2023  | 2h  | update author and refactoring |
+| 2.11.2023   | 2h  | fetching and adding new genre |
+| 3.11.2023   | 1h  | updating and deleting category |
+
+
+| 23.10.2023  | 89h  | Refactoring code |
 

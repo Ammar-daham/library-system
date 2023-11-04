@@ -13,7 +13,7 @@ const Logout = () => {
   }
 
   return (
-    <Typography className="logout-link" onClick={handleLogout}>
+    <Typography className="logout-login-link" onClick={handleLogout}>
       <ReusedButton onClick={handleLogout}> LOGOUT </ReusedButton>
     </Typography>
   )

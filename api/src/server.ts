@@ -1,9 +1,10 @@
 import errorHandler from 'errorhandler'
 import mongoose from 'mongoose'
-
+import cors from 'cors'
 import app from './app'
 import { MONGODB_URI } from './util/secrets'
 import logger from './util/logger'
+import express from 'express'
 
 const mongoUrl = MONGODB_URI
 
@@ -19,6 +20,8 @@ mongoose
     process.exit(1)
   })
 
+app.use(cors())
+app.use(express.static('build'))
 /**
  * Error Handler. Provides error handing middleware
    only use in development
@@ -27,8 +30,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler())
 }
 
-// Start Express server
-app.listen(app.get('port'), () => {
+const PORT = process.env.PORT || 4000
+app.listen(PORT, () => {
   console.log(
     '  App is running at http://localhost:%d in %s mode',
     app.get('port'),

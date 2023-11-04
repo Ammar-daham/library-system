@@ -2,9 +2,9 @@ import React from 'react'
 import { Grid, Container } from '@mui/material'
 import BookCard from './BookCard'
 import ReusedButton from './Button'
-import { Link } from 'react-router-dom'
 import { BooksProps } from '../types'
 import Notification from './Notifications'
+import { useNavigate } from 'react-router-dom'
 
 import 'App.css'
 
@@ -12,57 +12,60 @@ const Books: React.FC<BooksProps> = ({
   books,
   successMessage,
   errorMessage,
-  setSuccessMessage,
   setErrorMessage,
-  handleDeleteClick
+  handleDeleteClick,
 }) => {
-  const handleClick = () => {}
+  const navigate = useNavigate()
+
+  if(books.length === 0) {
+    setErrorMessage("Something wrong with the server!")
+  } else {
+    setErrorMessage('')
+  }
+
+  const handleClick = (id: string) => {
+    navigate(`/books/${id}`)
+  }
+
+  const handleDelete = () => {
+    navigate(`/books/books-alert/`)
+  }
 
   const userToken = localStorage.getItem('userToken')
-
   return (
     <Container className="main-container">
-      <Container className="home-sub-container">
-        <h2 className="home-h2">WELCOME TO OUR IMAGINARY LIBRARY</h2>
+        <h2>WELCOME TO OUR IMAGINARY LIBRARY</h2>
+        <Notification
+          successMessage={successMessage}
+          errorMessage={errorMessage}
+        />
         <Grid
           container
-          columns={{ xs: 6, sm: 4, md: 3 }}
+          columns={{ xs: 6, sm: 4, md: 12 }}
           sx={{ justifyContent: 'center' }}
         >
           {books.map((book, index) => (
-            <Grid
-              item
-              style={{ width: '15em', padding: '1rem', textAlign: 'center' }}
-            >
-              <Grid item key={index}>
+            <Grid item key={index} sx={{ width: '15em', padding: '1rem' }}>
+              <Grid item>
                 <BookCard book={book} />
               </Grid>
-              <Grid item key={index} >
-                <Link className="item_link" to={`/books/${book.id}`}>
-                  <ReusedButton onClick={handleClick}>
-                    Preview Only
-                  </ReusedButton>
-                </Link>
+              <Grid item>
+                <ReusedButton onClick={(e) => handleClick(book.id)}>
+                  Preview Only
+                </ReusedButton>
               </Grid>
-              <Grid item key={index}>
-                {!userToken ? (
-                  <Link className="item_link" to={`/books/books-alert/`}>
-                    <ReusedButton onClick={handleClick}>Delete</ReusedButton>
-                  </Link>
-                ) : (
+              <Grid item>
+                {userToken ? (
                   <ReusedButton onClick={(e) => handleDeleteClick(e, book.id)}>
                     Delete
                   </ReusedButton>
+                ) : (
+                  <ReusedButton onClick={handleDelete}>Delete</ReusedButton>
                 )}
               </Grid>
             </Grid>
           ))}
         </Grid>
-        <Notification
-          successMessage={successMessage}
-          errorMessage={errorMessage}
-        />
-      </Container>
     </Container>
   )
 }

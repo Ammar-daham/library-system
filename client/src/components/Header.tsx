@@ -18,6 +18,7 @@ import Profile from './Profile'
 import { HeaderProps } from 'types'
 import '../App.css'
 import NavBar from './NavBar'
+import Logo from '../header-logo.png'
 
 const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
   const navigate = useNavigate()
@@ -50,6 +51,41 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
   }, [])
 
   return (
+    <>
+      <div className="app-container">
+      <Grid container spacing={2}> 
+      <Grid item xs={4} sm={6} md={4}>
+        <Link to={`/`}>
+          <img src={Logo} width="70" alt="logo" />
+        </Link>
+        </Grid>
+        <Grid item xs={8} sm={6} md={8}>
+          <List sx={{ float: 'right', padding: '1em' }}>
+            <ListItem disablePadding>
+              {!userToken ? (
+                <>
+                  <Grid>
+                    <ListItemButton sx={{ textAlign: 'center'}}>
+                      <Link className="logout-login-link" to={`/login`}>
+                        <ListItemText>LOGIN</ListItemText>
+                      </Link>
+                    </ListItemButton>
+                  </Grid>
+                  <Grid>
+                    <ReusedButton onClick={handleClick}>Sign Up</ReusedButton>
+                  </Grid>
+                </>
+              ) : (
+                <>
+                  <Profile />
+                  <Logout />
+                </>
+              )}
+            </ListItem>
+          </List>
+        </Grid>
+        </Grid>
+      </div>
       <Container className="header-container">
         <Grid container spacing={2}>
           <Grid item xs={2} sm={6} md={8}>
@@ -76,30 +112,12 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
                 {staticPart !== 'sign-up' &&
                   staticPart !== 'login' &&
                   !isMobile && <SearchInput />}
-                {!userToken ? (
-                  <>
-                    <Grid>
-                      <ListItemButton sx={{ textAlign: 'center' }}>
-                        <Link className="header-link" to={`/login`}>
-                          <ListItemText>LOGIN</ListItemText>
-                        </Link>
-                      </ListItemButton>
-                    </Grid>
-                    <Grid>
-                      <ReusedButton onClick={handleClick}>Sign Up</ReusedButton>
-                    </Grid>
-                  </>
-                ) : (
-                  <>
-                    <Profile />
-                    <Logout />
-                  </>
-                )}
               </ListItem>
             </List>
           </Grid>
         </Grid>
       </Container>
+    </>
   )
 }
 

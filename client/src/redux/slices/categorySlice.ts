@@ -4,6 +4,7 @@ import { Category, CustomError } from '../../types'
 import { config } from './token'
 
 
+//const url = `/api/v1/categories/`
 const url = `http://localhost:4000/api/v1/categories/`
 
 
@@ -75,7 +76,6 @@ export const fetchCategories = createAsyncThunk(
     async (id: any , { rejectWithValue }) => {
       try {
         const response = await axios.delete(url + id , config())
-        console.log(response.data)
         return response.data
       } catch (error: any) {
         if (error.response) {
@@ -95,7 +95,6 @@ export const fetchCategories = createAsyncThunk(
     async ({id, ...category}: any , { rejectWithValue }) => {
       try {
         const response = await axios.put(url + id , {...category}, config())
-        console.log(response.data)
         return response.data
       } catch (error: any) {
         if (error.response) {

@@ -1,13 +1,13 @@
 import React from 'react'
-
 import { Grid, TextField, Container, Divider } from '@mui/material'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'redux/store'
 import { auth, login } from '../redux/slices/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import ReusedButton from './Button'
 import { initialLoggedUser, loggedUser } from '../types'
+import Notification from './Notifications'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'redux/store'
 import 'App.css'
 
 import { useState } from 'react'
@@ -15,6 +15,9 @@ import { useState } from 'react'
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
+  const state = useSelector((state: RootState) => state.users)
+  const [successMessage, setSuccessMessage] = useState<string | null>('')
+  const [errorMessage, setErrorMessage] = useState<string | null>('')
 
   const pathname = window.location.pathname
   const staticPart = pathname.split('/').filter(Boolean)[0]
@@ -24,30 +27,56 @@ const LoginForm = () => {
   const handleGoogleOnSuccess = async (data: CredentialResponse) => {
     const res = await dispatch(auth(data))
     if (res.type === 'user/google-login/fulfilled') {
-      if (staticPart === 'authors') {
-        navigate('/authors')
-      } else if (staticPart === 'books') {
-        navigate('/')
-      } else {
-        navigate('/genres')
-      }
+      setSuccessMessage(`Thank you, you have successfully Logged in`)
+      setErrorMessage('')
+      setTimeout(() => {
+        setErrorMessage('')
+        setSuccessMessage('')
+        if (staticPart === 'authors') {
+          navigate('/authors')
+        } else if (staticPart === 'books') {
+          navigate('/')
+        } else {
+          navigate('/genres')
+        }
+      }, 2000)
     } else {
-      console.log('error')
+      setErrorMessage(
+        `Logging in failed, make sure you are typing the right username and password`,
+      )
+      setSuccessMessage('')
+      setTimeout(() => {
+        setErrorMessage('')
+        setSuccessMessage('')
+      }, 3000)
     }
   }
 
   const handleClick = async () => {
     const res = await dispatch(login(user))
     if (res.type === 'user/login/fulfilled') {
-      if (staticPart === 'authors') {
-        navigate('/authors')
-      } else if (staticPart === 'books') {
-        navigate('/')
-      } else {
-        navigate('/genres')
-      }
+      setSuccessMessage( `Thank you, you have successfully Logged in`)
+      setErrorMessage('')
+      setTimeout(() => {
+        setErrorMessage('')
+        setSuccessMessage('')
+        if (staticPart === 'authors') {
+          navigate('/authors')
+        } else if (staticPart === 'books') {
+          navigate('/')
+        } else {
+          navigate('/genres')
+        }
+      }, 2000)
     } else {
-      console.log('error')
+      setErrorMessage(
+        `Logging in failed, make sure you are typing the right username and password`,
+      )
+      setSuccessMessage('')
+      setTimeout(() => {
+        setErrorMessage('')
+        setSuccessMessage('')
+      }, 3000)
     }
   }
 
@@ -116,6 +145,10 @@ const LoginForm = () => {
           </Grid>
         </Grid>
       </form>
+      <Notification
+        successMessage={successMessage}
+        errorMessage={errorMessage}
+      />
     </Container>
   )
 }

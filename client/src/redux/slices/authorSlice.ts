@@ -4,8 +4,8 @@ import { Author, CustomError } from '../../types'
 import { config } from './token'
 
 
-const url = `http://localhost:4000/api/v1/authors/`
-
+// const url = `http://localhost:4000/api/v1/authors/`
+const url = `/api/v1/authors/`
 
 export interface authorsState {
     authorList: Author[]
@@ -38,7 +38,6 @@ export const fetchAuthors = createAsyncThunk(
     'authors/fetchAuthors', async (arg, { rejectWithValue }) => {
       try {
         const response = await axios.get(url, config())
-        console.log(response.data)
         return {
           data: response.data,
           status: response.status,
@@ -58,7 +57,6 @@ export const fetchAuthors = createAsyncThunk(
     async (author: Author, { rejectWithValue }) => {
       try {
         const response = await axios.post(url, author, config())
-        console.log(response.data)
         return response.data
       } catch (error: any) {
         if (error.response) {
@@ -78,7 +76,6 @@ export const fetchAuthors = createAsyncThunk(
     async (id: any , { rejectWithValue }) => {
       try {
         const response = await axios.delete(url + id , config())
-        console.log(response.data)
         return response.data
       } catch (error: any) {
         if (error.response) {
@@ -98,7 +95,6 @@ export const fetchAuthors = createAsyncThunk(
     async ({id, ...author}: any , { rejectWithValue }) => {
       try {
         const response = await axios.put(url + id , {...author}, config())
-        console.log(response.data)
         return response.data
       } catch (error: any) {
         if (error.response) {
@@ -150,6 +146,7 @@ extraReducers: (builder) => {
       state.addError = action.payload as CustomError;
       state.addAuthor = 'rejected'
     })
+
     builder.addCase(removeAuthor.pending, (state) => {
       return {
         ...state,

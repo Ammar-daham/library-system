@@ -8,7 +8,7 @@ const Notifications = ({ successMessage, errorMessage }: any) => {
   }
 
   return (
-    <div>
+    <div style={{marginTop: '1em'}}>
       {successMessage && (
         <Alert variant="filled" severity="success">
           {successMessage}

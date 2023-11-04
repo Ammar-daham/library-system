@@ -5,6 +5,7 @@ import { config } from './token'
 import { CustomError } from '../../types'
 
 
+//const url = `/api/v1/books/`
 const url = `http://localhost:4000/api/v1/books/`
 const borrowUrl = url + `status/borrowed/`
 const returnUrl = url + `status/available/`
@@ -53,90 +54,11 @@ export const booksFetch = createAsyncThunk(
   }
 )
 
-export const fetchBookByStatus = createAsyncThunk(
-  'books/fetchBookByTitle', async (status: string, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(url + 'status/' + status , config())
-      console.log(response.data)
-      return {
-        data: response.data,
-        status: response.status,
-      }
-    } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
-      } else {
-        return rejectWithValue(error.message)
-      }
-    }
-  }
-)
-
-export const fetchBookByCategory = createAsyncThunk(
-  'books/fetchBookByCategory', async (category: string, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(url + 'category/' + category , config())
-      console.log(response.data)
-      return {
-        data: response.data,
-        status: response.status,
-      }
-    } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
-      } else {
-        return rejectWithValue(error.message)
-      }
-    }
-  }
-)
-
-export const fetchBookByTitle = createAsyncThunk(
-  'books/fetchBookByStatus', async (title: string, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(url + 'title/' + title , config())
-      console.log(response.data)
-      return {
-        data: response.data,
-        status: response.status,
-      }
-    } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
-      } else {
-        return rejectWithValue(error.message)
-      }
-    }
-  }
-)
-
-export const fetchBookByIsbn = createAsyncThunk(
-  'books/fetchBookByIsbn', async (isbn: string, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(url + 'isbn/' + isbn , config())
-      console.log(response.data)
-      return {
-        data: response.data,
-        status: response.status,
-      }
-    } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
-      } else {
-        return rejectWithValue(error.message)
-      }
-    }
-  }
-)
-
-
-
 export const addBook = createAsyncThunk(
   'books/bookAdd',
   async (book: Book, { rejectWithValue }) => {
     try {
       const response = await axios.post(url, book, config())
-      console.log(response.data)
       return response.data
     } catch (error: any) {
       if (error.response) {
@@ -154,7 +76,6 @@ export const addBook = createAsyncThunk(
 export const updateBook = createAsyncThunk(
   'book/updateBook',
   async ({ id, ...book }: any, { rejectWithValue }) => {
-    
     if (!id || !book) {
       throw new Error('Invalid request. Both id and book are required.');
     }
@@ -177,7 +98,6 @@ export const updateBook = createAsyncThunk(
 export const borrowBook = createAsyncThunk(
   'book/borrowBook',
   async ({id, borrowerId }: any , { rejectWithValue }) => {
-    //console.log('updated book: ', borrowerId)
     try {
       const response = await axios.put(borrowUrl + id , {borrowerId}, config())
       console.log(response.data)
@@ -193,7 +113,6 @@ export const returnBook = createAsyncThunk(
   'book/returnBook',
   async ({id, borrowerId }: any , { rejectWithValue }) => {
     try {
-      console.log('pending')
       const response = await axios.put(returnUrl + id , {borrowerId}, config())
       console.log(response.data)
       return response.data
@@ -208,7 +127,6 @@ export const returnBook = createAsyncThunk(
 export const removeBook = createAsyncThunk(
   'book/removeBook',
   async (id: any , { rejectWithValue }) => {
-    console.log("id ", id)
     try {
       const response = await axios.delete(url + id , config())
       console.log(response.data)
@@ -353,95 +271,6 @@ export const bookSlice = createSlice({
       state.deleteError = action.payload as CustomError;
       state.deleteBook = 'rejected';
     })
-
-    // builder.addCase(fetchBookByIsbn.pending, (state) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'pending',
-    //   }
-    // })
-    // builder.addCase(fetchBookByIsbn.fulfilled, (state, action) => {
-    //   return {
-    //     ...state,
-    //     bookList: action.payload.data,
-    //     getBooks: 'success',
-    //   }
-    // })
-    // builder.addCase(fetchBookByIsbn.rejected, (state, action) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'rejected',
-    //     getError: action.payload,
-    //   }
-    // })
-
-    // builder.addCase(fetchBookByStatus.pending, (state) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'pending',
-    //   }
-    // })
-    // builder.addCase(fetchBookByStatus.fulfilled, (state, action) => {
-    //   return {
-    //     ...state,
-    //     bookList: action.payload.data,
-    //     getBooks: 'success',
-    //   }
-    // })
-    // builder.addCase(fetchBookByStatus.rejected, (state, action) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'rejected',
-    //     getError: action.payload,
-    //   }
-    // })
-
-    // builder.addCase(fetchBookByCategory.pending, (state) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'pending',
-    //   }
-    // })
-    // builder.addCase(fetchBookByCategory.fulfilled, (state, action) => {
-    //   return {
-    //     ...state,
-    //     bookList: action.payload.data,
-    //     getBooks: 'success',
-    //   }
-    // })
-    // builder.addCase(fetchBookByCategory.rejected, (state, action) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'rejected',
-    //     getError: action.payload,
-    //   }
-    // })
-
-    // builder.addCase(fetchBookByTitle.pending, (state) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'pending',
-    //   }
-    // })
-    // builder.addCase(fetchBookByTitle.fulfilled, (state, action) => {
-    //   return {
-    //     ...state,
-    //     bookList: action.payload.data,
-    //     getBooks: 'success',
-    //   }
-    // })
-    // builder.addCase(fetchBookByTitle.rejected, (state, action) => {
-    //   return {
-    //     ...state,
-    //     getBooks: 'rejected',
-    //     getError: action.payload,
-    //   }
-    // })
-
-   
-
-   
-  
 }
 })
 

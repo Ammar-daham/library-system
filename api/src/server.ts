@@ -1,5 +1,6 @@
 import errorHandler from 'errorhandler'
 import mongoose from 'mongoose'
+//const cors = require('cors')
 import cors from 'cors'
 import app from './app'
 import { MONGODB_URI } from './util/secrets'

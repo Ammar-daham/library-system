@@ -11,7 +11,6 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useNavigate } from 'react-router-dom'
-import SearchInput from './Search'
 import ReusedButton from './Button'
 import Logout from './Logout'
 import Profile from './Profile'
@@ -88,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
       </div>
       <Container className="header-container">
         <Grid container spacing={2}>
-          <Grid item xs={2} sm={6} md={8}>
+          <Grid item xs={2} sm={6} md={12}>
             {isMobile && staticPart !== 'sign-up' && staticPart !== 'login' && (
               <ListItem
                 disablePadding
@@ -104,17 +103,7 @@ const Header: React.FC<HeaderProps> = ({ menu, setMenu }) => {
                 </ListItem>
               </List>
             )}
-          </Grid>
-
-          <Grid item xs={10} sm={6} md={4}>
-            <List sx={{ float: 'right' }}>
-              <ListItem disablePadding>
-                {staticPart !== 'sign-up' &&
-                  staticPart !== 'login' &&
-                  !isMobile && <SearchInput />}
-              </ListItem>
-            </List>
-          </Grid>
+          </Grid>  
         </Grid>
       </Container>
     </>

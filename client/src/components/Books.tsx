@@ -49,7 +49,7 @@ const Books: React.FC<BooksProps> = ({
               <Grid item>
                 <BookCard book={book} />
               </Grid>
-              <Grid item>
+              <Grid item sx={{marginBottom: '1em'}}>
                 <ReusedButton onClick={(e) => handleClick(book.id)}>
                   Preview Only
                 </ReusedButton>

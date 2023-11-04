@@ -69,7 +69,6 @@ const App = () => {
 	
 	return (
 		<Router>
-			
 			<Header menu={menu} setMenu={setMenu}/>
 			{
 				menu && 

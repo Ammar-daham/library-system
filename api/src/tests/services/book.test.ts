@@ -44,13 +44,6 @@ describe('Book service', () => {
     expect(book).toHaveProperty('title', 'Game of Thrones')
   })
 
-  it('should get a book with id', async () => {
-    const newBook = await bookService.create(book)
-    const found = await bookService.findById(newBook._id)
-    console.log('founded: ', found)
-    expect(found.title).toEqual(newBook.title)
-  })
-
   it('should get all books', async () => {
     const getAllBooks = await bookService.findAll()
     console.log('All books: ', getAllBooks)

@@ -152,7 +152,8 @@ You should have by now, mine and Vincent's 1on1 30mins links, feel free to book.
 | 31.10.2023  | 2h  | update author and refactoring |
 | 2.11.2023   | 2h  | fetching and adding new genre |
 | 3.11.2023   | 1h  | updating and deleting category |
+| 3.11.2023   | 2h  | Refactoring, cleaning up and new build |
 
 
-| 23.10.2023  | 89h  | Refactoring code |
+| 23.10.2023  | 91h  | Refactoring code |
 

@@ -31,7 +31,6 @@ const Authors: React.FC<AuthorsProps> = ({
     e: React.MouseEvent<HTMLButtonElement>,
     id: string,
   ) => {
-    console.log("id ", id)
     const response = await dispatch(removeAuthor(id))
     if (response.type === 'author/removeAuthor/fulfilled') {
       dispatch(fetchAuthors())

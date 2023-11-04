@@ -21,7 +21,6 @@ const NewGenre: React.FC<NewAuthorCategoryProps> = ({
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const response = await dispatch(addCategory(category))
-    console.log('response in new author ', response)
     if (response.type === 'categories/addCategory/fulfilled') {
       dispatch(fetchCategories())
       setSuccessMessage(

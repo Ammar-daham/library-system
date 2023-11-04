@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { CredentialResponse } from '@react-oauth/google'
 import axios from 'axios'
-import { DecodedUser, User, loggedGoogle, initialLoggedGoogle, loggedInUser, initialLoggedInUser, loggedUser} from '../../types'
+import { DecodedUser, User, loggedInUser, initialLoggedInUser, loggedUser} from '../../types'
 import jwt_decode from 'jwt-decode'
 
 
-const baseUrl = `http://localhost:4000/api/v1/users/`
+//const url = `/api/v1/users/`
+const url = `http://localhost:4000/api/v1/users/`
+
 
 export interface authState {
   users: User[]   
@@ -28,9 +30,6 @@ const initialState: authState = {
   message: '',
   user: initialLoggedInUser
 }
-
-
-
 
 // export const userFetch = createAsyncThunk(
 //   'user/fetchUser', async (arg, { rejectWithValue }) => {
@@ -55,7 +54,7 @@ export const createUser = createAsyncThunk(
   'user/create',
  async (user: User, { rejectWithValue }) => {
     try {
-      const response = await axios.post(baseUrl, user)
+      const response = await axios.post(url, user)
       return response.data
     } catch (error: any) {
       console.log(error)
@@ -68,7 +67,7 @@ export const login = createAsyncThunk(
   'user/login',
  async (user: loggedUser, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}login`, user)
+      const response = await axios.post(`${url}login`, user)
       localStorage.setItem('userToken', response.data.token)
       return response.data
     } catch (error: any) {
@@ -85,7 +84,7 @@ export const auth = createAsyncThunk(
     try {
       if (response.credential) {
         const res = await axios.post(
-          `${baseUrl}google-login`,
+          `${url}google-login`,
           {},
           {
             headers: {

@@ -111,6 +111,9 @@ Here are some planned features and improvements for the future development of th
 - **User Profiles and Recommendations**: Implement user profiles to track reading history and preferences. Use this data to provide personalized book recommendations.
 
 - **Performance Optimization**: Continuously work on optimizing the application's performance, including faster load times.
+
+- [LIVE DEMO](https://imaginary-library.fly.dev/)
+
  
 
 ## Timetable
@@ -148,5 +151,5 @@ About 40h built the back-end earlier
 | 5.11.2023   | 1h  | Documentation |
 
 
-| 23.10.2023  | 132h  | Refactoring code |
+| 5.11.2023  | 132h  | Total |
 

@@ -27,7 +27,7 @@ const SignUpForm = () => {
 		e.preventDefault()
 		const res = await dispatch(createUser(user))
 		if (res.type === 'user/create/fulfilled') {
-			setSuccessMessage(state.message)
+      setSuccessMessage(`Thank you, you have successfully signed up`)
 			setErrorMessage('')
 			setTimeout(() => {
 				setErrorMessage('')
@@ -35,10 +35,15 @@ const SignUpForm = () => {
 				navigate('/login')
 			}, 2000)
 		} else {
-			setErrorMessage(state.message)
-			setSuccessMessage('')
-		}
-		console.log('Button clicked!', res)
+      setErrorMessage(
+        `sign up failed, make sure all the required input filled`,
+      )
+      setSuccessMessage('')
+      setTimeout(() => {
+        setErrorMessage('')
+        setSuccessMessage('')
+      }, 3000)
+    }
 	}
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -122,16 +127,12 @@ const SignUpForm = () => {
 							SIGN UP
 						</ReusedButton>
 					</Grid>
-					<Grid item xs={12}>
-						{user && (
-							<Notification
-								successMessage={successMessage}
-								errorMessage={errorMessage}
-							/>
-						)}
-					</Grid>
 				</Grid>
 			</form>
+			<Notification
+        successMessage={successMessage}
+        errorMessage={errorMessage}
+      />
 		</Container>
 	)
 }

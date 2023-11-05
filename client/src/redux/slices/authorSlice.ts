@@ -4,8 +4,8 @@ import { Author, CustomError } from '../../types'
 import { config } from './token'
 
 
-// const url = `http://localhost:4000/api/v1/authors/`
-const url = `/api/v1/authors/`
+const url = `http://localhost:4000/api/v1/authors/`
+//const url = `/api/v1/authors/`
 
 export interface authorsState {
     authorList: Author[]

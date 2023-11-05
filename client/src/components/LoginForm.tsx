@@ -6,8 +6,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import ReusedButton from './Button'
 import { initialLoggedUser, loggedUser } from '../types'
 import Notification from './Notifications'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'redux/store'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'redux/store'
 import 'App.css'
 
 import { useState } from 'react'
@@ -15,7 +15,6 @@ import { useState } from 'react'
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
-  const state = useSelector((state: RootState) => state.users)
   const [successMessage, setSuccessMessage] = useState<string | null>('')
   const [errorMessage, setErrorMessage] = useState<string | null>('')
 
